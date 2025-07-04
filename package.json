@@ -1,6 +1,6 @@
 {
   "name": "@haroldtran/react-native-pax",
-  "version": "0.1.7",
+  "version": "0.1.8",
   "description": "React Native native module for PAX devices",
   "main": "./lib/commonjs/index.js",
   "module": "./lib/module/index.js",
@@ -23,7 +23,17 @@
     "!**/__tests__",
     "!**/__fixtures__",
     "!**/__mocks__",
-    "!**/.*"
+    "!**/.*",
+    ".gitignore",
+    ".yarnrc.yml",
+    "bob.yaml",
+    "lefthook.yml",
+    "LICENSE",
+    "package.json",
+    "react-native-pax-poslink.podspec",
+    "README.md",
+    "tsconfig.build.json",
+    "tsconfig.json"
   ],
   "scripts": {
     "test": "jest",
@@ -100,23 +110,6 @@
     "extends": [
       "@commitlint/config-conventional"
     ]
-  },
-  "release-it": {
-    "git": {
-      "commitMessage": "chore: release ${version}",
-      "tagName": "v${version}"
-    },
-    "npm": {
-      "publish": true
-    },
-    "github": {
-      "release": true
-    },
-    "plugins": {
-      "@release-it/conventional-changelog": {
-        "preset": "angular"
-      }
-    }
   },
   "eslintConfig": {
     "root": true,

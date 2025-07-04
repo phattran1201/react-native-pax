@@ -1,0 +1,26 @@
+{
+  "$schema": "https://unpkg.com/release-it/schema/release-it.json",
+  "git": {
+    "commitMessage": "release: v${version}",
+    "getLatestTagFromAllRefs": true,
+    "push": true,
+    "requireCleanWorkingDir": false,
+    "tagName": "v${version}"
+  },
+  "github": {
+    "autoGenerate": true,
+    "release": true
+  },
+  "npm": {
+    "publish": true
+  },
+  "plugins": {
+    "@release-it/conventional-changelog": {
+      "ignoreRecommendedBump": true,
+      "infile": "CHANGELOG.md",
+      "preset": {
+        "name": "angular"
+      }
+    }
+  }
+}
