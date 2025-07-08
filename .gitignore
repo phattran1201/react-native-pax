@@ -38,3 +38,7 @@ yarn-error.*
 
 app-example
 .yarn/
+android/.idea/*
+android/.gradle/*
+android/gradle/wrapper/gradle-wrapper.jar
+android/local.properties

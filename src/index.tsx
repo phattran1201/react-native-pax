@@ -6,7 +6,7 @@ const LINKING_ERROR =
   '- You rebuilt the app after installing the package\n' +
   '- You are not using Expo Go\n';
 
-const PaxPoslink = NativeModules.PaxPoslink
+const PaxPosLink = NativeModules.PaxPoslink
   ? NativeModules.PaxPoslink
   : new Proxy(
       {},
@@ -17,61 +17,56 @@ const PaxPoslink = NativeModules.PaxPoslink
       }
     );
 
-export function initPOSLink(
-  type:
-    | 'UART'
-    | 'TCP'
-    | 'SSL'
-    | 'HTTP'
-    | 'HTTPS'
-    | 'BLUETOOTH'
-    | 'USB'
-    | 'AIDL',
-  timeout: string,
-  proxy: boolean,
-  ip?: any,
-  port?: any
-): Promise<boolean> {
-  return PaxPoslink.initPOSLink(type, timeout, proxy, ip, port);
+/**
+ * Initializes the POSLink connection.
+ * @param {string} [ip] - The IP address of the POS device.
+ * @returns {*} The result of the native initPOSLink call.
+ */
+export function initPOSLink(ip: string) {
+  return PaxPosLink.initPOSLink(ip);
 }
 
+/**
+ * Initiates a payment transaction.
+ * @param {string} [id] - Transaction ID (optional).
+ * @param {number} [amount] - Payment amount
+ * @param {number} [tip] - Tip amount (optional).
+ * @param {number} [paymentType] - Type of payment (optional).
+ * @param {string} [ecrRefNum] - ECR reference number (optional).
+ * @returns {Promise<string>} A promise resolving to the payment result.
+ */
 export function makePayment(
-  amount: string,
-  _tip: string = '0'
+  id?: string,
+  amount: number = 0,
+  tip?: number,
+  paymentType?: number,
+  ecrRefNum?: string
 ): Promise<string> {
-  return PaxPoslink.runPayment(amount, _tip);
+  return PaxPosLink.payment({ id, amount, tip, paymentType, ecrRefNum });
 }
 
-export function makeReturn(amount: string): Promise<string> {
-  return PaxPoslink.runReturn(amount);
+/**
+ * Initiates a refund transaction.
+ * @param {string} amount - The amount to refund.
+ * @returns {Promise<string>} A promise resolving to the refund result.
+ */
+export function makeRefund(amount: string): Promise<string> {
+  return PaxPosLink.refund({ amount });
 }
 
-export function makeAdjustment(
-  amount: string,
-  refNum: string
-): Promise<string> {
-  return PaxPoslink.runAdjustment(amount, refNum);
+/**
+ * Voids a transaction for the given amount.
+ * @param {string} amount - The amount to void.
+ * @returns {Promise<string>} A promise resolving to the void result.
+ */
+export function makeVoid(amount: string): Promise<string> {
+  return PaxPosLink.void({ amount });
 }
 
-export function makeAuth(amount: string): Promise<string> {
-  return PaxPoslink.runAuth(amount);
-}
-
-export function makePostAuth(
-  amount: string,
-  refNum: string,
-  autCode: string
-): Promise<string> {
-  return PaxPoslink.runPostAuth(amount, refNum, autCode);
-}
-
-export function voidTransaction(
-  refNum: string,
-  autCode: string
-): Promise<string> {
-  return PaxPoslink.runVoid(refNum, autCode);
-}
-
-export function closeBatch(): Promise<string> {
-  return PaxPoslink.closeBatch();
+/**
+ * Closes the current batch of transactions.
+ * @returns {Promise<string>} A promise resolving to the batch closeout result.
+ */
+export function makeCloseBatch(): Promise<string> {
+  return PaxPosLink.batchCloseout();
 }

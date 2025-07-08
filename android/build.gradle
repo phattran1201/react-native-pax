@@ -5,7 +5,8 @@ buildscript {
   }
 
   dependencies {
-    classpath "com.android.tools.build:gradle:7.2.1"
+    classpath("com.android.tools.build:gradle:8.3.2")
+    classpath("org.jetbrains.kotlin:kotlin-gradle-plugin:1.9.24")
   }
 }
 
@@ -14,6 +15,7 @@ def isNewArchitectureEnabled() {
 }
 
 apply plugin: "com.android.library"
+apply plugin: 'org.jetbrains.kotlin.android'
 
 
 def appProject = rootProject.allprojects.find { it.plugins.hasPlugin('com.android.application') }
@@ -23,15 +25,19 @@ if (isNewArchitectureEnabled()) {
 }
 
 def getExtOrDefault(name) {
-  return rootProject.ext.has(name) ? rootProject.ext.get(name) : project.properties["PaxPoslink_" + name]
+  return rootProject.ext.has(name) ? rootProject.ext.get(name) : project.properties["Default_" + name]
 }
 
 def getExtOrIntegerDefault(name) {
-  return rootProject.ext.has(name) ? rootProject.ext.get(name) : (project.properties["PaxPoslink_" + name]).toInteger()
+  return rootProject.ext.has(name) ? rootProject.ext.get(name) : (project.properties["Default_" + name]).toInteger()
 }
 
 android {
   compileSdkVersion getExtOrIntegerDefault("compileSdkVersion")
+  namespace 'com.paxposlink'
+  buildFeatures {
+    buildConfig true
+  }
 
   defaultConfig {
     minSdkVersion getExtOrIntegerDefault("minSdkVersion")
@@ -52,6 +58,9 @@ android {
     sourceCompatibility JavaVersion.VERSION_1_8
     targetCompatibility JavaVersion.VERSION_1_8
   }
+  kotlinOptions {
+    jvmTarget = '17'
+  }
 
 }
 
@@ -70,7 +79,9 @@ dependencies {
   //! https://developer.pax.us/resources/section/250038301709316096?sectionName=POSLink%202&articleId=352771637260593152
   //! POSLink_Core_Android_V2.00.07_20240914
   //! https://developer.pax.us/api/v1/files/314390436447793152/download/private#POSLink_Semi_Integration_Java_Android_V2.01.00_20240914.zip
-  implementation files('libs/POSLink_Core.jar')
+  implementation fileTree(dir: 'libs', include: ['*.jar'])
+  implementation 'androidx.core:core-ktx:1.16.0'
+  implementation 'com.google.code.gson:gson:2.11.0'
 }
 
 if (isNewArchitectureEnabled()) {

@@ -12,6 +12,7 @@
     "android",
     "ios",
     "cpp",
+    "android/gradlew/wrapper/gradle-wrapper.properties",
     "*.podspec",
     "!lib/typescript/example",
     "!ios/build",
@@ -36,11 +37,12 @@
     "tsconfig.json"
   ],
   "scripts": {
+    "prebuild": "yarn && yarn typecheck && yarn lint && yarn prepack",
     "test": "jest",
     "typecheck": "tsc --noEmit",
     "lint": "eslint \"**/*.{js,ts,tsx}\"",
     "prepack": "bob build",
-    "release": "release-it",
+    "release": "yarn prebuild && release-it",
     "example": "yarn --cwd example",
     "prepare": "bob build"
   },
