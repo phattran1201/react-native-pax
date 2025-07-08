@@ -42,6 +42,7 @@ import com.pax.poslinksemiintegration.util.PaymentEmvTag
 import com.pax.poslinksemiintegration.util.Restaurant
 import com.pax.poslinksemiintegration.util.TraceRequest
 import com.pax.poslinksemiintegration.util.TransactionBehavior
+import com.paxposlink.Utils
 
 class PaxPosLinkModule(
     reactApplicationContext: ReactApplicationContext,
@@ -131,7 +132,7 @@ class PaxPosLinkModule(
         val map = Arguments.createMap()
         map.putBoolean("status", this.status)
         map.putString("message", this.message)
-        map.putMap("data", Utils.convertJsonToMap(this.data.getJSONObject()))
+        map.putMap("data", Utils.toWritableMap(this.data))
         map.putBoolean("isPaymentSuccess", this.isPaymentSuccess)
         map.putString("cardHolder", this.cardHolder)
         map.putString("cardNumber", this.cardNumber)

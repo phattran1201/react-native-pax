@@ -1,4 +1,5 @@
 import { NativeModules, Platform } from 'react-native';
+import { PaxResponseModel } from './type';
 
 const LINKING_ERROR =
   `The package '@haroldtran/react-native-pax' doesn't seem to be linked. Make sure: \n\n` +
@@ -33,7 +34,7 @@ export function initPOSLink(ip: string) {
  * @param {number} [tip] - Tip amount (optional).
  * @param {number} [paymentType] - Type of payment (optional).
  * @param {string} [ecrRefNum] - ECR reference number (optional).
- * @returns {Promise<string>} A promise resolving to the payment result.
+ * @returns {Promise<PaxResponseModel>} A promise resolving to the payment result.
  */
 export function makePayment(
   id?: string,
@@ -41,32 +42,32 @@ export function makePayment(
   tip?: number,
   paymentType?: number,
   ecrRefNum?: string
-): Promise<string> {
+): Promise<PaxResponseModel> {
   return PaxPosLink.payment({ id, amount, tip, paymentType, ecrRefNum });
 }
 
 /**
  * Initiates a refund transaction.
  * @param {string} amount - The amount to refund.
- * @returns {Promise<string>} A promise resolving to the refund result.
+ * @returns {Promise<PaxResponseModel>} A promise resolving to the refund result.
  */
-export function makeRefund(amount: string): Promise<string> {
+export function makeRefund(amount: string): Promise<PaxResponseModel> {
   return PaxPosLink.refund({ amount });
 }
 
 /**
  * Voids a transaction for the given amount.
  * @param {string} amount - The amount to void.
- * @returns {Promise<string>} A promise resolving to the void result.
+ * @returns {Promise<PaxResponseModel>} A promise resolving to the void result.
  */
-export function makeVoid(amount: string): Promise<string> {
+export function makeVoid(amount: string): Promise<PaxResponseModel> {
   return PaxPosLink.void({ amount });
 }
 
 /**
  * Closes the current batch of transactions.
- * @returns {Promise<string>} A promise resolving to the batch closeout result.
+ * @returns {Promise<PaxResponseModel>} A promise resolving to the batch closeout result.
  */
-export function makeCloseBatch(): Promise<string> {
+export function makeCloseBatch(): Promise<PaxResponseModel> {
   return PaxPosLink.batchCloseout();
 }
