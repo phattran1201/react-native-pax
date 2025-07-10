@@ -132,7 +132,7 @@ class PaxPosLinkModule(
         val map = Arguments.createMap()
         map.putBoolean("status", this.status)
         map.putString("message", this.message)
-        map.putMap("data", Utils.toWritableMap(this.data))
+        map.putString("data", this.data.toString())
         map.putBoolean("isPaymentSuccess", this.isPaymentSuccess)
         map.putString("cardHolder", this.cardHolder)
         map.putString("cardNumber", this.cardNumber)
