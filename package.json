@@ -1,6 +1,6 @@
 {
   "name": "@haroldtran/react-native-pax",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "React Native native module for PAX devices",
   "main": "./lib/commonjs/index.js",
   "module": "./lib/module/index.js",
@@ -9,6 +9,8 @@
   "files": [
     "src",
     "lib",
+    "*.ts",
+    "*.js",
     "android",
     "ios",
     "cpp",
