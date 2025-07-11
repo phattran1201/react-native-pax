@@ -12,7 +12,7 @@ Pod::Spec.new do |s|
   s.authors      = package["author"]
   s.source       = { :git => "https://github.com/phattran1201/react-native-pax.git", :tag => "#{s.version}" }
 
-  # s.platforms    = { :ios => "11.0" }
+  s.platforms    = { :ios => "12.0" }
   s.source_files = "ios/**/*.{h,m,mm}"
   s.dependency "React-Core"
 

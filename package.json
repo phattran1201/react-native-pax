@@ -1,6 +1,6 @@
 {
   "name": "@haroldtran/react-native-pax",
-  "version": "1.0.4",
+  "version": "1.0.6",
   "description": "React Native native module for PAX devices",
   "main": "./lib/commonjs/index.js",
   "module": "./lib/module/index.js",
@@ -36,7 +36,8 @@
     "react-native-pax-poslink.podspec",
     "README.md",
     "tsconfig.build.json",
-    "tsconfig.json"
+    "tsconfig.json",
+    "react-native.config.mjs"
   ],
   "scripts": {
     "prebuild": "yarn && yarn typecheck && yarn lint && yarn prepack",
