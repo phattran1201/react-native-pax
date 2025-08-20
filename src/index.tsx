@@ -1,19 +1,32 @@
 import { NativeModules, Platform } from 'react-native';
 import { PaxResponseModel } from './type';
 
+// This package is Android-only. Provide clear errors on non-Android platforms
+const ANDROID_ONLY_ERROR =
+  "The package '@haroldtran/react-native-pax' only supports Android.";
+
 const LINKING_ERROR =
-  `The package '@haroldtran/react-native-pax' doesn't seem to be linked. Make sure: \n\n` +
-  Platform.select({ ios: "- You have run 'pod install'\n", default: '' }) +
+  `The package '@haroldtran/react-native-pax' doesn't seem to be linked. Make sure:\n\n` +
   '- You rebuilt the app after installing the package\n' +
   '- You are not using Expo Go\n';
 
-const PaxPosLink = NativeModules.PaxPoslink
-  ? NativeModules.PaxPoslink
-  : new Proxy(
+const isAndroid = Platform.OS === 'android';
+
+const PaxPosLink = isAndroid
+  ? NativeModules.PaxPoslink ??
+    new Proxy(
       {},
       {
         get() {
           throw new Error(LINKING_ERROR);
+        },
+      }
+    )
+  : new Proxy(
+      {},
+      {
+        get() {
+          throw new Error(ANDROID_ONLY_ERROR);
         },
       }
     );

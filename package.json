@@ -1,6 +1,6 @@
 {
   "name": "@haroldtran/react-native-pax",
-  "version": "1.0.6",
+  "version": "1.0.7",
   "description": "React Native native module for PAX devices",
   "main": "./lib/commonjs/index.js",
   "module": "./lib/module/index.js",
@@ -12,12 +12,9 @@
     "*.ts",
     "*.js",
     "android",
-    "ios",
     "cpp",
     "android/gradlew/wrapper/gradle-wrapper.properties",
-    "*.podspec",
     "!lib/typescript/example",
-    "!ios/build",
     "!android/build",
     "!android/gradle",
     "!android/gradlew",
@@ -33,7 +30,6 @@
     "lefthook.yml",
     "LICENSE",
     "package.json",
-    "react-native-pax-poslink.podspec",
     "README.md",
     "tsconfig.build.json",
     "tsconfig.json",
@@ -55,8 +51,9 @@
     "pos",
     "poslink",
     "payment",
-    "ios",
-    "android"
+    "android",
+    "harold",
+    "haroldtran"
   ],
   "repository": {
     "type": "git",
