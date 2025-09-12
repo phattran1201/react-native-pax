@@ -27,11 +27,13 @@ yarn add @haroldtran/react-native-pax
 ⚠️ **Note: iOS implementation is currently not complete. Only Android is fully supported at this time.**
 
 1. Navigate to your iOS project directory and install pods:
+
 ```sh
 cd ios && pod install
 ```
 
 2. Make sure your iOS deployment target is 11.0 or higher in your `Podfile`:
+
 ```ruby
 platform :ios, '11.0'
 ```
@@ -99,7 +101,6 @@ try {
 }
 ```
 
-
 ### Process a Refund
 
 ```js
@@ -128,7 +129,6 @@ try {
 }
 ```
 
-
 ### Close Batch
 
 ```js
@@ -148,6 +148,7 @@ try {
 Initializes the connection to the PAX device.
 
 **Parameters:**
+
 - `ip` (string): Device IP address
 
 **Returns:** `Promise<any>`
@@ -157,6 +158,7 @@ Initializes the connection to the PAX device.
 Initiates a payment transaction.
 
 **Parameters:**
+
 - `id` (string, optional): Transaction ID
 - `amount` (number): Payment amount in cents (e.g., 1000 = $10.00)
 - `tip` (number, optional): Tip amount in cents (e.g., 150 = $1.50)
@@ -170,6 +172,7 @@ Initiates a payment transaction.
 Initiates a refund transaction.
 
 **Parameters:**
+
 - `data` (object): Object containing:
   - `amount` (number): The amount to refund in cents
 
@@ -180,6 +183,7 @@ Initiates a refund transaction.
 Voids a transaction for the given amount.
 
 **Parameters:**
+
 - `data` (object): Object containing:
   - `amount` (number): The amount to void in cents
 
@@ -193,17 +197,18 @@ Closes the current batch of transactions.
 
 ## Response Objects
 
-
 ### PaxResponseModel
 
 The response object returned by all transaction functions. Key fields include:
 
 **Status & Result:**
+
 - `status` (boolean): Overall operation success status
 - `isPaymentSuccess` (boolean): Payment-specific success flag
 - `message` (string): Response message or error description
 
 **Transaction Details:**
+
 - `id` (string): Transaction ID
 - `transactionId` (string): Global unique transaction identifier
 - `transactionNo` (string): Transaction sequence number
@@ -211,23 +216,27 @@ The response object returned by all transaction functions. Key fields include:
 - `transactionDateTime` (string): Date/time of transaction
 
 **Card & Payment Info:**
+
 - `cardType` (string): Card type/brand (e.g., VISA, MASTERCARD)
 - `cardNumber` (string): Masked card number
 - `cardHolder` (string): Card holder name
 - `entryMethod` (string): How card was entered (SWIPED_MSD, CONTACT_CHIP, CONTACTLESS_CHIP, etc.)
 
 **Amount Details:**
+
 - `amount` (string): Transaction amount
 - `tipAmount` (string): Tip amount
 - `surcharge` (string): Additional fees/surcharge
 
 **Additional Data:**
+
 - `data` (object): Detailed response data including account info, trace info, AVS info, etc.
 - `sn` (string): Serial number
 
 ### CreditTransactionType Enum
 
 Available payment types:
+
 - `CreditTransactionType.Credit` (1): Credit card transaction
 - `CreditTransactionType.Debit` (2): Debit card transaction
 - `CreditTransactionType.Empty` (0): Not set/default
@@ -263,7 +272,3 @@ MIT
 ## Support
 
 For PAX device documentation and support, visit [PAX Developer Portal](https://developer.pax.us).
-
----
-
-Made with [create-react-native-library](https://github.com/callstack/react-native-builder-bob)

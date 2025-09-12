@@ -18,7 +18,9 @@ const PaxPosLink = isAndroid
       {},
       {
         get() {
-          throw new Error(LINKING_ERROR);
+          const err = new Error(LINKING_ERROR);
+          err.stack = '';
+          throw err;
         },
       }
     )
@@ -26,7 +28,9 @@ const PaxPosLink = isAndroid
       {},
       {
         get() {
-          throw new Error(ANDROID_ONLY_ERROR);
+          const err = new Error(ANDROID_ONLY_ERROR);
+          err.stack = '';
+          throw err;
         },
       }
     );
