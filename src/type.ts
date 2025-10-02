@@ -14,6 +14,7 @@ export interface PaxResponseModel {
   id?: string;
   transactionId?: string;
   transactionNo?: string;
+  ecrRefNum?: string;
   refNum?: string;
   transactionDateTime?: string;
   cardType?: string;

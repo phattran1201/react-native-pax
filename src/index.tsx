@@ -66,25 +66,37 @@ export function makePayment(
 /**
  * Initiates a refund transaction.
  * @param {string} amount - The amount to refund.
+ * @param {string} ecrRefNum - The ECR reference number.
  * @returns {Promise<PaxResponseModel>} A promise resolving to the refund result.
  */
-export function makeRefund(amount: string): Promise<PaxResponseModel> {
-  return PaxPosLink.refund({ amount });
+export function makeRefund(
+  amount: number,
+  ecrRefNum: string
+): Promise<PaxResponseModel> {
+  return PaxPosLink.refund({ amount, ecrRefNum });
 }
 
 /**
  * Voids a transaction for the given amount.
- * @param {string} amount - The amount to void.
+ * @param {string} ecrRefNum - The ECR reference number.
  * @returns {Promise<PaxResponseModel>} A promise resolving to the void result.
  */
-export function makeVoid(amount: string): Promise<PaxResponseModel> {
-  return PaxPosLink.void({ amount });
+export function makeVoid(ecrRefNum: string): Promise<PaxResponseModel> {
+  return PaxPosLink.void({ ecrRefNum });
 }
 
 /**
  * Closes the current batch of transactions.
  * @returns {Promise<PaxResponseModel>} A promise resolving to the batch closeout result.
  */
+
 export function makeCloseBatch(): Promise<PaxResponseModel> {
   return PaxPosLink.batchCloseout();
+}
+/**
+ * Voids a transaction for the given amount.
+ * @param {string} ecrRefNum - The ECR reference number.
+ */
+export function checkVoidOrRefundTransaction(ecrRefNum: string) {
+  return PaxPosLink.checkVoidOrRefundTransaction(ecrRefNum);
 }

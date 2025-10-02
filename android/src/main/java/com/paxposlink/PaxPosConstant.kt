@@ -11,10 +11,10 @@ object PaxPosConstant {
 // Data holder for PAX request parameters
 data class PaxRequestModel(
     var id: String? = "",
-    var amount: Int = 0,
+    var amount: Int? = 0,
     var tip: Int? = null,
     var paymentType: Int? = null,
-    var ecrRefNum: String = "",
+    var ecrRefNum: String? = "",
 )
 
 data class PaxResponseModel(
@@ -26,6 +26,7 @@ data class PaxResponseModel(
     var transactionId: String = "",
     var transactionNo: String = "",
     var refNum: String = "",
+    var ecrRefNum: String = "",
     var transactionDateTime: String = "",
     var cardType: String = "",
     var cardNumber: String = "",
@@ -34,7 +35,7 @@ data class PaxResponseModel(
     var tipAmount: String = "",
     var surcharge: String = "",
     var entryMethod: String = "",
-    var sn: String = "0",
+    var sn: WritableMap? = null,
 )
 
 data class PaxTerminalInfoModel(

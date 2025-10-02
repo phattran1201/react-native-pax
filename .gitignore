@@ -42,3 +42,8 @@ android/.idea/*
 android/.gradle/*
 android/gradle/wrapper/gradle-wrapper.jar
 android/local.properties
+android/src/.idea/.gitignore
+android/src/.idea/misc.xml
+android/src/.idea/modules.xml
+android/src/.idea/vcs.xml
+android/src/.idea/caches/deviceStreaming.xml

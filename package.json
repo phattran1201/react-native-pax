@@ -1,20 +1,15 @@
 {
   "name": "@haroldtran/react-native-pax",
-  "version": "1.0.8",
+  "version": "1.0.9",
   "description": "React Native native module for PAX devices",
-  "main": "./lib/commonjs/index.js",
-  "module": "./lib/module/index.js",
-  "types": "./lib/typescript/commonjs/index.d.ts",
-  "source": "src/index",
+  "main": "./src/index.ts",
   "files": [
     "src",
-    "lib",
     "*.ts",
     "*.js",
     "android",
     "cpp",
     "android/gradlew/wrapper/gradle-wrapper.properties",
-    "!lib/typescript/example",
     "!android/build",
     "!android/gradle",
     "!android/gradlew",
@@ -36,14 +31,12 @@
     "react-native.config.mjs"
   ],
   "scripts": {
-    "prebuild": "yarn && yarn typecheck && yarn lint && yarn prepack",
+    "prebuild": "yarn && yarn typecheck && yarn lint",
     "test": "jest",
     "typecheck": "tsc --noEmit",
     "lint": "eslint \"**/*.{js,ts,tsx}\"",
-    "prepack": "bob build",
     "release": "yarn prebuild && release-it",
-    "example": "yarn --cwd example",
-    "prepare": "bob build"
+    "example": "yarn --cwd example"
   },
   "keywords": [
     "react-native",
@@ -105,7 +98,7 @@
     "preset": "react-native",
     "modulePathIgnorePatterns": [
       "<rootDir>/example/node_modules",
-      "<rootDir>/lib/"
+      "<rootDir>/src/"
     ]
   },
   "commitlint": {
@@ -133,8 +126,7 @@
     }
   },
   "eslintIgnore": [
-    "node_modules/",
-    "lib/"
+    "node_modules/"
   ],
   "prettier": {
     "quoteProps": "consistent",
@@ -143,38 +135,5 @@
     "trailingComma": "es5",
     "useTabs": false
   },
-  "react-native-builder-bob": {
-    "source": "src",
-    "output": "lib",
-    "targets": [
-      [
-        "module",
-        {
-          "esm": true
-        }
-      ],
-      [
-        "commonjs",
-        {
-          "esm": true
-        }
-      ],
-      "typescript"
-    ]
-  },
-  "packageManager": "yarn@4.9.2",
-  "exports": {
-    ".": {
-      "source": "./src/index.tsx",
-      "import": {
-        "types": "./lib/typescript/module/index.d.ts",
-        "default": "./lib/module/index.js"
-      },
-      "require": {
-        "types": "./lib/typescript/commonjs/index.d.ts",
-        "default": "./lib/commonjs/index.js"
-      }
-    },
-    "./package.json": "./package.json"
-  }
+  "packageManager": "yarn@4.10.3"
 }

@@ -1,6 +1,8 @@
 package com.paxposlink
 
+import android.os.Build
 import android.util.Log
+import androidx.annotation.RequiresApi
 import com.facebook.react.bridge.Arguments
 import com.facebook.react.bridge.Promise
 import com.facebook.react.bridge.ReactApplicationContext
@@ -12,6 +14,7 @@ import com.pax.poscore.commsetting.TcpSetting
 import com.pax.poscore.internal.ExecutionCode
 import com.pax.poslinkadmin.ExecutionResult
 import com.pax.poslinkadmin.constant.ContinuousScreen
+import com.pax.poslinkadmin.constant.EdcType
 import com.pax.poslinkadmin.constant.EntryMode
 import com.pax.poslinkadmin.constant.ReceiptPrintFlag
 import com.pax.poslinkadmin.constant.TransactionType
@@ -24,6 +27,7 @@ import com.pax.poslinksemiintegration.batch.BatchCloseResponse
 import com.pax.poslinksemiintegration.constant.CardPresentIndicator
 import com.pax.poslinksemiintegration.constant.TipRequestFlag
 import com.pax.poslinksemiintegration.constant.VehicleClassId
+import com.pax.poslinksemiintegration.report.LocalDetailReportRequest
 import com.pax.poslinksemiintegration.transaction.DoCreditRequest
 import com.pax.poslinksemiintegration.transaction.DoCreditResponse
 import com.pax.poslinksemiintegration.util.AccountRequest
@@ -43,6 +47,7 @@ import com.pax.poslinksemiintegration.util.Restaurant
 import com.pax.poslinksemiintegration.util.TraceRequest
 import com.pax.poslinksemiintegration.util.TransactionBehavior
 import com.paxposlink.Utils
+import java.time.Instant
 
 class PaxPosLinkModule(
     reactApplicationContext: ReactApplicationContext,
@@ -79,6 +84,7 @@ class PaxPosLinkModule(
             Log.d("Success Init", "Create terminal success")
             map.putString("message", "Create terminal success")
             map.putBoolean("status", true)
+            map.putString("serialNumber", getTerminalInfo().toString())
             promise.resolve(map)
         } else {
             Log.d("Failed Init", "Create terminal failed!")
@@ -137,6 +143,7 @@ class PaxPosLinkModule(
         map.putString("cardHolder", this.cardHolder)
         map.putString("cardNumber", this.cardNumber)
         map.putString("refNum", this.refNum)
+        map.putString("ecrRefNum", this.ecrRefNum)
         map.putString("transactionId", this.transactionId)
         map.putString("transactionDateTime", this.transactionDateTime)
         map.putString("entryMethod", this.entryMethod)
@@ -144,6 +151,15 @@ class PaxPosLinkModule(
         map.putString("tipAmount", this.tipAmount)
         map.putString("surcharge", this.surcharge)
         map.putString("cardType", this.cardType)
+        map.putString("sn", this.sn.toString())
+        return map
+    }
+
+    private fun PaxTerminalInfoModel.toWritableMap(): WritableMap {
+        val map = Arguments.createMap()
+        map.putString("serialNumber", this.serialNumber)
+        map.putString("appName", this.appName)
+        map.putString("modelName", this.modelName)
         return map
     }
 
@@ -163,11 +179,32 @@ class PaxPosLinkModule(
         return buildTransactionResponse(rsp, result)
     }
 
+    @RequiresApi(Build.VERSION_CODES.O)
+    @ReactMethod
+    fun checkVoidOrRefundTransaction(ercRefNum: String?, promise: Promise) {
+        try {
+            val transaction = LocalDetailReportRequest().apply {
+                this.ecrReferenceNumber = ercRefNum
+                this.edcType = EdcType.ALL
+            }
+            val result = terminal?.report?.localDetailReport(transaction);
+            val map: WritableMap = Arguments.createMap()
+            map.putString("code",result?.code().toString() )
+            map.putString("message", result?.message().toString())
+            map.putString("status", result?.response()?.responseMessage())
+            map.putString("serialNumber", getTerminalInfo().toString())
+            promise.resolve(map)
+        } catch (e: Exception) {
+            return promise.resolve("Error to check void or refund")
+        }
+    }
+
     @ReactMethod
     fun void(
         data: ReadableMap,
         promise: Promise,
     ) {
+        println("Received data void1: ${data.toHashMap()}")
         try {
             val salesRequest =
                 PaxRequestModel(
@@ -182,7 +219,34 @@ class PaxPosLinkModule(
             val rsp = DoCreditResponse()
             val result = terminal?.transaction?.doCredit(req)
             val data = buildTransactionResponse(rsp, result)
-            promise.resolve(data)
+            promise.resolve(data.toWritableMap())
+        } catch (e: Exception) {
+            return promise.resolve("Error to void transaction")
+        }
+    }
+
+    @ReactMethod
+    fun voidRefund(
+        data: ReadableMap,
+        promise: Promise,
+    ) {
+        println("Received data voidRefund1: ${data.toHashMap()}")
+
+        try {
+            val salesRequest =
+                PaxRequestModel(
+                    id = data.getString("id"),
+                    amount = data.takeIf { it.hasKey("amount") && !it.isNull("amount") }?.getInt("amount") ?: 0,
+                    tip = data.takeIf { it.hasKey("tip") && !it.isNull("tip") }?.getInt("tip"),
+                    paymentType = data.takeIf { it.hasKey("paymentType") && !it.isNull("paymentType") }?.getInt("paymentType"),
+                    ecrRefNum = data.getString("ecrRefNum") ?: "",
+                )
+            this.salesRequest = salesRequest
+            val req = setCreditRequest(TransactionType.VOID_SALE)
+            val rsp = DoCreditResponse()
+            val result = terminal?.transaction?.doCredit(req)
+            val data = buildTransactionResponse(rsp, result)
+            promise.resolve(data.toWritableMap())
         } catch (e: Exception) {
             return promise.resolve("Error to void transaction")
         }
@@ -193,6 +257,7 @@ class PaxPosLinkModule(
         data: ReadableMap,
         promise: Promise,
     ) {
+        println("Received data refund1: ${data.toHashMap()}")
         try {
             val salesRequest =
                 PaxRequestModel(
@@ -207,7 +272,7 @@ class PaxPosLinkModule(
             val rsp = DoCreditResponse()
             val result = terminal?.transaction?.doCredit(req)
             val data = buildTransactionResponse(rsp, result)
-            promise.resolve(data)
+            promise.resolve(data.toWritableMap())
         } catch (e: Exception) {
             return promise.resolve("Error to return transaction")
         }
@@ -220,12 +285,26 @@ class PaxPosLinkModule(
             val batchCloseRsp = BatchCloseResponse()
             val result = terminal?.batch?.batchClose(batchCloseReq)
             if (result?.code() == ExecutionCode.OK) {
-                promise.resolve("Batch close successfully")
+                val map: WritableMap = Arguments.createMap()
+                map.putString("message", "Batch close successfully")
+                map.putString("data", result.response()?.responseMessage())
+                promise.resolve(map)
             }
         } catch (e: Exception) {
             promise.reject("Failed", "Batch close error")
         }
     }
+
+    @ReactMethod
+    fun cancelInit(promise: Promise) {
+        try {
+            terminal?.cancel();
+            promise.resolve("Cancel Init Success" )
+        } catch (e: Exception) {
+            promise.reject("Failed", "Batch close error")
+        }
+    }
+
 
 //    fun voidOrRefundTransaction(startDate: Int, serialNumber: String): String {
 //        if (startDate == 0) return ""
@@ -284,6 +363,7 @@ class PaxPosLinkModule(
         val traceMap =
             Arguments.createMap().apply {
                 putString("referenceNumber", trace?.referenceNumber())
+                putString("ecrReferenceNumber", trace?.ecrReferenceNumber())
                 putString("timeStamp", trace?.timeStamp())
                 putString("authorizationCode", trace?.authorizationResponse())
             }
@@ -386,6 +466,7 @@ class PaxPosLinkModule(
                         .toString()
                         .uppercase()
                 refNum = rsp?.traceInformation()?.referenceNumber().toString()
+                ecrRefNum = rsp?.traceInformation()?.ecrReferenceNumber().toString();
                 transactionId = rsp?.paymentTransactionInformation()?.globalUid().toString()
                 transactionDateTime = rsp?.traceInformation()?.timeStamp().toString()
                 entryMethod =
@@ -397,6 +478,7 @@ class PaxPosLinkModule(
                 amount = salesRequest?.amount.toString()
                 id = salesRequest?.id.toString()
                 surcharge = rsp?.amountInformation()?.merchantFee().toString()
+                sn = getTerminalInfo()
             }
         } else {
             PaxResponseModel().apply {
@@ -465,16 +547,16 @@ class PaxPosLinkModule(
 //        } else 0
 //    }
 
-//    private fun getTerminalInfo(): PaxTerminalInfoModel? {
-//        return terminal?.manage?.init()?.let {
-//            PaxTerminalInfoModel(
-//                serialNumber = "",
-//                modelName = it.modelName,
-//                appName = it.appName
-//            )
-//
-//        }
-//    }
+    private fun getTerminalInfo(): WritableMap {
+        val rs = terminal?.manage?.init()?.let {
+            PaxTerminalInfoModel(
+                serialNumber = it.response().sn(),
+                modelName = it.response().modelName(),
+                appName = it.response().appName(),
+            )
+        }
+        return rs!!.toWritableMap();
+    }
 
     private fun getAmountReq(transType: TransactionType?): AmountRequest =
         AmountRequest().apply {
@@ -521,7 +603,7 @@ class PaxPosLinkModule(
 
     private fun getTraceReq(transType: TransactionType): TraceRequest =
         TraceRequest().apply {
-            val ecrRefNum = salesRequest?.ecrRefNum?.split("-")?.firstOrNull()
+            val ecrRefNum = salesRequest?.ecrRefNum
             ecrRefNum?.let {
                 this.ecrReferenceNumber =
                     if (transType in listOf(TransactionType.SALE, TransactionType.VOID_SALE, TransactionType.RETURN)) it else null
