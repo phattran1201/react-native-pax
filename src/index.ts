@@ -1,6 +1,6 @@
 import { NativeModules, Platform } from 'react-native';
 import { PaxResponseModel } from './type';
-
+export * from './type';
 // This package is Android-only. Provide clear errors on non-Android platforms
 const ANDROID_ONLY_ERROR =
   "The package '@haroldtran/react-native-pax' only supports Android.";
