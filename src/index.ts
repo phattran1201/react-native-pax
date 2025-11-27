@@ -1,5 +1,5 @@
 import { NativeModules, Platform } from 'react-native';
-import { PaxResponseModel } from './type';
+import { PaxInitModel, PaxResponseModel } from './type';
 export * from './type';
 // This package is Android-only. Provide clear errors on non-Android platforms
 const ANDROID_ONLY_ERROR =
@@ -38,9 +38,9 @@ const PaxPosLink = isAndroid
 /**
  * Initializes the POSLink connection.
  * @param {string} [ip] - The IP address of the POS device.
- * @returns {*} The result of the native initPOSLink call.
+ * @returns {Promise<PaxInitModel>} A promise resolving to the initPOSLink result.
  */
-export function initPOSLink(ip: string) {
+export function initPOSLink(ip: string): Promise<PaxInitModel> {
   return PaxPosLink.initPOSLink(ip);
 }
 

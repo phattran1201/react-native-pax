@@ -1,3 +1,12 @@
+export interface PaxInitModel {
+  serialNumber?: {
+    modelName: string;
+    appName: string;
+    serialNumber: string;
+  };
+  status: boolean;
+}
+
 export interface PaxRequestModel {
   id?: string;
   amount?: number;
