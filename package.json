@@ -1,6 +1,6 @@
 {
   "name": "@haroldtran/react-native-pax",
-  "version": "1.0.12",
+  "version": "1.0.13",
   "description": "React Native native module for PAX devices",
   "main": "./src/index.ts",
   "files": [
@@ -31,12 +31,12 @@
     "react-native.config.mjs"
   ],
   "scripts": {
-    "prebuild": "yarn && yarn typecheck && yarn lint",
+    "prebuild": "bun i && bun typecheck && bun lint",
     "test": "jest",
     "typecheck": "tsc --noEmit",
     "lint": "eslint \"**/*.{js,ts,tsx}\"",
-    "release": "yarn prebuild && release-it",
-    "example": "yarn --cwd example"
+    "release": "bun prebuild && release-it",
+    "example": "bun --cwd example"
   },
   "keywords": [
     "react-native",

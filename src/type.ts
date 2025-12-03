@@ -33,7 +33,7 @@ export interface PaxResponseModel {
   tipAmount?: string;
   surcharge?: string;
   entryMethod?: string;
-  sn?: string;
+  sn: PaxTerminalInfoModel;
 }
 
 export interface PaxTerminalInfoModel {
