@@ -5,7 +5,7 @@ import com.facebook.react.bridge.WritableMap
 object PaxPosConstant {
     const val DEFAULT_ID: String = ""
     const val PORT: String = "10009"
-    const val TIMEOUT: Int = 300000
+    const val TIMEOUT: Int = 3000
 }
 
 // Data holder for PAX request parameters

@@ -66,13 +66,15 @@ class PaxPosLinkModule(
     @ReactMethod
     fun initPOSLink(
         ip: String,
+        port: String?,
+        timeout: Int?,
         promise: Promise,
     ) {
         val tcpSetting =
             TcpSetting().apply {
                 this.ip = ip
-                this.port = PaxPosConstant.PORT
-                this.timeout = PaxPosConstant.TIMEOUT
+                this.port = port ?: PaxPosConstant.PORT
+                this.timeout = timeout ?: PaxPosConstant.TIMEOUT
             }
         Log.i("TcpSetting", "tcpSetting info: ip=$ip, port=${tcpSetting.port}, timeout=${tcpSetting.timeout}")
         val map = Arguments.createMap()

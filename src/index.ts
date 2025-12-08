@@ -38,10 +38,16 @@ const PaxPosLink = isAndroid
 /**
  * Initializes the POSLink connection.
  * @param {string} [ip] - The IP address of the POS device.
+ * @param {object} [options] - Optional parameters.
+ * @param {string} [options.port] - The port number of the POS device.
+ * @param {number} [options.timeout] - The timeout value for the connection.
  * @returns {Promise<PaxInitModel>} A promise resolving to the initPOSLink result.
  */
-export function initPOSLink(ip: string): Promise<PaxInitModel> {
-  return PaxPosLink.initPOSLink(ip);
+export function initPOSLink(
+  ip: string,
+  options?: { port?: string; timeout?: number }
+): Promise<PaxInitModel> {
+  return PaxPosLink.initPOSLink(ip, options?.port, options?.timeout);
 }
 
 /**

@@ -1,5 +1,7 @@
 
 
+## [1.0.14](https://github.com/phattran1201/react-native-pax/compare/v1.0.13...v1.0.14) (2025-12-08)
+
 ## [1.0.13](https://github.com/phattran1201/react-native-pax/compare/v1.0.12...v1.0.13) (2025-12-03)
 
 ## [1.0.9](https://github.com/phattran1201/react-native-pax/compare/v1.0.8...v1.0.9) (2025-10-02)
