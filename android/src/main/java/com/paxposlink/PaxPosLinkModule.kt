@@ -76,22 +76,31 @@ class PaxPosLinkModule(
                 this.port = port ?: PaxPosConstant.PORT
                 this.timeout = timeout ?: PaxPosConstant.TIMEOUT
             }
-        Log.i("TcpSetting", "tcpSetting info: ip=$ip, port=${tcpSetting.port}, timeout=${tcpSetting.timeout}")
+        val tcpSettingInfo = "=>: ip=$ip, port=${tcpSetting.port}, timeout=${tcpSetting.timeout}"
+        Log.i("TcpSetting", tcpSettingInfo)
         val map = Arguments.createMap()
 
         terminal = posLink?.getTerminal(reactContext, tcpSetting)
         Log.e("terminal", terminal.toString())
         return if (terminal != null) {
-            Log.d("Success Init", "Create terminal success")
-            map.putString("message", "Create terminal success")
-            map.putBoolean("status", true)
-            map.putMap("serialNumber", getTerminalInfo())
-            promise.resolve(map)
+            val info = getTerminalInfo()
+            val serialNumber = info.getString("serialNumber") ?: ""
+            if (serialNumber.isEmpty()) {
+                Log.d("Failed Init", "Create terminal failed!")
+                promise.reject(
+                    "Create terminal failed!",
+                    tcpSettingInfo,
+                )
+            } else {
+                Log.d("Success Init", "Create terminal success")
+                map.putString("message", "Create terminal success! $tcpSettingInfo")
+                map.putBoolean("status", true)
+                map.putMap("serialNumber", info)
+                promise.resolve(map)
+            }
         } else {
             Log.d("Failed Init", "Create terminal failed!")
-            map.putString("message", "Create terminal failed!")
-            map.putBoolean("status", false)
-            promise.resolve(map)
+            promise.reject("Create terminal failed!", tcpSettingInfo)
         }
     }
 
@@ -551,17 +560,22 @@ class PaxPosLinkModule(
 //        } else 0
 //    }
 
-    private fun getTerminalInfo(): WritableMap {
-        val rs =
-            terminal?.manage?.init()?.let {
+    private fun getTerminalInfo(): WritableMap =
+        try {
+            val initResult = terminal?.manage?.init()
+            val response = initResult?.response()
+            if (response == null) {
+                PaxTerminalInfoModel().toWritableMap()
+            } else {
                 PaxTerminalInfoModel(
-                    serialNumber = it.response().sn(),
-                    modelName = it.response().modelName(),
-                    appName = it.response().appName(),
-                )
+                    serialNumber = response.sn().orEmpty(),
+                    modelName = response.modelName().orEmpty(),
+                    appName = response.appName().orEmpty(),
+                ).toWritableMap()
             }
-        return rs?.toWritableMap() ?: PaxTerminalInfoModel().toWritableMap()
-    }
+        } catch (e: Exception) {
+            PaxTerminalInfoModel().toWritableMap()
+        }
 
     private fun getAmountReq(transType: TransactionType?): AmountRequest =
         AmountRequest().apply {
