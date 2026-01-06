@@ -70,38 +70,43 @@ class PaxPosLinkModule(
         timeout: Int?,
         promise: Promise,
     ) {
-        val tcpSetting =
-            TcpSetting().apply {
-                this.ip = ip
-                this.port = port ?: PaxPosConstant.PORT
-                this.timeout = timeout ?: PaxPosConstant.TIMEOUT
+        Thread {
+            try {
+                val tcpSetting =
+                    TcpSetting().apply {
+                        this.ip = ip
+                        this.port = port ?: PaxPosConstant.PORT
+                        this.timeout = timeout ?: PaxPosConstant.TIMEOUT
+                    }
+                val tcpSettingInfo = "=>: ip=$ip, port=${tcpSetting.port}, timeout=${tcpSetting.timeout}"
+                Log.i("TcpSetting", tcpSettingInfo)
+                val map = Arguments.createMap()
+                terminal = posLink?.getTerminal(reactContext, tcpSetting)
+                Log.e("terminal", terminal.toString())
+                if (terminal != null) {
+                    val info = getTerminalInfo()
+                    val serialNumber = info.getString("serialNumber") ?: ""
+                    if (serialNumber.isEmpty()) {
+                        Log.d("Failed Init", "Create terminal failed!")
+                        promise.reject(
+                            "Create terminal failed!",
+                            tcpSettingInfo,
+                        )
+                    } else {
+                        Log.d("Success Init", "Create terminal success")
+                        map.putString("message", "Create terminal success! $tcpSettingInfo")
+                        map.putBoolean("status", true)
+                        map.putMap("serialNumber", info)
+                        promise.resolve(map)
+                    }
+                } else {
+                    Log.d("Failed Init", "Create terminal failed!")
+                    promise.reject("Create terminal failed!", tcpSettingInfo)
+                }
+            } catch (e: Exception) {
+                promise.reject("INIT_ERROR", e)
             }
-        val tcpSettingInfo = "=>: ip=$ip, port=${tcpSetting.port}, timeout=${tcpSetting.timeout}"
-        Log.i("TcpSetting", tcpSettingInfo)
-        val map = Arguments.createMap()
-
-        terminal = posLink?.getTerminal(reactContext, tcpSetting)
-        Log.e("terminal", terminal.toString())
-        return if (terminal != null) {
-            val info = getTerminalInfo()
-            val serialNumber = info.getString("serialNumber") ?: ""
-            if (serialNumber.isEmpty()) {
-                Log.d("Failed Init", "Create terminal failed!")
-                promise.reject(
-                    "Create terminal failed!",
-                    tcpSettingInfo,
-                )
-            } else {
-                Log.d("Success Init", "Create terminal success")
-                map.putString("message", "Create terminal success! $tcpSettingInfo")
-                map.putBoolean("status", true)
-                map.putMap("serialNumber", info)
-                promise.resolve(map)
-            }
-        } else {
-            Log.d("Failed Init", "Create terminal failed!")
-            promise.reject("Create terminal failed!", tcpSettingInfo)
-        }
+        }.start()
     }
 
     @ReactMethod
