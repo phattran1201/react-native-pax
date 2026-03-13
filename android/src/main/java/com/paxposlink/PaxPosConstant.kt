@@ -15,6 +15,7 @@ data class PaxRequestModel(
     var tip: Int? = null,
     var paymentType: Int? = null,
     var ecrRefNum: String? = "",
+    var showTip: Boolean? = false,
 )
 
 data class PaxResponseModel(

@@ -713,9 +713,18 @@ class PaxPosLinkModule(
     private fun getTransactionBehaviorReq() =
         TransactionBehavior().apply {
             val tip = salesRequest?.tip
+            val showTip = salesRequest?.showTip
             signatureCaptureFlag = null
             tipRequestFlag =
-                if (tip != null && tip > 0) TipRequestFlag.NOT_NEED_ENTER_TIP_ON_TERMINAL else TipRequestFlag.NEED_ENTER_TIP_ON_TERMINAL
+                if (showTip) {
+                    if (tip != null && tip > 0) {
+                        TipRequestFlag.NOT_NEED_ENTER_TIP_ON_TERMINAL
+                    } else {
+                        TipRequestFlag.NEED_ENTER_TIP_ON_TERMINAL
+                    }
+                } else {
+                    TipRequestFlag.NOT_NEED_ENTER_TIP_ON_TERMINAL
+                }
             signatureUploadFlag = null
             statusReportFlag = null
             acceptedCardType = null

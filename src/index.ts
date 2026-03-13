@@ -64,9 +64,17 @@ export function makePayment(
   amount: number = 0,
   tip?: number,
   paymentType?: number,
-  ecrRefNum?: string
+  ecrRefNum?: string,
+  showTip?: boolean
 ): Promise<PaxResponseModel> {
-  return PaxPosLink.payment({ id, amount, tip, paymentType, ecrRefNum });
+  return PaxPosLink.payment({
+    id,
+    amount,
+    tip,
+    paymentType,
+    ecrRefNum,
+    showTip,
+  });
 }
 
 /**
