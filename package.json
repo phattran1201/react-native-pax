@@ -1,7 +1,27 @@
 {
   "name": "@haroldtran/react-native-pax",
-  "version": "1.0.18",
+  "version": "1.0.19",
   "description": "React Native native module for PAX devices",
+  "keywords": [
+    "react-native",
+    "pax",
+    "pos",
+    "poslink",
+    "payment",
+    "android",
+    "harold",
+    "haroldtran"
+  ],
+  "homepage": "https://github.com/phattran1201/react-native-pax#readme",
+  "bugs": {
+    "url": "https://github.com/phattran1201/react-native-pax/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/phattran1201/react-native-pax.git"
+  },
+  "license": "MIT",
+  "author": "Harold Tran <phattran1201@gmail.com>",
   "main": "./src/index.ts",
   "files": [
     "src",
@@ -31,36 +51,56 @@
     "react-native.config.mjs"
   ],
   "scripts": {
-    "prebuild": "bun i && bun typecheck && bun lint",
-    "test": "jest",
-    "typecheck": "tsc --noEmit",
+    "example": "bun --cwd example",
     "lint": "eslint \"**/*.{js,ts,tsx}\"",
+    "prebuild": "bun i && bun typecheck && bun lint",
     "release": "bun prebuild && release-it",
-    "example": "bun --cwd example"
+    "test": "jest",
+    "typecheck": "tsc --noEmit"
   },
-  "keywords": [
-    "react-native",
-    "pax",
-    "pos",
-    "poslink",
-    "payment",
-    "android",
-    "harold",
-    "haroldtran"
+  "commitlint": {
+    "extends": [
+      "@commitlint/config-conventional"
+    ]
+  },
+  "prettier": {
+    "quoteProps": "consistent",
+    "singleQuote": true,
+    "tabWidth": 2,
+    "trailingComma": "es5",
+    "useTabs": false
+  },
+  "eslintConfig": {
+    "extends": [
+      "@react-native-community",
+      "prettier"
+    ],
+    "rules": {
+      "prettier/prettier": [
+        "error",
+        {
+          "quoteProps": "consistent",
+          "singleQuote": true,
+          "tabWidth": 2,
+          "trailingComma": "es5",
+          "useTabs": false
+        }
+      ]
+    },
+    "root": true
+  },
+  "eslintIgnore": [
+    "node_modules/"
   ],
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/phattran1201/react-native-pax.git"
+  "jest": {
+    "modulePathIgnorePatterns": [
+      "<rootDir>/example/node_modules",
+      "<rootDir>/src/"
+    ],
+    "preset": "react-native"
   },
-  "author": "Harold Tran <phattran1201@gmail.com>",
-  "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/phattran1201/react-native-pax/issues"
-  },
-  "homepage": "https://github.com/phattran1201/react-native-pax#readme",
-  "publishConfig": {
-    "access": "public",
-    "registry": "https://registry.npmjs.org/"
+  "resolutions": {
+    "@types/react": "17.0.21"
   },
   "devDependencies": {
     "@commitlint/config-conventional": "^17.0.2",
@@ -84,56 +124,16 @@
     "release-it": "^15.0.0",
     "typescript": "^4.5.2"
   },
-  "resolutions": {
-    "@types/react": "17.0.21"
-  },
   "peerDependencies": {
     "react": "*",
     "react-native": "*"
   },
+  "packageManager": "yarn@4.10.3",
   "engines": {
     "node": ">= 16.0.0"
   },
-  "jest": {
-    "preset": "react-native",
-    "modulePathIgnorePatterns": [
-      "<rootDir>/example/node_modules",
-      "<rootDir>/src/"
-    ]
-  },
-  "commitlint": {
-    "extends": [
-      "@commitlint/config-conventional"
-    ]
-  },
-  "eslintConfig": {
-    "root": true,
-    "extends": [
-      "@react-native-community",
-      "prettier"
-    ],
-    "rules": {
-      "prettier/prettier": [
-        "error",
-        {
-          "quoteProps": "consistent",
-          "singleQuote": true,
-          "tabWidth": 2,
-          "trailingComma": "es5",
-          "useTabs": false
-        }
-      ]
-    }
-  },
-  "eslintIgnore": [
-    "node_modules/"
-  ],
-  "prettier": {
-    "quoteProps": "consistent",
-    "singleQuote": true,
-    "tabWidth": 2,
-    "trailingComma": "es5",
-    "useTabs": false
-  },
-  "packageManager": "yarn@4.10.3"
+  "publishConfig": {
+    "access": "public",
+    "registry": "https://registry.npmjs.org/"
+  }
 }

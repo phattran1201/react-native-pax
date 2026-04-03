@@ -1,5 +1,12 @@
 
 
+## [1.0.19](https://github.com/phattran1201/react-native-pax/compare/v1.0.18...v1.0.19) (2026-04-03)
+
+
+### Features
+
+* add getBatchInformation support and extend Pax transaction models ([c00c131](https://github.com/phattran1201/react-native-pax/commit/c00c131a8a06621307ecdc8195d8d9701b9cea16))
+
 ## [1.0.18](https://github.com/phattran1201/react-native-pax/compare/v1.0.16...v1.0.18) (2026-03-13)
 
 ## [1.0.16](https://github.com/phattran1201/react-native-pax/compare/v1.0.15...v1.0.16) (2026-01-06)

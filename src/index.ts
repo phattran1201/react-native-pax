@@ -1,5 +1,9 @@
 import { NativeModules, Platform } from 'react-native';
-import { PaxInitModel, PaxResponseModel } from './type';
+import {
+  PaxBatchInformationResponseModel,
+  PaxInitModel,
+  PaxResponseModel,
+} from './type';
 export * from './type';
 // This package is Android-only. Provide clear errors on non-Android platforms
 const ANDROID_ONLY_ERROR =
@@ -113,4 +117,11 @@ export function makeCloseBatch(): Promise<PaxResponseModel> {
  */
 export function checkVoidOrRefundTransaction(ecrRefNum: string) {
   return PaxPosLink.checkVoidOrRefundTransaction(ecrRefNum);
+}
+/**
+ * Gets all transactions.
+ * @returns {Promise<PaxBatchInformationResponseModel>} A promise resolving to the transactions list.
+ */
+export function getBatchInformation(): Promise<PaxBatchInformationResponseModel> {
+  return PaxPosLink.getBatchInformation();
 }

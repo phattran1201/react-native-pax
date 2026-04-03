@@ -9,6 +9,7 @@ import com.facebook.react.bridge.ReactApplicationContext
 import com.facebook.react.bridge.ReactContextBaseJavaModule
 import com.facebook.react.bridge.ReactMethod
 import com.facebook.react.bridge.ReadableMap
+import com.facebook.react.bridge.WritableArray
 import com.facebook.react.bridge.WritableMap
 import com.pax.poscore.commsetting.TcpSetting
 import com.pax.poscore.internal.ExecutionCode
@@ -27,7 +28,11 @@ import com.pax.poslinksemiintegration.batch.BatchCloseResponse
 import com.pax.poslinksemiintegration.constant.CardPresentIndicator
 import com.pax.poslinksemiintegration.constant.TipRequestFlag
 import com.pax.poslinksemiintegration.constant.VehicleClassId
+import com.pax.poslinksemiintegration.constant.TransactionResultType
+import com.pax.poslinksemiintegration.report.HistoryReportRequest
+import com.pax.poslinksemiintegration.report.HistoryReportResponse
 import com.pax.poslinksemiintegration.report.LocalDetailReportRequest
+import com.pax.poslinksemiintegration.report.LocalTotalReportRequest
 import com.pax.poslinksemiintegration.transaction.DoCreditRequest
 import com.pax.poslinksemiintegration.transaction.DoCreditResponse
 import com.pax.poslinksemiintegration.util.AccountRequest
@@ -44,6 +49,7 @@ import com.pax.poslinksemiintegration.util.MotoECommerceRequest
 import com.pax.poslinksemiintegration.util.Original
 import com.pax.poslinksemiintegration.util.PaymentEmvTag
 import com.pax.poslinksemiintegration.util.Restaurant
+import com.pax.poslinksemiintegration.util.TorResponse
 import com.pax.poslinksemiintegration.util.TraceRequest
 import com.pax.poslinksemiintegration.util.TransactionBehavior
 import com.paxposlink.Utils
@@ -121,6 +127,7 @@ class PaxPosLinkModule(
                 tip = data.takeIf { it.hasKey("tip") && !it.isNull("tip") }?.getInt("tip"),
                 paymentType = data.takeIf { it.hasKey("paymentType") && !it.isNull("paymentType") }?.getInt("paymentType"),
                 ecrRefNum = data.getString("ecrRefNum") ?: "",
+                showTip = data.takeIf { it.hasKey("showTip") && !it.isNull("showTip") }?.getBoolean("showTip") ?: false,
             )
 
         this.salesRequest = salesRequest
@@ -153,7 +160,7 @@ class PaxPosLinkModule(
         val map = Arguments.createMap()
         map.putBoolean("status", this.status)
         map.putString("message", this.message)
-        map.putString("data", this.data.toString())
+        this.data?.let { map.putMap("data", it) } ?: map.putNull("data")
         map.putBoolean("isPaymentSuccess", this.isPaymentSuccess)
         map.putString("cardHolder", this.cardHolder)
         map.putString("cardNumber", this.cardNumber)
@@ -193,6 +200,45 @@ class PaxPosLinkModule(
         val result = terminal?.transaction?.doCredit(req)
         return buildTransactionResponse(rsp, result)
     }
+
+//    @RequiresApi(Build.VERSION_CODES.O)
+//    @ReactMethod
+//    fun checkTransactionStatus(
+//        ecrRefNum: String?,
+//        promise: Promise,
+//    ) {
+//        try {
+//            val transaction =
+//                LocalDetailReportRequest().apply {
+//                    this.ecrReferenceNumber = ecrRefNum
+//                    this.edcType = EdcType.ALL
+//                }
+//            val result = terminal?.report?.localDetailReport(transaction)
+//            val map: WritableMap = Arguments.createMap()
+//
+//            if (result?.code() == ExecutionCode.OK) {
+//                val rsp = result.response().reportTransactionInformation()
+//                map.putBoolean("status", true)
+//                map.putString("code", result.code().toString())
+//                map.putString("message", result.message())
+//
+//                val torArray = Arguments.createArray()
+//                val tors = result.response().torInformation()
+//                if (tors != null) {
+//                    convertTorResponseToMap(tors, torArray)
+//                }
+//                map.putArray("torInformation", torArray)
+//            } else {
+//                map.putBoolean("status", false)
+//                map.putString("code", result?.code()?.toString() ?: "ERROR")
+//                map.putString("message", result?.message() ?: "Transaction not found or error")
+//            }
+//            map.putMap("serialNumber", getTerminalInfo())
+//            promise.resolve(map)
+//        } catch (e: Exception) {
+//            promise.reject("CHECK_STATUS_ERROR", e.message)
+//        }
+//    }
 
     @RequiresApi(Build.VERSION_CODES.O)
     @ReactMethod
@@ -301,17 +347,66 @@ class PaxPosLinkModule(
     fun batchCloseout(promise: Promise) {
         try {
             val batchCloseReq = BatchCloseRequest()
-            val batchCloseRsp = BatchCloseResponse()
             val result = terminal?.batch?.batchClose(batchCloseReq)
+            val paxResponse = buildBatchCloseResponse(result)
+            promise.resolve(paxResponse.toWritableMap())
+        } catch (e: Exception) {
+            promise.reject("BATCH_CLOSE_ERROR", e.message)
+        }
+    }
+
+    @ReactMethod
+    fun getBatchInformation(promise: Promise) {
+        try {
+            val map = Arguments.createMap()
+            val request = HistoryReportRequest()
+            val result = terminal?.report?.historyReport(request)
             if (result?.code() == ExecutionCode.OK) {
-                val map: WritableMap = Arguments.createMap()
-                map.putString("message", "Batch close successfully")
-                map.putString("data", result.response()?.responseMessage())
+                val rsp = result.response()
+                map.putBoolean("status", true)
+                map.putInt("ecrReferenceNumber", getBatchStartDate())
+                map.putInt("totalRecord", getTotalTransactionCount())
+                map.putInt("totalAmount", getTotalTransactionAmount())
+                map.putBoolean("status", true)
+                map.putString("message", rsp?.responseMessage() ?: "Success")
+                map.putMap("data", convertHistoryReportResponseToMap(rsp))
                 promise.resolve(map)
             }
         } catch (e: Exception) {
-            promise.reject("Failed", "Batch close error")
+            promise.reject("GET_BATCH_INFORMATION_ERROR", e.message)
         }
+    }
+
+    private fun convertHistoryReportResponseToMap(rsp: HistoryReportResponse?): WritableMap {
+        val map = Arguments.createMap()
+        if (rsp == null) return map
+        map.putString("batchNumber", rsp.batchNumber())
+        map.putString("timeStamp", rsp.timeStamp())
+
+        rsp.edcTotalCount()?.let {
+            val countMap = Arguments.createMap()
+            countMap.putString("creditCount", it.creditCount())
+            countMap.putString("debitCount", it.debitCount())
+            countMap.putString("ebtCount", it.ebtCount())
+            countMap.putString("giftCount", it.giftCount())
+            countMap.putString("loyaltyCount", it.loyaltyCount())
+            countMap.putString("cashCount", it.cashCount())
+            countMap.putString("checkCount", it.checkCount())
+            map.putMap("totalCount", countMap)
+        }
+
+        rsp.edcTotalAmount()?.let {
+            val amountMap = Arguments.createMap()
+            amountMap.putString("creditAmount", it.creditAmount())
+            amountMap.putString("debitAmount", it.debitAmount())
+            amountMap.putString("ebtAmount", it.ebtAmount())
+            amountMap.putString("giftAmount", it.giftAmount())
+            amountMap.putString("loyaltyAmount", it.loyaltyAmount())
+            amountMap.putString("cashAmount", it.cashAmount())
+            amountMap.putString("checkAmount", it.checkAmount())
+            map.putMap("totalAmount", amountMap)
+        }
+        return map
     }
 
     @ReactMethod
@@ -352,6 +447,116 @@ class PaxPosLinkModule(
             posEchoData = ""
             continuousScreen = ContinuousScreen.NOT_SET
         }
+
+    private fun buildBatchCloseResponse(
+        result: ExecutionResult<BatchCloseResponse>?,
+    ): PaxResponseModel {
+        val rsp = result?.response()
+        return if (result?.code() == ExecutionCode.OK) {
+            PaxResponseModel().apply {
+                status = true
+                data = convertBatchCloseResponseToMap(rsp)
+                message = rsp?.responseMessage() ?: "Batch close successfully"
+                isPaymentSuccess = true
+                sn = getTerminalInfo()
+                refNum = rsp?.hostInformation()?.batchNumber() ?: ""
+                transactionDateTime = rsp?.timeStamp().orEmpty()
+            }
+        } else {
+            PaxResponseModel().apply {
+                status = false
+                message = result?.message() ?: "Batch close error"
+                sn = getTerminalInfo()
+            }
+        }
+    }
+
+    private fun convertBatchCloseResponseToMap(rsp: BatchCloseResponse?): WritableMap {
+        val map = Arguments.createMap()
+        if (rsp == null) return map
+
+        map.putString("responseCode", rsp.responseCode())
+        map.putString("responseMessage", rsp.responseMessage())
+        map.putString("tid", rsp.tid())
+        map.putString("mid", rsp.mid())
+        map.putString("timeStamp", rsp.timeStamp())
+        map.putString("failedCount", rsp.failedCount())
+        map.putString("failedTransactionNumber", rsp.failedTransactionNumber())
+        map.putString("safFailedCount", rsp.safFailedCount())
+        map.putString("safFailedTotal", rsp.safFailedTotal())
+
+        rsp.hostInformation()?.let {
+            val hostMap = Arguments.createMap()
+            hostMap.putString("hostResponseCode", it.hostResponseCode())
+            hostMap.putString("hostResponseMessage", it.hostResponseMessage())
+            hostMap.putString("authorizationCode", it.authorizationCode())
+            hostMap.putString("hostReferenceNumber", it.hostReferenceNumber())
+            hostMap.putString("traceNumber", it.traceNumber())
+            hostMap.putString("batchNumber", it.batchNumber())
+            hostMap.putString("transactionIdentifier", it.transactionIdentifier())
+            hostMap.putString("gatewayTransactionId", it.gatewayTransactionId())
+            hostMap.putString("hostDetailedMessage", it.hostDetailedMessage())
+            hostMap.putString("transactionIntegrityClass", it.transactionIntegrityClass())
+            hostMap.putString("retrievalReferenceNumber", it.retrievalReferenceNumber())
+            hostMap.putString("issuerResponseCode", it.issuerResponseCode())
+            hostMap.putString("paymentAccountReferenceId", it.paymentAccountReferenceId())
+            map.putMap("hostInformation", hostMap)
+        }
+
+        rsp.totalCount()?.let {
+            val countMap = Arguments.createMap()
+            countMap.putString("creditCount", it.creditCount())
+            countMap.putString("debitCount", it.debitCount())
+            countMap.putString("ebtCount", it.ebtCount())
+            countMap.putString("giftCount", it.giftCount())
+            countMap.putString("loyaltyCount", it.loyaltyCount())
+            countMap.putString("cashCount", it.cashCount())
+            countMap.putString("checkCount", it.checkCount())
+            map.putMap("totalCount", countMap)
+        }
+
+        rsp.totalAmount()?.let {
+            val amountMap = Arguments.createMap()
+            amountMap.putString("creditAmount", it.creditAmount())
+            amountMap.putString("debitAmount", it.debitAmount())
+            amountMap.putString("ebtAmount", it.ebtAmount())
+            amountMap.putString("giftAmount", it.giftAmount())
+            amountMap.putString("loyaltyAmount", it.loyaltyAmount())
+            amountMap.putString("cashAmount", it.cashAmount())
+            amountMap.putString("checkAmount", it.checkAmount())
+            map.putMap("totalAmount", amountMap)
+        }
+
+        // torInformation - mapping it as an array as requested by user ("list")
+        // Even if SDK returns single, wrapping in array for flexibility if user expects a list
+        val torArray = Arguments.createArray()
+        val tor = rsp.torInformation()
+        if (tor != null) {
+            convertTorResponseToMap(tor, torArray)
+        }
+        map.putArray("torInformation", torArray)
+
+        return map
+    }
+
+    private fun convertTorResponseToMap(tor: TorResponse, torArray: WritableArray) {
+        val map = Arguments.createMap()
+        map.putString("batchNumber", tor.batchNumber())
+        map.putString("gatewayTransactionId", tor.gatewayTransactionId())
+        map.putString("hostReferenceNumber", tor.hostReferenceNumber().toString())
+        map.putString("hostResponseCode", tor.hostResponseCode())
+        map.putString("hostResponseMessage", tor.hostResponseMessage())
+        map.putString("maskedPan", tor.maskedPan())
+        map.putString("originalAmount", tor.originalAmount())
+        map.putString("originalTransactionAuthorizationCode", tor.originalTransactionAuthorizationCode())
+        map.putString("originalTransactionDateTime", tor.originalTransactionDateTime())
+        map.putString("originalTransactionType", tor.originalTransactionType()?.name)
+        map.putString("recordType", tor.recordType()?.name)
+        map.putString("reversalAuthorizationCode", tor.reversalAuthorizationCode())
+        map.putString("reversalTimeStamp", tor.reversalTimeStamp())
+
+        torArray.pushMap(map)
+    }
 
     private fun convertDoCreditResponseToMap(rsp: DoCreditResponse?): WritableMap {
         val map = Arguments.createMap()
@@ -536,34 +741,43 @@ class PaxPosLinkModule(
         }
     }
 
-//    private fun getTotalTransactionCount(): Int {
-//        val request = LocalDetailReportRequest().apply { edcType = EdcType.ALL }
-//        val response = LocalDetailReportResponse()
-//        val result = terminal?.report?.localDetailReport(request)
-//        return if (result?.code() == ExecutionCode.OK) {
-//            response.totalRecord()?.toIntOrNull() ?: 0
-//        } else 0
-//    }
-//
-//    private fun getTotalTransactionAmount(): Int {
-//        val request = LocalTotalReportRequest().apply { edcType = EdcType.ALL }
-//        val response = LocalTotalReportResponse()
-//        val result = terminal?.report?.localTotalReport(request)
-//        return if (result?.code() == ExecutionCode.OK) {
-//            val sale = response.totals().creditTotals().returnAmount().toIntOrNull() ?: 0
-//            val refund = response.totals().creditTotals().returnAmount().toIntOrNull() ?: 0
-//            sale - refund
-//        } else 0
-//    }
-//
-//    private fun getBatchStartDate(): Int {
-//        val request = LocalDetailReportRequest().apply { edcType = EdcType.ALL }
-//        val response = LocalDetailReportResponse()
-//        val result = terminal?.report?.localDetailReport(request)
-//        return if (result?.code() == ExecutionCode.OK) {
-//            response.traceInformation().ecrReferenceNumber().toIntOrNull() ?: 0
-//        } else 0
-//    }
+    private fun getTotalTransactionCount(): Int {
+        try {
+            val request = LocalDetailReportRequest().apply { edcType = EdcType.ALL }
+            val result = terminal?.report?.localDetailReport(request)
+            return if (result?.code() == ExecutionCode.OK) {
+                result.response().totalRecord()?.toIntOrNull() ?: 0
+            } else 0
+        } catch (e: Exception) {
+            throw Exception("Error totalTransactionCount: ${e.message}")
+        }
+    }
+
+    private fun getTotalTransactionAmount(): Int {
+        try {
+            val request = LocalTotalReportRequest().apply { edcType = EdcType.ALL }
+            val result = terminal?.report?.localTotalReport(request)
+            return if (result?.code() == ExecutionCode.OK) {
+                val sale = result.response().totals().creditTotals().saleAmount().toIntOrNull() ?: 0
+                val refund = result.response().totals().creditTotals().returnAmount().toIntOrNull() ?: 0
+                sale - refund
+            } else 0
+        } catch (e: Exception) {
+            throw Exception("Error totalTransactionAmount: ${e.message}")
+        }
+    }
+
+    private fun getBatchStartDate(): Int {
+        try {
+            val request = LocalDetailReportRequest().apply { edcType = EdcType.ALL }
+            val result = terminal?.report?.localDetailReport(request)
+            return if (result?.code() == ExecutionCode.OK) {
+                result.response().traceInformation().ecrReferenceNumber().toIntOrNull() ?: 0
+            } else 0
+        } catch (e: Exception) {
+            throw Exception("Error batchStartDate: ${e.message}")
+        }
+    }
 
     private fun getTerminalInfo(): WritableMap =
         try {
@@ -713,7 +927,7 @@ class PaxPosLinkModule(
     private fun getTransactionBehaviorReq() =
         TransactionBehavior().apply {
             val tip = salesRequest?.tip
-            val showTip = salesRequest?.showTip
+            val showTip = salesRequest?.showTip ?: false
             signatureCaptureFlag = null
             tipRequestFlag =
                 if (showTip) {
