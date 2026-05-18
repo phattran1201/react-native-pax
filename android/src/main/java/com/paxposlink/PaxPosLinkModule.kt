@@ -265,7 +265,7 @@ class PaxPosLinkModule(
     }
 
     @ReactMethod
-    fun void(
+    fun voidTransaction(
         data: ReadableMap,
         promise: Promise,
     ) {
