@@ -1,7 +1,1 @@
-export default {
-  dependency: {
-    platforms: {
-      ios: null,
-    },
-  },
-};
+export default {};

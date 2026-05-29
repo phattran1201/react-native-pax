@@ -1,6 +1,6 @@
 {
   "name": "@haroldtran/react-native-pax",
-  "version": "1.0.20",
+  "version": "1.0.21",
   "description": "React Native native module for PAX devices",
   "keywords": [
     "react-native",
@@ -22,11 +22,32 @@
   },
   "license": "MIT",
   "author": "Harold Tran <phattran1201@gmail.com>",
-  "main": "./src/index.ts",
+  "source": "./src/index.ts",
+  "main": "./lib/commonjs/index.js",
+  "module": "./lib/module/index.js",
+  "types": "./lib/typescript/commonjs/index.d.ts",
+  "exports": {
+    ".": {
+      "source": "./src/index.ts",
+      "import": {
+        "types": "./lib/typescript/module/index.d.ts",
+        "default": "./lib/module/index.js"
+      },
+      "require": {
+        "types": "./lib/typescript/commonjs/index.d.ts",
+        "default": "./lib/commonjs/index.js"
+      }
+    },
+    "./package.json": "./package.json"
+  },
   "files": [
+    "lib",
     "src",
     "*.ts",
     "*.js",
+    "*.podspec",
+    "PaxPosLink.h",
+    "ios",
     "android",
     "cpp",
     "android/gradlew/wrapper/gradle-wrapper.properties",
@@ -51,9 +72,10 @@
     "react-native.config.mjs"
   ],
   "scripts": {
+    "build": "bob build",
     "example": "bun --cwd example",
     "lint": "eslint \"**/*.{js,ts,tsx}\"",
-    "prebuild": "bun i && bun typecheck && bun lint",
+    "prebuild": "bun i && bun typecheck && bob build && bun lint",
     "release": "bun prebuild && release-it",
     "test": "jest",
     "typecheck": "tsc --noEmit"
@@ -90,7 +112,8 @@
     "root": true
   },
   "eslintIgnore": [
-    "node_modules/"
+    "node_modules/",
+    "lib/"
   ],
   "jest": {
     "modulePathIgnorePatterns": [
@@ -127,6 +150,33 @@
   "peerDependencies": {
     "react": "*",
     "react-native": "*"
+  },
+  "codegenConfig": {
+    "name": "RNPaxPoslinkSpec",
+    "type": "modules",
+    "jsSrcsDir": "src",
+    "android": {
+      "javaPackageName": "com.paxposlink"
+    }
+  },
+  "react-native-builder-bob": {
+    "source": "src",
+    "output": "lib",
+    "targets": [
+      [
+        "module",
+        {
+          "esm": true
+        }
+      ],
+      [
+        "commonjs",
+        {
+          "esm": true
+        }
+      ],
+      "typescript"
+    ]
   },
   "packageManager": "yarn@4.10.3",
   "engines": {

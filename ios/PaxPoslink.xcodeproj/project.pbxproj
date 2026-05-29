@@ -1,0 +1,793 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+
+/* Begin PBXBuildFile section */
+		B3E7B58A1CC2AC0600A0062D /* PaxPoslink.mm in Sources */ = {isa = PBXBuildFile; fileRef = B3E7B5891CC2AC0600A0062D /* PaxPoslink.mm */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		58B511D91A9E6C8500147676 /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "include/$(PRODUCT_NAME)";
+			dstSubfolderSpec = 16;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
+/* Begin PBXFileReference section */
+		134814201AA4EA6300B7C361 /* libPaxPoslink.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPaxPoslink.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		9B5577D12FB724BE00566D68 /* libPOSLinkSemiIntegration.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libPOSLinkSemiIntegration.a; path = POSLinkSemiIntegrationSDK/libPOSLinkSemiIntegration.a; sourceTree = "<group>"; };
+		9B5577D32FB7256B00566D68 /* MposBluetoothScan.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MposBluetoothScan.h; sourceTree = "<group>"; };
+		9B5577D42FB7256B00566D68 /* PLAdminConst.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PLAdminConst.h; sourceTree = "<group>"; };
+		9B5577D52FB7256B00566D68 /* PLAmountRequest.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PLAmountRequest.h; sourceTree = "<group>"; };
+		9B5577D62FB7256B00566D68 /* PLApplePayVas.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PLApplePayVas.h; sourceTree = "<group>"; };
+		9B5577D72FB7256B00566D68 /* PLBaseTerminal.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PLBaseTerminal.h; sourceTree = "<group>"; };
+		9B5577D82FB7256B00566D68 /* PLCameraScanRequest.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PLCameraScanRequest.h; sourceTree = "<group>"; };
+		9B5577D92FB7256B00566D68 /* PLCameraScanResponse.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PLCameraScanResponse.h; sourceTree = "<group>"; };
+		9B5577DA2FB7256B00566D68 /* PLCardInsertDetectionRequest.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PLCardInsertDetectionRequest.h; sourceTree = "<group>"; };
+		9B5577DB2FB7256B00566D68 /* PLCardInsertDetectionResponse.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PLCardInsertDetectionResponse.h; sourceTree = "<group>"; };
+		9B5577DC2FB7256B00566D68 /* PLCheckFileRequest.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PLCheckFileRequest.h; sourceTree = "<group>"; };
+		9B5577DD2FB7256B00566D68 /* PLCheckFileResponse.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PLCheckFileResponse.h; sourceTree = "<group>"; };
+		9B5577DE2FB7256B00566D68 /* PLClearMessageRequest.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PLClearMessageRequest.h; sourceTree = "<group>"; };
+		9B5577DF2FB7256B00566D68 /* PLClearMessageResponse.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PLClearMessageResponse.h; sourceTree = "<group>"; };
+		9B5577E02FB7256B00566D68 /* PLCode100003.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PLCode100003.h; sourceTree = "<group>"; };
+		9B5577E12FB7256B00566D68 /* PLCode100004.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PLCode100004.h; sourceTree = "<group>"; };
+		9B5577E22FB7256B00566D68 /* PLCode100010.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PLCode100010.h; sourceTree = "<group>"; };
+		9B5577E32FB7256B00566D68 /* PLCode100014.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PLCode100014.h; sourceTree = "<group>"; };
+		9B5577E42FB7256B00566D68 /* PLCode100020.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PLCode100020.h; sourceTree = "<group>"; };
+		9B5577E52FB7256B00566D68 /* PLCode100021.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PLCode100021.h; sourceTree = "<group>"; };
+		9B5577E62FB7256B00566D68 /* PLCode100023.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PLCode100023.h; sourceTree = "<group>"; };
+		9B5577E72FB7256B00566D68 /* PLCode100033.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PLCode100033.h; sourceTree = "<group>"; };
+		9B5577E82FB7256B00566D68 /* PLCode100101.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PLCode100101.h; sourceTree = "<group>"; };
+		9B5577E92FB7256B00566D68 /* PLCommunicationSetting.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PLCommunicationSetting.h; sourceTree = "<group>"; };
+		9B5577EA2FB7256B00566D68 /* PLDeleteImageRequest.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PLDeleteImageRequest.h; sourceTree = "<group>"; };
+		9B5577EB2FB7256B00566D68 /* PLDeleteImageResponse.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PLDeleteImageResponse.h; sourceTree = "<group>"; };
+		9B5577EC2FB7256B00566D68 /* PLDevice.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PLDevice.h; sourceTree = "<group>"; };
+		9B5577ED2FB7256B00566D68 /* PLDoSignatureRequest.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PLDoSignatureRequest.h; sourceTree = "<group>"; };
+		9B5577EE2FB7256B00566D68 /* PLDoSignatureResponse.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PLDoSignatureResponse.h; sourceTree = "<group>"; };
+		9B5577EF2FB7256B00566D68 /* PLDukptKeyInformation.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PLDukptKeyInformation.h; sourceTree = "<group>"; };
+		9B5577F02FB7256B00566D68 /* PLExecutionResult.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PLExecutionResult.h; sourceTree = "<group>"; };
+		9B5577F12FB7256B00566D68 /* PLForm.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PLForm.h; sourceTree = "<group>"; };
+		9B5577F22FB7256B00566D68 /* PLGetPedInformationRequest.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PLGetPedInformationRequest.h; sourceTree = "<group>"; };
+		9B5577F32FB7256B00566D68 /* PLGetPedInformationResponse.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PLGetPedInformationResponse.h; sourceTree = "<group>"; };
+		9B5577F42FB7256B00566D68 /* PLGetSafParametersRequest.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PLGetSafParametersRequest.h; sourceTree = "<group>"; };
+		9B5577F52FB7256B00566D68 /* PLGetSafParametersResponse.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PLGetSafParametersResponse.h; sourceTree = "<group>"; };
+		9B5577F62FB7256B00566D68 /* PLGetSignatureRequest.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PLGetSignatureRequest.h; sourceTree = "<group>"; };
+		9B5577F72FB7256B00566D68 /* PLGetSignatureResponse.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PLGetSignatureResponse.h; sourceTree = "<group>"; };
+		9B5577F82FB7256B00566D68 /* PLGetVariableRequest.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PLGetVariableRequest.h; sourceTree = "<group>"; };
+		9B5577F92FB7256B00566D68 /* PLGetVariableResponse.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PLGetVariableResponse.h; sourceTree = "<group>"; };
+		9B5577FA2FB7256B00566D68 /* PLGoogleServiceTypeBitmap.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PLGoogleServiceTypeBitmap.h; sourceTree = "<group>"; };
+		9B5577FB2FB7256B00566D68 /* PLGoogleSmartTap.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PLGoogleSmartTap.h; sourceTree = "<group>"; };
+		9B5577FC2FB7256B00566D68 /* PLGoogleSmartTapCapBitmap.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PLGoogleSmartTapCapBitmap.h; sourceTree = "<group>"; };
+		9B5577FD2FB7256B00566D68 /* PLGoogleSmartTapPushService.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PLGoogleSmartTapPushService.h; sourceTree = "<group>"; };
+		9B5577FE2FB7256B00566D68 /* PLHardwareConfigurationBitmap.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PLHardwareConfigurationBitmap.h; sourceTree = "<group>"; };
+		9B5577FF2FB7256B00566D68 /* PLIncreaseKsnRequest.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PLIncreaseKsnRequest.h; sourceTree = "<group>"; };
+		9B5578002FB7256B00566D68 /* PLIncreaseKsnResponse.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PLIncreaseKsnResponse.h; sourceTree = "<group>"; };
+		9B5578012FB7256B00566D68 /* PLInitRequest.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PLInitRequest.h; sourceTree = "<group>"; };
+		9B5578022FB7256B00566D68 /* PLInitResponse.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PLInitResponse.h; sourceTree = "<group>"; };
+		9B5578032FB7256B00566D68 /* PLInputAccountRequest.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PLInputAccountRequest.h; sourceTree = "<group>"; };
+		9B5578042FB7256B00566D68 /* PLInputAccountResponse.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PLInputAccountResponse.h; sourceTree = "<group>"; };
+		9B5578052FB7256B00566D68 /* PLInputTextRequest.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PLInputTextRequest.h; sourceTree = "<group>"; };
+		9B5578062FB7256B00566D68 /* PLInputTextResponse.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PLInputTextResponse.h; sourceTree = "<group>"; };
+		9B5578072FB7256B00566D68 /* PLItemDetail.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PLItemDetail.h; sourceTree = "<group>"; };
+		9B5578082FB7256B00566D68 /* PLLogSetting.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PLLogSetting.h; sourceTree = "<group>"; };
+		9B5578092FB7256B00566D68 /* PLMacCalculationRequest.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PLMacCalculationRequest.h; sourceTree = "<group>"; };
+		9B55780A2FB7256B00566D68 /* PLMacCalculationResponse.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PLMacCalculationResponse.h; sourceTree = "<group>"; };
+		9B55780B2FB7256B00566D68 /* PLManage.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PLManage.h; sourceTree = "<group>"; };
+		9B55780C2FB7256B00566D68 /* PLMasterSessionKeyInformation.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PLMasterSessionKeyInformation.h; sourceTree = "<group>"; };
+		9B55780D2FB7256B00566D68 /* PLMifareCardRequest.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PLMifareCardRequest.h; sourceTree = "<group>"; };
+		9B55780E2FB7256B00566D68 /* PLMifareCardResponse.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PLMifareCardResponse.h; sourceTree = "<group>"; };
+		9B55780F2FB7256B00566D68 /* PLMultiMerchant.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PLMultiMerchant.h; sourceTree = "<group>"; };
+		9B5578102FB7256B00566D68 /* PLNewService.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PLNewService.h; sourceTree = "<group>"; };
+		9B5578112FB7256B00566D68 /* PLPayload.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PLPayload.h; sourceTree = "<group>"; };
+		9B5578122FB7256B00566D68 /* PLPayloadRequest.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PLPayloadRequest.h; sourceTree = "<group>"; };
+		9B5578132FB7256B00566D68 /* PLPayloadResponse.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PLPayloadResponse.h; sourceTree = "<group>"; };
+		9B5578142FB7256B00566D68 /* PLPed.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PLPed.h; sourceTree = "<group>"; };
+		9B5578152FB7256B00566D68 /* PLPrinterRequest.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PLPrinterRequest.h; sourceTree = "<group>"; };
+		9B5578162FB7256B00566D68 /* PLPrinterResponse.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PLPrinterResponse.h; sourceTree = "<group>"; };
+		9B5578172FB7256B00566D68 /* PLRebootRequest.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PLRebootRequest.h; sourceTree = "<group>"; };
+		9B5578182FB7256B00566D68 /* PLRebootResponse.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PLRebootResponse.h; sourceTree = "<group>"; };
+		9B5578192FB7256B00566D68 /* PLRemoveCardRequest.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PLRemoveCardRequest.h; sourceTree = "<group>"; };
+		9B55781A2FB7256B00566D68 /* PLRemoveCardResponse.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PLRemoveCardResponse.h; sourceTree = "<group>"; };
+		9B55781B2FB7256B00566D68 /* PLReportStatusData.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PLReportStatusData.h; sourceTree = "<group>"; };
+		9B55781C2FB7256B00566D68 /* PLReprintRequest.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PLReprintRequest.h; sourceTree = "<group>"; };
+		9B55781D2FB7256B00566D68 /* PLReprintResponse.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PLReprintResponse.h; sourceTree = "<group>"; };
+		9B55781E2FB7256B00566D68 /* PLRequest.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PLRequest.h; sourceTree = "<group>"; };
+		9B55781F2FB7256B00566D68 /* PLResetMsrRequest.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PLResetMsrRequest.h; sourceTree = "<group>"; };
+		9B5578202FB7256B00566D68 /* PLResetMsrResponse.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PLResetMsrResponse.h; sourceTree = "<group>"; };
+		9B5578212FB7256B00566D68 /* PLResetRequest.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PLResetRequest.h; sourceTree = "<group>"; };
+		9B5578222FB7256B00566D68 /* PLResetResponse.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PLResetResponse.h; sourceTree = "<group>"; };
+		9B5578232FB7256B00566D68 /* PLResponse.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PLResponse.h; sourceTree = "<group>"; };
+		9B5578242FB7256B00566D68 /* PLResponseCode.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PLResponseCode.h; sourceTree = "<group>"; };
+		9B5578252FB7256B00566D68 /* PLSdButton.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PLSdButton.h; sourceTree = "<group>"; };
+		9B5578262FB7256B00566D68 /* PLServiceUpdate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PLServiceUpdate.h; sourceTree = "<group>"; };
+		9B5578272FB7256B00566D68 /* PLServiceUsage.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PLServiceUsage.h; sourceTree = "<group>"; };
+		9B5578282FB7256B00566D68 /* PLSessionKeyInjectionRequest.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PLSessionKeyInjectionRequest.h; sourceTree = "<group>"; };
+		9B5578292FB7256B00566D68 /* PLSessionKeyInjectionResponse.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PLSessionKeyInjectionResponse.h; sourceTree = "<group>"; };
+		9B55782A2FB7256B00566D68 /* PLSetApplePayVasParametersRequest.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PLSetApplePayVasParametersRequest.h; sourceTree = "<group>"; };
+		9B55782B2FB7256B00566D68 /* PLSetApplePayVasParametersResponse.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PLSetApplePayVasParametersResponse.h; sourceTree = "<group>"; };
+		9B55782C2FB7256B00566D68 /* PLSetGoogleSmartTapParametersRequest.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PLSetGoogleSmartTapParametersRequest.h; sourceTree = "<group>"; };
+		9B55782D2FB7256B00566D68 /* PLSetGoogleSmartTapParametersResponse.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PLSetGoogleSmartTapParametersResponse.h; sourceTree = "<group>"; };
+		9B55782E2FB7256B00566D68 /* PLSetSafParametersRequest.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PLSetSafParametersRequest.h; sourceTree = "<group>"; };
+		9B55782F2FB7256B00566D68 /* PLSetSafParametersResponse.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PLSetSafParametersResponse.h; sourceTree = "<group>"; };
+		9B5578302FB7256B00566D68 /* PLSetVariableRequest.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PLSetVariableRequest.h; sourceTree = "<group>"; };
+		9B5578312FB7256B00566D68 /* PLSetVariableResponse.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PLSetVariableResponse.h; sourceTree = "<group>"; };
+		9B5578322FB7256B00566D68 /* PLShowDialogFormRequest.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PLShowDialogFormRequest.h; sourceTree = "<group>"; };
+		9B5578332FB7256B00566D68 /* PLShowDialogFormResponse.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PLShowDialogFormResponse.h; sourceTree = "<group>"; };
+		9B5578342FB7256B00566D68 /* PLShowDialogRequest.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PLShowDialogRequest.h; sourceTree = "<group>"; };
+		9B5578352FB7256B00566D68 /* PLShowDialogResponse.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PLShowDialogResponse.h; sourceTree = "<group>"; };
+		9B5578362FB7256B00566D68 /* PLShowItemRequest.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PLShowItemRequest.h; sourceTree = "<group>"; };
+		9B5578372FB7256B00566D68 /* PLShowItemResponse.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PLShowItemResponse.h; sourceTree = "<group>"; };
+		9B5578382FB7256B00566D68 /* PLShowMessageCenterRequest.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PLShowMessageCenterRequest.h; sourceTree = "<group>"; };
+		9B5578392FB7256B00566D68 /* PLShowMessageCenterResponse.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PLShowMessageCenterResponse.h; sourceTree = "<group>"; };
+		9B55783A2FB7256B00566D68 /* PLShowMessageRequest.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PLShowMessageRequest.h; sourceTree = "<group>"; };
+		9B55783B2FB7256B00566D68 /* PLShowMessageResponse.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PLShowMessageResponse.h; sourceTree = "<group>"; };
+		9B55783C2FB7256B00566D68 /* PLShowTextBoxRequest.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PLShowTextBoxRequest.h; sourceTree = "<group>"; };
+		9B55783D2FB7256B00566D68 /* PLShowTextBoxResponse.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PLShowTextBoxResponse.h; sourceTree = "<group>"; };
+		9B55783E2FB7256B00566D68 /* PLStbButton.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PLStbButton.h; sourceTree = "<group>"; };
+		9B55783F2FB7256B00566D68 /* PLTokenAdministrativeRequest.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PLTokenAdministrativeRequest.h; sourceTree = "<group>"; };
+		9B5578402FB7256B00566D68 /* PLTokenAdministrativeResponse.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PLTokenAdministrativeResponse.h; sourceTree = "<group>"; };
+		9B5578412FB7256B00566D68 /* PLUpdateResourceFileRequest.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PLUpdateResourceFileRequest.h; sourceTree = "<group>"; };
+		9B5578422FB7256B00566D68 /* PLUpdateResourceFileResponse.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PLUpdateResourceFileResponse.h; sourceTree = "<group>"; };
+		9B5578432FB7256B00566D68 /* PLUploadLogResult.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PLUploadLogResult.h; sourceTree = "<group>"; };
+		9B5578442FB7256B00566D68 /* PLVasPushDataRequest.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PLVasPushDataRequest.h; sourceTree = "<group>"; };
+		9B5578452FB7256B00566D68 /* PLVasPushDataResponse.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PLVasPushDataResponse.h; sourceTree = "<group>"; };
+		9B5578462FB7256B00566D68 /* PLVasResponse.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PLVasResponse.h; sourceTree = "<group>"; };
+		9B5578472FB7256B00566D68 /* POSLinkErrorMsg.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = POSLinkErrorMsg.h; sourceTree = "<group>"; };
+		9B5578482FB7256B00566D68 /* POSLinkPAXLogTool.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = POSLinkPAXLogTool.h; sourceTree = "<group>"; };
+		9B55784A2FB7256B00566D68 /* libPOSLinkAdmin.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libPOSLinkAdmin.a; sourceTree = "<group>"; };
+		9B55784C2FB7256B00566D68 /* PLAccountRequest.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PLAccountRequest.h; sourceTree = "<group>"; };
+		9B55784D2FB7256B00566D68 /* PLAccountResponse.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PLAccountResponse.h; sourceTree = "<group>"; };
+		9B55784E2FB7256B00566D68 /* PLAdditionalResponseData.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PLAdditionalResponseData.h; sourceTree = "<group>"; };
+		9B55784F2FB7256B00566D68 /* PLAmountResponse.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PLAmountResponse.h; sourceTree = "<group>"; };
+		9B5578502FB7256B00566D68 /* PLAutoRental.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PLAutoRental.h; sourceTree = "<group>"; };
+		9B5578512FB7256B00566D68 /* PLAvsRequest.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PLAvsRequest.h; sourceTree = "<group>"; };
+		9B5578522FB7256B00566D68 /* PLAvsResponse.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PLAvsResponse.h; sourceTree = "<group>"; };
+		9B5578532FB7256B00566D68 /* PLBatch.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PLBatch.h; sourceTree = "<group>"; };
+		9B5578542FB7256B00566D68 /* PLBatchClearRequest.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PLBatchClearRequest.h; sourceTree = "<group>"; };
+		9B5578552FB7256B00566D68 /* PLBatchClearResponse.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PLBatchClearResponse.h; sourceTree = "<group>"; };
+		9B5578562FB7256B00566D68 /* PLBatchCloseRequest.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PLBatchCloseRequest.h; sourceTree = "<group>"; };
+		9B5578572FB7256B00566D68 /* PLBatchCloseResponse.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PLBatchCloseResponse.h; sourceTree = "<group>"; };
+		9B5578582FB7256B00566D68 /* PLCardInformation.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PLCardInformation.h; sourceTree = "<group>"; };
+		9B5578592FB7256B00566D68 /* PLCardTotalAmount.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PLCardTotalAmount.h; sourceTree = "<group>"; };
+		9B55785A2FB7256B00566D68 /* PLCardTotalCount.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PLCardTotalCount.h; sourceTree = "<group>"; };
+		9B55785B2FB7256B00566D68 /* PLCardTypeBitmap.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PLCardTypeBitmap.h; sourceTree = "<group>"; };
+		9B55785C2FB7256B00566D68 /* PLCashierRequest.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PLCashierRequest.h; sourceTree = "<group>"; };
+		9B55785D2FB7256B00566D68 /* PLCashierResponse.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PLCashierResponse.h; sourceTree = "<group>"; };
+		9B55785E2FB7256B00566D68 /* PLCashTotals.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PLCashTotals.h; sourceTree = "<group>"; };
+		9B55785F2FB7256B00566D68 /* PLCheckRequest.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PLCheckRequest.h; sourceTree = "<group>"; };
+		9B5578602FB7256B00566D68 /* PLCheckResponse.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PLCheckResponse.h; sourceTree = "<group>"; };
+		9B5578612FB7256B00566D68 /* PLCheckTotals.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PLCheckTotals.h; sourceTree = "<group>"; };
+		9B5578622FB7256B00566D68 /* PLCommercialRequest.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PLCommercialRequest.h; sourceTree = "<group>"; };
+		9B5578632FB7256B00566D68 /* PLCommercialResponse.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PLCommercialResponse.h; sourceTree = "<group>"; };
+		9B5578642FB7256B00566D68 /* PLCreditTotals.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PLCreditTotals.h; sourceTree = "<group>"; };
+		9B5578652FB7256B00566D68 /* PLDebitTotals.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PLDebitTotals.h; sourceTree = "<group>"; };
+		9B5578662FB7256B00566D68 /* PLDeleteSafFileRequest.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PLDeleteSafFileRequest.h; sourceTree = "<group>"; };
+		9B5578672FB7256B00566D68 /* PLDeleteSafFileResponse.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PLDeleteSafFileResponse.h; sourceTree = "<group>"; };
+		9B5578682FB7256B00566D68 /* PLDeleteTransactionRequest.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PLDeleteTransactionRequest.h; sourceTree = "<group>"; };
+		9B5578692FB7256B00566D68 /* PLDeleteTransactionResponse.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PLDeleteTransactionResponse.h; sourceTree = "<group>"; };
+		9B55786A2FB7256B00566D68 /* PLDoCashRequest.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PLDoCashRequest.h; sourceTree = "<group>"; };
+		9B55786B2FB7256B00566D68 /* PLDoCashResponse.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PLDoCashResponse.h; sourceTree = "<group>"; };
+		9B55786C2FB7256B00566D68 /* PLDoCheckRequest.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PLDoCheckRequest.h; sourceTree = "<group>"; };
+		9B55786D2FB7256B00566D68 /* PLDoCheckResponse.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PLDoCheckResponse.h; sourceTree = "<group>"; };
+		9B55786E2FB7256B00566D68 /* PLDoCreditRequest.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PLDoCreditRequest.h; sourceTree = "<group>"; };
+		9B55786F2FB7256B00566D68 /* PLDoCreditResponse.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PLDoCreditResponse.h; sourceTree = "<group>"; };
+		9B5578702FB7256B00566D68 /* PLDoDebitRequest.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PLDoDebitRequest.h; sourceTree = "<group>"; };
+		9B5578712FB7256B00566D68 /* PLDoDebitResponse.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PLDoDebitResponse.h; sourceTree = "<group>"; };
+		9B5578722FB7256B00566D68 /* PLDoEbtRequest.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PLDoEbtRequest.h; sourceTree = "<group>"; };
+		9B5578732FB7256B00566D68 /* PLDoEbtResponse.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PLDoEbtResponse.h; sourceTree = "<group>"; };
+		9B5578742FB7256B00566D68 /* PLDoGiftRequest.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PLDoGiftRequest.h; sourceTree = "<group>"; };
+		9B5578752FB7256B00566D68 /* PLDoGiftResponse.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PLDoGiftResponse.h; sourceTree = "<group>"; };
+		9B5578762FB7256B00566D68 /* PLDoLoyaltyRequest.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PLDoLoyaltyRequest.h; sourceTree = "<group>"; };
+		9B5578772FB7256B00566D68 /* PLDoLoyaltyResponse.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PLDoLoyaltyResponse.h; sourceTree = "<group>"; };
+		9B5578782FB7256B00566D68 /* PLEbtTotals.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PLEbtTotals.h; sourceTree = "<group>"; };
+		9B5578792FB7256B00566D68 /* PLEdcTotalAmount.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PLEdcTotalAmount.h; sourceTree = "<group>"; };
+		9B55787A2FB7256B00566D68 /* PLEdcTotalCount.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PLEdcTotalCount.h; sourceTree = "<group>"; };
+		9B55787B2FB7256B00566D68 /* PLEmvTag.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PLEmvTag.h; sourceTree = "<group>"; };
+		9B55787C2FB7256B00566D68 /* PLEntryModeBitmap.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PLEntryModeBitmap.h; sourceTree = "<group>"; };
+		9B55787D2FB7256B00566D68 /* PLEwicBalance.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PLEwicBalance.h; sourceTree = "<group>"; };
+		9B55787E2FB7256B00566D68 /* PLEwicData.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PLEwicData.h; sourceTree = "<group>"; };
+		9B55787F2FB7256B00566D68 /* PLEwicDetail.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PLEwicDetail.h; sourceTree = "<group>"; };
+		9B5578802FB7256B00566D68 /* PLExtraChargeItem.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PLExtraChargeItem.h; sourceTree = "<group>"; };
+		9B5578812FB7256B00566D68 /* PLFleetCardRequest.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PLFleetCardRequest.h; sourceTree = "<group>"; };
+		9B5578822FB7256B00566D68 /* PLFleetCardResponse.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PLFleetCardResponse.h; sourceTree = "<group>"; };
+		9B5578832FB7256B00566D68 /* PLFleetData.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PLFleetData.h; sourceTree = "<group>"; };
+		9B5578842FB7256B00566D68 /* PLForceBatchCloseRequest.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PLForceBatchCloseRequest.h; sourceTree = "<group>"; };
+		9B5578852FB7256B00566D68 /* PLForceBatchCloseResponse.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PLForceBatchCloseResponse.h; sourceTree = "<group>"; };
+		9B5578862FB7256B00566D68 /* PLFsaData.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PLFsaData.h; sourceTree = "<group>"; };
+		9B5578872FB7256B00566D68 /* PLGiftTotals.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PLGiftTotals.h; sourceTree = "<group>"; };
+		9B5578882FB7256B00566D68 /* PLHistoryReportRequest.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PLHistoryReportRequest.h; sourceTree = "<group>"; };
+		9B5578892FB7256B00566D68 /* PLHistoryReportResponse.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PLHistoryReportResponse.h; sourceTree = "<group>"; };
+		9B55788A2FB7256B00566D68 /* PLHostCredential.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PLHostCredential.h; sourceTree = "<group>"; };
+		9B55788B2FB7256B00566D68 /* PLHostCredentialResponse.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PLHostCredentialResponse.h; sourceTree = "<group>"; };
+		9B55788C2FB7256B00566D68 /* PLHostDetailReportRequest.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PLHostDetailReportRequest.h; sourceTree = "<group>"; };
+		9B55788D2FB7256B00566D68 /* PLHostDetailReportResponse.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PLHostDetailReportResponse.h; sourceTree = "<group>"; };
+		9B55788E2FB7256B00566D68 /* PLHostGateway.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PLHostGateway.h; sourceTree = "<group>"; };
+		9B55788F2FB7256B00566D68 /* PLHostReportRequest.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PLHostReportRequest.h; sourceTree = "<group>"; };
+		9B5578902FB7256B00566D68 /* PLHostReportResponse.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PLHostReportResponse.h; sourceTree = "<group>"; };
+		9B5578912FB7256B00566D68 /* PLHostResponse.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PLHostResponse.h; sourceTree = "<group>"; };
+		9B5578922FB7256B00566D68 /* PLLineItemDetail.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PLLineItemDetail.h; sourceTree = "<group>"; };
+		9B5578932FB7256B00566D68 /* PLLocalDetailReportRequest.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PLLocalDetailReportRequest.h; sourceTree = "<group>"; };
+		9B5578942FB7256B00566D68 /* PLLocalDetailReportResponse.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PLLocalDetailReportResponse.h; sourceTree = "<group>"; };
+		9B5578952FB7256B00566D68 /* PLLocalFailedReportRequest.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PLLocalFailedReportRequest.h; sourceTree = "<group>"; };
+		9B5578962FB7256B00566D68 /* PLLocalFailedReportResponse.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PLLocalFailedReportResponse.h; sourceTree = "<group>"; };
+		9B5578972FB7256B00566D68 /* PLLocalTotalReportRequest.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PLLocalTotalReportRequest.h; sourceTree = "<group>"; };
+		9B5578982FB7256B00566D68 /* PLLocalTotalReportResponse.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PLLocalTotalReportResponse.h; sourceTree = "<group>"; };
+		9B5578992FB7256B00566D68 /* PLLodging.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PLLodging.h; sourceTree = "<group>"; };
+		9B55789A2FB7256B00566D68 /* PLLodgingItem.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PLLodgingItem.h; sourceTree = "<group>"; };
+		9B55789B2FB7256B00566D68 /* PLLoyaltyTotals.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PLLoyaltyTotals.h; sourceTree = "<group>"; };
+		9B55789C2FB7256B00566D68 /* PLMotoECommerceRequest.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PLMotoECommerceRequest.h; sourceTree = "<group>"; };
+		9B55789D2FB7256B00566D68 /* PLMotoECommerceResponse.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PLMotoECommerceResponse.h; sourceTree = "<group>"; };
+		9B55789E2FB7256B00566D68 /* PLOriginal.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PLOriginal.h; sourceTree = "<group>"; };
+		9B55789F2FB7256B00566D68 /* PLPaymentEmvTag.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PLPaymentEmvTag.h; sourceTree = "<group>"; };
+		9B5578A02FB7256B00566D68 /* PLPaymentTransactionInformation.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PLPaymentTransactionInformation.h; sourceTree = "<group>"; };
+		9B5578A12FB7256B00566D68 /* PLProgramBitmap.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PLProgramBitmap.h; sourceTree = "<group>"; };
+		9B5578A22FB7256B00566D68 /* PLPurgeBatchRequest.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PLPurgeBatchRequest.h; sourceTree = "<group>"; };
+		9B5578A32FB7256B00566D68 /* PLPurgeBatchResponse.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PLPurgeBatchResponse.h; sourceTree = "<group>"; };
+		9B5578A42FB7256B00566D68 /* PLReport.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PLReport.h; sourceTree = "<group>"; };
+		9B5578A52FB7256B00566D68 /* PLReportEmvTag.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PLReportEmvTag.h; sourceTree = "<group>"; };
+		9B5578A62FB7256B00566D68 /* PLReportTransactionInformation.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PLReportTransactionInformation.h; sourceTree = "<group>"; };
+		9B5578A72FB7256B00566D68 /* PLRestaurant.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PLRestaurant.h; sourceTree = "<group>"; };
+		9B5578A82FB7256B00566D68 /* PLRoomRate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PLRoomRate.h; sourceTree = "<group>"; };
+		9B5578A92FB7256B00566D68 /* PLSafSummaryReportRequest.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PLSafSummaryReportRequest.h; sourceTree = "<group>"; };
+		9B5578AA2FB7256B00566D68 /* PLSafSummaryReportResponse.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PLSafSummaryReportResponse.h; sourceTree = "<group>"; };
+		9B5578AB2FB7256B00566D68 /* PLSafUploadRequest.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PLSafUploadRequest.h; sourceTree = "<group>"; };
+		9B5578AC2FB7256B00566D68 /* PLSafUploadResponse.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PLSafUploadResponse.h; sourceTree = "<group>"; };
+		9B5578AD2FB7256B00566D68 /* PLSemiConst.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PLSemiConst.h; sourceTree = "<group>"; };
+		9B5578AE2FB7256B00566D68 /* PLSemiTerminal.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PLSemiTerminal.h; sourceTree = "<group>"; };
+		9B5578AF2FB7256B00566D68 /* PLTaxDetail.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PLTaxDetail.h; sourceTree = "<group>"; };
+		9B5578B02FB7256B00566D68 /* PLTorResponse.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PLTorResponse.h; sourceTree = "<group>"; };
+		9B5578B12FB7256B00566D68 /* PLTotalAmount.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PLTotalAmount.h; sourceTree = "<group>"; };
+		9B5578B22FB7256B00566D68 /* PLTotalCount.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PLTotalCount.h; sourceTree = "<group>"; };
+		9B5578B32FB7256B00566D68 /* PLTotals.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PLTotals.h; sourceTree = "<group>"; };
+		9B5578B42FB7256B00566D68 /* PLTraceRequest.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PLTraceRequest.h; sourceTree = "<group>"; };
+		9B5578B52FB7256B00566D68 /* PLTraceResponse.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PLTraceResponse.h; sourceTree = "<group>"; };
+		9B5578B62FB7256B00566D68 /* PLTransaction.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PLTransaction.h; sourceTree = "<group>"; };
+		9B5578B72FB7256B00566D68 /* PLTransactionBehavior.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PLTransactionBehavior.h; sourceTree = "<group>"; };
+		9B5578B82FB7256B00566D68 /* PLTransactionInformation.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PLTransactionInformation.h; sourceTree = "<group>"; };
+		9B5578B92FB7256B00566D68 /* PLTransactionPromptBitmap.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PLTransactionPromptBitmap.h; sourceTree = "<group>"; };
+		9B5578BA2FB7256B00566D68 /* POSLinkSemi.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = POSLinkSemi.h; sourceTree = "<group>"; };
+		9B5578BC2FB7256B00566D68 /* libPOSLinkSemiIntegration.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libPOSLinkSemiIntegration.a; sourceTree = "<group>"; };
+		B3E7B5881CC2AC0600A0062D /* PaxPoslink.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PaxPoslink.h; sourceTree = "<group>"; };
+		B3E7B5891CC2AC0600A0062D /* PaxPoslink.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = PaxPoslink.mm; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		58B511D81A9E6C8500147676 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		134814211AA4EA7D00B7C361 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				134814201AA4EA6300B7C361 /* libPaxPoslink.a */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		58B511D21A9E6C8500147676 = {
+			isa = PBXGroup;
+			children = (
+				9B55784B2FB7256B00566D68 /* POSLinkAdminSDK */,
+				9B5578BD2FB7256B00566D68 /* POSLinkSemiIntegrationSDK */,
+				B3E7B5881CC2AC0600A0062D /* PaxPoslink.h */,
+				B3E7B5891CC2AC0600A0062D /* PaxPoslink.mm */,
+				134814211AA4EA7D00B7C361 /* Products */,
+				9B5577CF2FB7249500566D68 /* Frameworks */,
+			);
+			sourceTree = "<group>";
+		};
+		9B5577CF2FB7249500566D68 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				9B5577D12FB724BE00566D68 /* libPOSLinkSemiIntegration.a */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		9B5578492FB7256B00566D68 /* Header */ = {
+			isa = PBXGroup;
+			children = (
+				9B5577D32FB7256B00566D68 /* MposBluetoothScan.h */,
+				9B5577D42FB7256B00566D68 /* PLAdminConst.h */,
+				9B5577D52FB7256B00566D68 /* PLAmountRequest.h */,
+				9B5577D62FB7256B00566D68 /* PLApplePayVas.h */,
+				9B5577D72FB7256B00566D68 /* PLBaseTerminal.h */,
+				9B5577D82FB7256B00566D68 /* PLCameraScanRequest.h */,
+				9B5577D92FB7256B00566D68 /* PLCameraScanResponse.h */,
+				9B5577DA2FB7256B00566D68 /* PLCardInsertDetectionRequest.h */,
+				9B5577DB2FB7256B00566D68 /* PLCardInsertDetectionResponse.h */,
+				9B5577DC2FB7256B00566D68 /* PLCheckFileRequest.h */,
+				9B5577DD2FB7256B00566D68 /* PLCheckFileResponse.h */,
+				9B5577DE2FB7256B00566D68 /* PLClearMessageRequest.h */,
+				9B5577DF2FB7256B00566D68 /* PLClearMessageResponse.h */,
+				9B5577E02FB7256B00566D68 /* PLCode100003.h */,
+				9B5577E12FB7256B00566D68 /* PLCode100004.h */,
+				9B5577E22FB7256B00566D68 /* PLCode100010.h */,
+				9B5577E32FB7256B00566D68 /* PLCode100014.h */,
+				9B5577E42FB7256B00566D68 /* PLCode100020.h */,
+				9B5577E52FB7256B00566D68 /* PLCode100021.h */,
+				9B5577E62FB7256B00566D68 /* PLCode100023.h */,
+				9B5577E72FB7256B00566D68 /* PLCode100033.h */,
+				9B5577E82FB7256B00566D68 /* PLCode100101.h */,
+				9B5577E92FB7256B00566D68 /* PLCommunicationSetting.h */,
+				9B5577EA2FB7256B00566D68 /* PLDeleteImageRequest.h */,
+				9B5577EB2FB7256B00566D68 /* PLDeleteImageResponse.h */,
+				9B5577EC2FB7256B00566D68 /* PLDevice.h */,
+				9B5577ED2FB7256B00566D68 /* PLDoSignatureRequest.h */,
+				9B5577EE2FB7256B00566D68 /* PLDoSignatureResponse.h */,
+				9B5577EF2FB7256B00566D68 /* PLDukptKeyInformation.h */,
+				9B5577F02FB7256B00566D68 /* PLExecutionResult.h */,
+				9B5577F12FB7256B00566D68 /* PLForm.h */,
+				9B5577F22FB7256B00566D68 /* PLGetPedInformationRequest.h */,
+				9B5577F32FB7256B00566D68 /* PLGetPedInformationResponse.h */,
+				9B5577F42FB7256B00566D68 /* PLGetSafParametersRequest.h */,
+				9B5577F52FB7256B00566D68 /* PLGetSafParametersResponse.h */,
+				9B5577F62FB7256B00566D68 /* PLGetSignatureRequest.h */,
+				9B5577F72FB7256B00566D68 /* PLGetSignatureResponse.h */,
+				9B5577F82FB7256B00566D68 /* PLGetVariableRequest.h */,
+				9B5577F92FB7256B00566D68 /* PLGetVariableResponse.h */,
+				9B5577FA2FB7256B00566D68 /* PLGoogleServiceTypeBitmap.h */,
+				9B5577FB2FB7256B00566D68 /* PLGoogleSmartTap.h */,
+				9B5577FC2FB7256B00566D68 /* PLGoogleSmartTapCapBitmap.h */,
+				9B5577FD2FB7256B00566D68 /* PLGoogleSmartTapPushService.h */,
+				9B5577FE2FB7256B00566D68 /* PLHardwareConfigurationBitmap.h */,
+				9B5577FF2FB7256B00566D68 /* PLIncreaseKsnRequest.h */,
+				9B5578002FB7256B00566D68 /* PLIncreaseKsnResponse.h */,
+				9B5578012FB7256B00566D68 /* PLInitRequest.h */,
+				9B5578022FB7256B00566D68 /* PLInitResponse.h */,
+				9B5578032FB7256B00566D68 /* PLInputAccountRequest.h */,
+				9B5578042FB7256B00566D68 /* PLInputAccountResponse.h */,
+				9B5578052FB7256B00566D68 /* PLInputTextRequest.h */,
+				9B5578062FB7256B00566D68 /* PLInputTextResponse.h */,
+				9B5578072FB7256B00566D68 /* PLItemDetail.h */,
+				9B5578082FB7256B00566D68 /* PLLogSetting.h */,
+				9B5578092FB7256B00566D68 /* PLMacCalculationRequest.h */,
+				9B55780A2FB7256B00566D68 /* PLMacCalculationResponse.h */,
+				9B55780B2FB7256B00566D68 /* PLManage.h */,
+				9B55780C2FB7256B00566D68 /* PLMasterSessionKeyInformation.h */,
+				9B55780D2FB7256B00566D68 /* PLMifareCardRequest.h */,
+				9B55780E2FB7256B00566D68 /* PLMifareCardResponse.h */,
+				9B55780F2FB7256B00566D68 /* PLMultiMerchant.h */,
+				9B5578102FB7256B00566D68 /* PLNewService.h */,
+				9B5578112FB7256B00566D68 /* PLPayload.h */,
+				9B5578122FB7256B00566D68 /* PLPayloadRequest.h */,
+				9B5578132FB7256B00566D68 /* PLPayloadResponse.h */,
+				9B5578142FB7256B00566D68 /* PLPed.h */,
+				9B5578152FB7256B00566D68 /* PLPrinterRequest.h */,
+				9B5578162FB7256B00566D68 /* PLPrinterResponse.h */,
+				9B5578172FB7256B00566D68 /* PLRebootRequest.h */,
+				9B5578182FB7256B00566D68 /* PLRebootResponse.h */,
+				9B5578192FB7256B00566D68 /* PLRemoveCardRequest.h */,
+				9B55781A2FB7256B00566D68 /* PLRemoveCardResponse.h */,
+				9B55781B2FB7256B00566D68 /* PLReportStatusData.h */,
+				9B55781C2FB7256B00566D68 /* PLReprintRequest.h */,
+				9B55781D2FB7256B00566D68 /* PLReprintResponse.h */,
+				9B55781E2FB7256B00566D68 /* PLRequest.h */,
+				9B55781F2FB7256B00566D68 /* PLResetMsrRequest.h */,
+				9B5578202FB7256B00566D68 /* PLResetMsrResponse.h */,
+				9B5578212FB7256B00566D68 /* PLResetRequest.h */,
+				9B5578222FB7256B00566D68 /* PLResetResponse.h */,
+				9B5578232FB7256B00566D68 /* PLResponse.h */,
+				9B5578242FB7256B00566D68 /* PLResponseCode.h */,
+				9B5578252FB7256B00566D68 /* PLSdButton.h */,
+				9B5578262FB7256B00566D68 /* PLServiceUpdate.h */,
+				9B5578272FB7256B00566D68 /* PLServiceUsage.h */,
+				9B5578282FB7256B00566D68 /* PLSessionKeyInjectionRequest.h */,
+				9B5578292FB7256B00566D68 /* PLSessionKeyInjectionResponse.h */,
+				9B55782A2FB7256B00566D68 /* PLSetApplePayVasParametersRequest.h */,
+				9B55782B2FB7256B00566D68 /* PLSetApplePayVasParametersResponse.h */,
+				9B55782C2FB7256B00566D68 /* PLSetGoogleSmartTapParametersRequest.h */,
+				9B55782D2FB7256B00566D68 /* PLSetGoogleSmartTapParametersResponse.h */,
+				9B55782E2FB7256B00566D68 /* PLSetSafParametersRequest.h */,
+				9B55782F2FB7256B00566D68 /* PLSetSafParametersResponse.h */,
+				9B5578302FB7256B00566D68 /* PLSetVariableRequest.h */,
+				9B5578312FB7256B00566D68 /* PLSetVariableResponse.h */,
+				9B5578322FB7256B00566D68 /* PLShowDialogFormRequest.h */,
+				9B5578332FB7256B00566D68 /* PLShowDialogFormResponse.h */,
+				9B5578342FB7256B00566D68 /* PLShowDialogRequest.h */,
+				9B5578352FB7256B00566D68 /* PLShowDialogResponse.h */,
+				9B5578362FB7256B00566D68 /* PLShowItemRequest.h */,
+				9B5578372FB7256B00566D68 /* PLShowItemResponse.h */,
+				9B5578382FB7256B00566D68 /* PLShowMessageCenterRequest.h */,
+				9B5578392FB7256B00566D68 /* PLShowMessageCenterResponse.h */,
+				9B55783A2FB7256B00566D68 /* PLShowMessageRequest.h */,
+				9B55783B2FB7256B00566D68 /* PLShowMessageResponse.h */,
+				9B55783C2FB7256B00566D68 /* PLShowTextBoxRequest.h */,
+				9B55783D2FB7256B00566D68 /* PLShowTextBoxResponse.h */,
+				9B55783E2FB7256B00566D68 /* PLStbButton.h */,
+				9B55783F2FB7256B00566D68 /* PLTokenAdministrativeRequest.h */,
+				9B5578402FB7256B00566D68 /* PLTokenAdministrativeResponse.h */,
+				9B5578412FB7256B00566D68 /* PLUpdateResourceFileRequest.h */,
+				9B5578422FB7256B00566D68 /* PLUpdateResourceFileResponse.h */,
+				9B5578432FB7256B00566D68 /* PLUploadLogResult.h */,
+				9B5578442FB7256B00566D68 /* PLVasPushDataRequest.h */,
+				9B5578452FB7256B00566D68 /* PLVasPushDataResponse.h */,
+				9B5578462FB7256B00566D68 /* PLVasResponse.h */,
+				9B5578472FB7256B00566D68 /* POSLinkErrorMsg.h */,
+				9B5578482FB7256B00566D68 /* POSLinkPAXLogTool.h */,
+			);
+			path = Header;
+			sourceTree = "<group>";
+		};
+		9B55784B2FB7256B00566D68 /* POSLinkAdminSDK */ = {
+			isa = PBXGroup;
+			children = (
+				9B5578492FB7256B00566D68 /* Header */,
+				9B55784A2FB7256B00566D68 /* libPOSLinkAdmin.a */,
+			);
+			path = POSLinkAdminSDK;
+			sourceTree = "<group>";
+		};
+		9B5578BB2FB7256B00566D68 /* Header */ = {
+			isa = PBXGroup;
+			children = (
+				9B55784C2FB7256B00566D68 /* PLAccountRequest.h */,
+				9B55784D2FB7256B00566D68 /* PLAccountResponse.h */,
+				9B55784E2FB7256B00566D68 /* PLAdditionalResponseData.h */,
+				9B55784F2FB7256B00566D68 /* PLAmountResponse.h */,
+				9B5578502FB7256B00566D68 /* PLAutoRental.h */,
+				9B5578512FB7256B00566D68 /* PLAvsRequest.h */,
+				9B5578522FB7256B00566D68 /* PLAvsResponse.h */,
+				9B5578532FB7256B00566D68 /* PLBatch.h */,
+				9B5578542FB7256B00566D68 /* PLBatchClearRequest.h */,
+				9B5578552FB7256B00566D68 /* PLBatchClearResponse.h */,
+				9B5578562FB7256B00566D68 /* PLBatchCloseRequest.h */,
+				9B5578572FB7256B00566D68 /* PLBatchCloseResponse.h */,
+				9B5578582FB7256B00566D68 /* PLCardInformation.h */,
+				9B5578592FB7256B00566D68 /* PLCardTotalAmount.h */,
+				9B55785A2FB7256B00566D68 /* PLCardTotalCount.h */,
+				9B55785B2FB7256B00566D68 /* PLCardTypeBitmap.h */,
+				9B55785C2FB7256B00566D68 /* PLCashierRequest.h */,
+				9B55785D2FB7256B00566D68 /* PLCashierResponse.h */,
+				9B55785E2FB7256B00566D68 /* PLCashTotals.h */,
+				9B55785F2FB7256B00566D68 /* PLCheckRequest.h */,
+				9B5578602FB7256B00566D68 /* PLCheckResponse.h */,
+				9B5578612FB7256B00566D68 /* PLCheckTotals.h */,
+				9B5578622FB7256B00566D68 /* PLCommercialRequest.h */,
+				9B5578632FB7256B00566D68 /* PLCommercialResponse.h */,
+				9B5578642FB7256B00566D68 /* PLCreditTotals.h */,
+				9B5578652FB7256B00566D68 /* PLDebitTotals.h */,
+				9B5578662FB7256B00566D68 /* PLDeleteSafFileRequest.h */,
+				9B5578672FB7256B00566D68 /* PLDeleteSafFileResponse.h */,
+				9B5578682FB7256B00566D68 /* PLDeleteTransactionRequest.h */,
+				9B5578692FB7256B00566D68 /* PLDeleteTransactionResponse.h */,
+				9B55786A2FB7256B00566D68 /* PLDoCashRequest.h */,
+				9B55786B2FB7256B00566D68 /* PLDoCashResponse.h */,
+				9B55786C2FB7256B00566D68 /* PLDoCheckRequest.h */,
+				9B55786D2FB7256B00566D68 /* PLDoCheckResponse.h */,
+				9B55786E2FB7256B00566D68 /* PLDoCreditRequest.h */,
+				9B55786F2FB7256B00566D68 /* PLDoCreditResponse.h */,
+				9B5578702FB7256B00566D68 /* PLDoDebitRequest.h */,
+				9B5578712FB7256B00566D68 /* PLDoDebitResponse.h */,
+				9B5578722FB7256B00566D68 /* PLDoEbtRequest.h */,
+				9B5578732FB7256B00566D68 /* PLDoEbtResponse.h */,
+				9B5578742FB7256B00566D68 /* PLDoGiftRequest.h */,
+				9B5578752FB7256B00566D68 /* PLDoGiftResponse.h */,
+				9B5578762FB7256B00566D68 /* PLDoLoyaltyRequest.h */,
+				9B5578772FB7256B00566D68 /* PLDoLoyaltyResponse.h */,
+				9B5578782FB7256B00566D68 /* PLEbtTotals.h */,
+				9B5578792FB7256B00566D68 /* PLEdcTotalAmount.h */,
+				9B55787A2FB7256B00566D68 /* PLEdcTotalCount.h */,
+				9B55787B2FB7256B00566D68 /* PLEmvTag.h */,
+				9B55787C2FB7256B00566D68 /* PLEntryModeBitmap.h */,
+				9B55787D2FB7256B00566D68 /* PLEwicBalance.h */,
+				9B55787E2FB7256B00566D68 /* PLEwicData.h */,
+				9B55787F2FB7256B00566D68 /* PLEwicDetail.h */,
+				9B5578802FB7256B00566D68 /* PLExtraChargeItem.h */,
+				9B5578812FB7256B00566D68 /* PLFleetCardRequest.h */,
+				9B5578822FB7256B00566D68 /* PLFleetCardResponse.h */,
+				9B5578832FB7256B00566D68 /* PLFleetData.h */,
+				9B5578842FB7256B00566D68 /* PLForceBatchCloseRequest.h */,
+				9B5578852FB7256B00566D68 /* PLForceBatchCloseResponse.h */,
+				9B5578862FB7256B00566D68 /* PLFsaData.h */,
+				9B5578872FB7256B00566D68 /* PLGiftTotals.h */,
+				9B5578882FB7256B00566D68 /* PLHistoryReportRequest.h */,
+				9B5578892FB7256B00566D68 /* PLHistoryReportResponse.h */,
+				9B55788A2FB7256B00566D68 /* PLHostCredential.h */,
+				9B55788B2FB7256B00566D68 /* PLHostCredentialResponse.h */,
+				9B55788C2FB7256B00566D68 /* PLHostDetailReportRequest.h */,
+				9B55788D2FB7256B00566D68 /* PLHostDetailReportResponse.h */,
+				9B55788E2FB7256B00566D68 /* PLHostGateway.h */,
+				9B55788F2FB7256B00566D68 /* PLHostReportRequest.h */,
+				9B5578902FB7256B00566D68 /* PLHostReportResponse.h */,
+				9B5578912FB7256B00566D68 /* PLHostResponse.h */,
+				9B5578922FB7256B00566D68 /* PLLineItemDetail.h */,
+				9B5578932FB7256B00566D68 /* PLLocalDetailReportRequest.h */,
+				9B5578942FB7256B00566D68 /* PLLocalDetailReportResponse.h */,
+				9B5578952FB7256B00566D68 /* PLLocalFailedReportRequest.h */,
+				9B5578962FB7256B00566D68 /* PLLocalFailedReportResponse.h */,
+				9B5578972FB7256B00566D68 /* PLLocalTotalReportRequest.h */,
+				9B5578982FB7256B00566D68 /* PLLocalTotalReportResponse.h */,
+				9B5578992FB7256B00566D68 /* PLLodging.h */,
+				9B55789A2FB7256B00566D68 /* PLLodgingItem.h */,
+				9B55789B2FB7256B00566D68 /* PLLoyaltyTotals.h */,
+				9B55789C2FB7256B00566D68 /* PLMotoECommerceRequest.h */,
+				9B55789D2FB7256B00566D68 /* PLMotoECommerceResponse.h */,
+				9B55789E2FB7256B00566D68 /* PLOriginal.h */,
+				9B55789F2FB7256B00566D68 /* PLPaymentEmvTag.h */,
+				9B5578A02FB7256B00566D68 /* PLPaymentTransactionInformation.h */,
+				9B5578A12FB7256B00566D68 /* PLProgramBitmap.h */,
+				9B5578A22FB7256B00566D68 /* PLPurgeBatchRequest.h */,
+				9B5578A32FB7256B00566D68 /* PLPurgeBatchResponse.h */,
+				9B5578A42FB7256B00566D68 /* PLReport.h */,
+				9B5578A52FB7256B00566D68 /* PLReportEmvTag.h */,
+				9B5578A62FB7256B00566D68 /* PLReportTransactionInformation.h */,
+				9B5578A72FB7256B00566D68 /* PLRestaurant.h */,
+				9B5578A82FB7256B00566D68 /* PLRoomRate.h */,
+				9B5578A92FB7256B00566D68 /* PLSafSummaryReportRequest.h */,
+				9B5578AA2FB7256B00566D68 /* PLSafSummaryReportResponse.h */,
+				9B5578AB2FB7256B00566D68 /* PLSafUploadRequest.h */,
+				9B5578AC2FB7256B00566D68 /* PLSafUploadResponse.h */,
+				9B5578AD2FB7256B00566D68 /* PLSemiConst.h */,
+				9B5578AE2FB7256B00566D68 /* PLSemiTerminal.h */,
+				9B5578AF2FB7256B00566D68 /* PLTaxDetail.h */,
+				9B5578B02FB7256B00566D68 /* PLTorResponse.h */,
+				9B5578B12FB7256B00566D68 /* PLTotalAmount.h */,
+				9B5578B22FB7256B00566D68 /* PLTotalCount.h */,
+				9B5578B32FB7256B00566D68 /* PLTotals.h */,
+				9B5578B42FB7256B00566D68 /* PLTraceRequest.h */,
+				9B5578B52FB7256B00566D68 /* PLTraceResponse.h */,
+				9B5578B62FB7256B00566D68 /* PLTransaction.h */,
+				9B5578B72FB7256B00566D68 /* PLTransactionBehavior.h */,
+				9B5578B82FB7256B00566D68 /* PLTransactionInformation.h */,
+				9B5578B92FB7256B00566D68 /* PLTransactionPromptBitmap.h */,
+				9B5578BA2FB7256B00566D68 /* POSLinkSemi.h */,
+			);
+			path = Header;
+			sourceTree = "<group>";
+		};
+		9B5578BD2FB7256B00566D68 /* POSLinkSemiIntegrationSDK */ = {
+			isa = PBXGroup;
+			children = (
+				9B5578BB2FB7256B00566D68 /* Header */,
+				9B5578BC2FB7256B00566D68 /* libPOSLinkSemiIntegration.a */,
+			);
+			path = POSLinkSemiIntegrationSDK;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		58B511DA1A9E6C8500147676 /* PaxPoslink */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 58B511EF1A9E6C8500147676 /* Build configuration list for PBXNativeTarget "PaxPoslink" */;
+			buildPhases = (
+				58B511D71A9E6C8500147676 /* Sources */,
+				58B511D81A9E6C8500147676 /* Frameworks */,
+				58B511D91A9E6C8500147676 /* CopyFiles */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = PaxPoslink;
+			productName = RCTDataManager;
+			productReference = 134814201AA4EA6300B7C361 /* libPaxPoslink.a */;
+			productType = "com.apple.product-type.library.static";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		58B511D31A9E6C8500147676 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0920;
+				ORGANIZATIONNAME = Facebook;
+				TargetAttributes = {
+					58B511DA1A9E6C8500147676 = {
+						CreatedOnToolsVersion = 6.1.1;
+					};
+				};
+			};
+			buildConfigurationList = 58B511D61A9E6C8500147676 /* Build configuration list for PBXProject "PaxPoslink" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				English,
+				en,
+			);
+			mainGroup = 58B511D21A9E6C8500147676;
+			productRefGroup = 58B511D21A9E6C8500147676;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				58B511DA1A9E6C8500147676 /* PaxPoslink */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXSourcesBuildPhase section */
+		58B511D71A9E6C8500147676 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				B3E7B58A1CC2AC0600A0062D /* PaxPoslink.mm in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		58B511ED1A9E6C8500147676 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "c++17";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				"EXCLUDED_ARCHS[sdk=iphonesimulator*]" = arm64;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+			};
+			name = Debug;
+		};
+		58B511EE1A9E6C8500147676 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "c++17";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = YES;
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				"EXCLUDED_ARCHS[sdk=iphonesimulator*]" = arm64;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = iphoneos;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		58B511F01A9E6C8500147676 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
+					"$(SRCROOT)/../node_modules/react-native",
+					"$(SRCROOT)/../node_modules/react-native/React",
+					"$(SRCROOT)/../node_modules/react-native/React/Base",
+					"$(SRCROOT)/POSLinkSemiIntegrationSDK/Header",
+					"$(SRCROOT)/POSLinkAdminSDK/Header",
+				);
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/POSLinkAdminSDK",
+					"$(PROJECT_DIR)/POSLinkSemiIntegrationSDK",
+				);
+				OTHER_LDFLAGS = "-ObjC";
+				PRODUCT_NAME = PaxPoslink;
+				SKIP_INSTALL = YES;
+			};
+			name = Debug;
+		};
+		58B511F11A9E6C8500147676 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
+					"$(SRCROOT)/../node_modules/react-native",
+					"$(SRCROOT)/../node_modules/react-native/React",
+					"$(SRCROOT)/../node_modules/react-native/React/Base",
+					"$(SRCROOT)/POSLinkSemiIntegrationSDK/Header",
+					"$(SRCROOT)/POSLinkAdminSDK/Header",
+				);
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/POSLinkAdminSDK",
+					"$(PROJECT_DIR)/POSLinkSemiIntegrationSDK",
+				);
+				OTHER_LDFLAGS = "-ObjC";
+				PRODUCT_NAME = PaxPoslink;
+				SKIP_INSTALL = YES;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		58B511D61A9E6C8500147676 /* Build configuration list for PBXProject "PaxPoslink" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				58B511ED1A9E6C8500147676 /* Debug */,
+				58B511EE1A9E6C8500147676 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		58B511EF1A9E6C8500147676 /* Build configuration list for PBXNativeTarget "PaxPoslink" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				58B511F01A9E6C8500147676 /* Debug */,
+				58B511F11A9E6C8500147676 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 58B511D31A9E6C8500147676 /* Project object */;
+}

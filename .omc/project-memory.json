@@ -1,6 +1,6 @@
 {
   "version": "1.0.0",
-  "lastScanned": 1778140485529,
+  "lastScanned": 1780048229549,
   "projectRoot": "/Volumes/ExternalSSD/RN/react-native-pax",
   "techStack": {
     "languages": [
@@ -73,7 +73,7 @@
       "path": "android",
       "purpose": null,
       "fileCount": 5,
-      "lastAccessed": 1778140485494,
+      "lastAccessed": 1780048229503,
       "keyFiles": [
         "build.gradle",
         "gradle.properties",
@@ -86,14 +86,14 @@
       "path": "gradle",
       "purpose": null,
       "fileCount": 0,
-      "lastAccessed": 1778140485496,
+      "lastAccessed": 1780048229507,
       "keyFiles": []
     },
     "src": {
       "path": "src",
       "purpose": "Source code",
       "fileCount": 2,
-      "lastAccessed": 1778140485505,
+      "lastAccessed": 1780048229537,
       "keyFiles": [
         "index.ts",
         "type.ts"
@@ -103,14 +103,14 @@
       "path": "tasks",
       "purpose": null,
       "fileCount": 0,
-      "lastAccessed": 1778140485511,
+      "lastAccessed": 1780048229542,
       "keyFiles": []
     },
     "android/build": {
       "path": "android/build",
       "purpose": "Build output",
       "fileCount": 0,
-      "lastAccessed": 1778140485514,
+      "lastAccessed": 1780048229544,
       "keyFiles": []
     }
   },

@@ -43,4 +43,6 @@ android/.gradle/*
 android/gradle/wrapper/gradle-wrapper.jar
 android/local.properties
 android/build/reports/
-sessions/
+.omx
+.omc
+tasks/

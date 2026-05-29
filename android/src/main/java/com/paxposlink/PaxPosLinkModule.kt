@@ -28,7 +28,6 @@ import com.pax.poslinksemiintegration.batch.BatchCloseResponse
 import com.pax.poslinksemiintegration.constant.CardPresentIndicator
 import com.pax.poslinksemiintegration.constant.TipRequestFlag
 import com.pax.poslinksemiintegration.constant.VehicleClassId
-import com.pax.poslinksemiintegration.constant.TransactionResultType
 import com.pax.poslinksemiintegration.report.HistoryReportRequest
 import com.pax.poslinksemiintegration.report.HistoryReportResponse
 import com.pax.poslinksemiintegration.report.LocalDetailReportRequest
@@ -130,8 +129,14 @@ class PaxPosLinkModule(
                 showTip = data.takeIf { it.hasKey("showTip") && !it.isNull("showTip") }?.getBoolean("showTip") ?: false,
             )
 
-        this.salesRequest = salesRequest
-        if (terminal !== null) {
+        Thread {
+            this.salesRequest = salesRequest
+            if (terminal == null) {
+                Log.d("Error", "Don't connect")
+                promise.reject("NO_TERMINAL", "Please connect PAX terminal first")
+                return@Thread
+            }
+
             try {
                 when (salesRequest.paymentType) {
                     CreditTransactionType.Credit.code -> {
@@ -144,16 +149,14 @@ class PaxPosLinkModule(
                     }
                     else -> {
                         promise.reject("INVALID_TYPE", "Please select transaction command (credit/ debit)!")
-                        return
+                        return@Thread
                     }
                 }
             } catch (e: Exception) {
                 Log.d("Error", e.toString())
+                promise.reject("PAYMENT_ERROR", e.message, e)
             }
-        } else {
-            Log.d("Error", "Don't connect")
-            promise.reject("NO_TERMINAL", "Please connect PAX terminal first")
-        }
+        }.start()
     }
 
     private fun PaxResponseModel.toWritableMap(): WritableMap {
@@ -265,7 +268,7 @@ class PaxPosLinkModule(
     }
 
     @ReactMethod
-    fun void(
+    fun voidTransaction(
         data: ReadableMap,
         promise: Promise,
     ) {
@@ -410,12 +413,12 @@ class PaxPosLinkModule(
     }
 
     @ReactMethod
-    fun cancelInit(promise: Promise) {
+    fun cancelTransaction(promise: Promise) {
         try {
             terminal?.cancel()
-            promise.resolve("Cancel Init Success")
+            promise.resolve("Cancel transaction requested")
         } catch (e: Exception) {
-            promise.reject("Failed", "Batch close error")
+            promise.reject("CANCEL_FAILED", e.message, e)
         }
     }
 
@@ -448,9 +451,7 @@ class PaxPosLinkModule(
             continuousScreen = ContinuousScreen.NOT_SET
         }
 
-    private fun buildBatchCloseResponse(
-        result: ExecutionResult<BatchCloseResponse>?,
-    ): PaxResponseModel {
+    private fun buildBatchCloseResponse(result: ExecutionResult<BatchCloseResponse>?): PaxResponseModel {
         val rsp = result?.response()
         return if (result?.code() == ExecutionCode.OK) {
             PaxResponseModel().apply {
@@ -539,7 +540,10 @@ class PaxPosLinkModule(
         return map
     }
 
-    private fun convertTorResponseToMap(tor: TorResponse, torArray: WritableArray) {
+    private fun convertTorResponseToMap(
+        tor: TorResponse,
+        torArray: WritableArray,
+    ) {
         val map = Arguments.createMap()
         map.putString("batchNumber", tor.batchNumber())
         map.putString("gatewayTransactionId", tor.gatewayTransactionId())
@@ -747,7 +751,9 @@ class PaxPosLinkModule(
             val result = terminal?.report?.localDetailReport(request)
             return if (result?.code() == ExecutionCode.OK) {
                 result.response().totalRecord()?.toIntOrNull() ?: 0
-            } else 0
+            } else {
+                0
+            }
         } catch (e: Exception) {
             throw Exception("Error totalTransactionCount: ${e.message}")
         }
@@ -758,10 +764,24 @@ class PaxPosLinkModule(
             val request = LocalTotalReportRequest().apply { edcType = EdcType.ALL }
             val result = terminal?.report?.localTotalReport(request)
             return if (result?.code() == ExecutionCode.OK) {
-                val sale = result.response().totals().creditTotals().saleAmount().toIntOrNull() ?: 0
-                val refund = result.response().totals().creditTotals().returnAmount().toIntOrNull() ?: 0
+                val sale =
+                    result
+                        .response()
+                        .totals()
+                        .creditTotals()
+                        .saleAmount()
+                        .toIntOrNull() ?: 0
+                val refund =
+                    result
+                        .response()
+                        .totals()
+                        .creditTotals()
+                        .returnAmount()
+                        .toIntOrNull() ?: 0
                 sale - refund
-            } else 0
+            } else {
+                0
+            }
         } catch (e: Exception) {
             throw Exception("Error totalTransactionAmount: ${e.message}")
         }
@@ -772,8 +792,14 @@ class PaxPosLinkModule(
             val request = LocalDetailReportRequest().apply { edcType = EdcType.ALL }
             val result = terminal?.report?.localDetailReport(request)
             return if (result?.code() == ExecutionCode.OK) {
-                result.response().traceInformation().ecrReferenceNumber().toIntOrNull() ?: 0
-            } else 0
+                result
+                    .response()
+                    .traceInformation()
+                    .ecrReferenceNumber()
+                    .toIntOrNull() ?: 0
+            } else {
+                0
+            }
         } catch (e: Exception) {
             throw Exception("Error batchStartDate: ${e.message}")
         }

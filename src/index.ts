@@ -1,43 +1,23 @@
-import { NativeModules, Platform } from 'react-native';
 import {
   PaxBatchInformationResponseModel,
   PaxInitModel,
   PaxResponseModel,
 } from './type';
+import NativePaxPoslink from './NativePaxPoslink';
 export * from './type';
-// This package is Android-only. Provide clear errors on non-Android platforms
-const ANDROID_ONLY_ERROR =
-  "The package '@haroldtran/react-native-pax' only supports Android.";
 
-const LINKING_ERROR =
-  `The package '@haroldtran/react-native-pax' doesn't seem to be linked. Make sure:\n\n` +
-  '- You rebuilt the app after installing the package\n' +
-  '- You are not using Expo Go\n';
-
-const isAndroid = Platform.OS === 'android';
-
-const PaxPosLink = isAndroid
-  ? NativeModules.PaxPoslink ??
-    new Proxy(
-      {},
-      {
-        get() {
-          const err = new Error(LINKING_ERROR);
-          err.stack = '';
-          throw err;
-        },
-      }
-    )
-  : new Proxy(
-      {},
-      {
-        get() {
-          const err = new Error(ANDROID_ONLY_ERROR);
-          err.stack = '';
-          throw err;
-        },
-      }
-    );
+const PaxPosLink =
+  NativePaxPoslink ??
+  new Proxy(
+    {},
+    {
+      get() {
+        throw new Error(
+          `The package '@haroldtran/react-native-pax' is not linked. Rebuild the app after installing.`
+        );
+      },
+    }
+  );
 
 /**
  * Initializes the POSLink connection.
@@ -72,13 +52,21 @@ export function makePayment(
   showTip?: boolean
 ): Promise<PaxResponseModel> {
   return PaxPosLink.payment({
-    id,
+    transactionId: id,
     amount,
     tip,
     paymentType,
     ecrRefNum,
     showTip,
   });
+}
+
+/**
+ * Requests cancellation of the active terminal command or transaction.
+ * @returns {Promise<string>} A promise resolving once the cancel request is sent.
+ */
+export function cancelTransaction(): Promise<string> {
+  return PaxPosLink.cancelTransaction();
 }
 
 /**
@@ -100,7 +88,7 @@ export function makeRefund(
  * @returns {Promise<PaxResponseModel>} A promise resolving to the void result.
  */
 export function makeVoid(ecrRefNum: string): Promise<PaxResponseModel> {
-  return PaxPosLink.void({ ecrRefNum });
+  return PaxPosLink.voidTransaction({ ecrRefNum });
 }
 
 /**
