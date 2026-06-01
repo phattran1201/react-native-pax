@@ -2,14 +2,46 @@
 
 ## [1.0.21](https://github.com/phattran1201/react-native-pax/compare/v1.0.20...v1.0.21) (2026-05-29)
 
+### Features
+
+* **iOS Support & SDK Integration**: Integrated the PAX POSLink Semi-Integration iOS SDK (`POSLinkSemiIntegrationSDK` static library and header files) enabling native POS integration on iOS devices. ([87818d5](https://github.com/phattran1201/react-native-pax/commit/87818d5a05d2ce8dc59556e7820214f9c1beae1d), [a0afa7f](https://github.com/phattran1201/react-native-pax/commit/a0afa7f8742004df4adec29a2e8526e990515485))
+* **Unified TurboModule Architecture**: Migrated the package architecture to a unified TurboModule structure (`NativePaxPoslink.ts`) with modern codegen support while maintaining backward compatibility with the legacy React Native bridge.
+* **Exposed iOS Native Methods**:
+  * `initPOSLink(ip, port, timeout)`: Initializes TCP communication with PAX terminals, supporting customizable port and timeout configurations.
+  * `makePayment(id, amount, tip, paymentType, ecrRefNum, showTip)`: Supports credit/debit transaction sales with optional tips and terminal-side tip prompts.
+  * `makeRefund(amount, ecrRefNum)`: Supports credit refund/return operations.
+  * `makeVoid(ecrRefNum)`: Voids specified credit transactions.
+  * `makeCloseBatch()`: Triggers batch closeouts and processes batch counts/totals.
+  * `getBatchInformation()`: Retrieves history and total details of the active batch.
+  * `checkVoidOrRefundTransaction(ecrRefNum)`: Queries local report database to check transaction status.
+  * `cancelTransaction()`: Requests terminal cancellation and cleans up the active connection object.
+* **Response Mapping Optimization**:
+  * Unified transaction response shapes with full parsing of authorization, host information, reference numbers, entry mode translations (e.g., contactless chip, contact chip, fallback swipe), card brand labels, and tip/surcharge fees.
+
+### Build & Toolchain
+
+* **NPM & Bob Config**: Configured `react-native-builder-bob` to automatically build ESM (`lib/module`), CommonJS (`lib/commonjs`), and TypeScript type declarations (`lib/typescript`).
+* **Package Scripts**: Added `"build": "bob build"` and integrated automatic compilation into the `prebuild` phase for better safety and DX.
+
 ## [1.0.20](https://github.com/phattran1201/react-native-pax/compare/v1.0.19...v1.0.20) (2026-05-22)
+
+### Refactors & Maintenance
+
+* **Android PAX JAR Updates**: Updated Android dependencies inside `android/libs/` to the latest stable versions: ([84e66b3](https://github.com/phattran1201/react-native-pax/commit/84e66b38e4fbc4800c6be475b68cbbe59a4201f4))
+  * `POSLink_Admin_Android_Plugin_V2.00.00_20230828.jar`
+  * `POSLink_Core_Android_V2.00.03_20230828.jar`
+* **Repository Cleanup**: Added `.omc/` caching directories to `.gitignore` to keep repository changes clean and focused.
 
 ## [1.0.19](https://github.com/phattran1201/react-native-pax/compare/v1.0.18...v1.0.19) (2026-04-03)
 
-
 ### Features
 
-* add getBatchInformation support and extend Pax transaction models ([c00c131](https://github.com/phattran1201/react-native-pax/commit/c00c131a8a06621307ecdc8195d8d9701b9cea16))
+* **Batch Information Querying**: Introduced `getBatchInformation()` support on Android, allowing clients to query current batch status, record counts, and totals. ([cbf2cbe](https://github.com/phattran1201/react-native-pax/commit/cbf2cbec2b978aa4b451b2aa8e5771df543e00a8))
+* **Model Extensions**: Expanded TypeScript models (`src/type.ts`) with robust structures to represent full batch history:
+  * `PaxHistoryData`: Detailed total amount and counts maps across multiple card networks and payment modes (Credit, Debit, EBT, Gift, Loyalty, Cash, Check).
+  * `PaxBatchInformationResponseModel`: Complete structure containing success state, ECR ref numbers, total records/amounts, and nested history datasets.
+  * `PaxStatusResponseModel` & `PaxTorInformation`: Models for retrieving transaction offline reversal information, including gateway/host details, masked PANs, and authorization codes.
+* **Bug Fixes**: Avoid potential crash on Android when checking `showTip` by providing a default fallback value.
 
 ## [1.0.18](https://github.com/phattran1201/react-native-pax/compare/v1.0.16...v1.0.18) (2026-03-13)
 
