@@ -249,22 +249,24 @@ class PaxPosLinkModule(
         ercRefNum: String?,
         promise: Promise,
     ) {
-        try {
-            val transaction =
-                LocalDetailReportRequest().apply {
-                    this.ecrReferenceNumber = ercRefNum
-                    this.edcType = EdcType.ALL
-                }
-            val result = terminal?.report?.localDetailReport(transaction)
-            val map: WritableMap = Arguments.createMap()
-            map.putString("code", result?.code().toString())
-            map.putString("message", result?.message().toString())
-            map.putString("status", result?.response()?.responseMessage())
-            map.putMap("serialNumber", getTerminalInfo())
-            promise.resolve(map)
-        } catch (e: Exception) {
-            return promise.resolve("Error to check void or refund")
-        }
+        Thread {
+            try {
+                val transaction =
+                    LocalDetailReportRequest().apply {
+                        this.ecrReferenceNumber = ercRefNum
+                        this.edcType = EdcType.ALL
+                    }
+                val result = terminal?.report?.localDetailReport(transaction)
+                val map: WritableMap = Arguments.createMap()
+                map.putString("code", result?.code().toString())
+                map.putString("message", result?.message().toString())
+                map.putString("status", result?.response()?.responseMessage())
+                map.putMap("serialNumber", getTerminalInfo())
+                promise.resolve(map)
+            } catch (e: Exception) {
+                promise.reject("CHECK_STATUS_ERROR", e.message, e)
+            }
+        }.start()
     }
 
     @ReactMethod
@@ -273,24 +275,26 @@ class PaxPosLinkModule(
         promise: Promise,
     ) {
         println("Received data void1: ${data.toHashMap()}")
-        try {
-            val salesRequest =
-                PaxRequestModel(
-                    id = data.getString("id"),
-                    amount = data.takeIf { it.hasKey("amount") && !it.isNull("amount") }?.getInt("amount") ?: 0,
-                    tip = data.takeIf { it.hasKey("tip") && !it.isNull("tip") }?.getInt("tip"),
-                    paymentType = data.takeIf { it.hasKey("paymentType") && !it.isNull("paymentType") }?.getInt("paymentType"),
-                    ecrRefNum = data.getString("ecrRefNum") ?: "",
-                )
-            this.salesRequest = salesRequest
-            val req = setCreditRequest(TransactionType.VOID_SALE)
-            val rsp = DoCreditResponse()
-            val result = terminal?.transaction?.doCredit(req)
-            val data = buildTransactionResponse(rsp, result)
-            promise.resolve(data.toWritableMap())
-        } catch (e: Exception) {
-            return promise.resolve("Error to void transaction")
-        }
+        Thread {
+            try {
+                val salesRequest =
+                    PaxRequestModel(
+                        id = data.getString("id"),
+                        amount = data.takeIf { it.hasKey("amount") && !it.isNull("amount") }?.getInt("amount") ?: 0,
+                        tip = data.takeIf { it.hasKey("tip") && !it.isNull("tip") }?.getInt("tip"),
+                        paymentType = data.takeIf { it.hasKey("paymentType") && !it.isNull("paymentType") }?.getInt("paymentType"),
+                        ecrRefNum = data.getString("ecrRefNum") ?: "",
+                    )
+                this.salesRequest = salesRequest
+                val req = setCreditRequest(TransactionType.VOID_SALE)
+                val rsp = DoCreditResponse()
+                val result = terminal?.transaction?.doCredit(req)
+                val data = buildTransactionResponse(rsp, result)
+                promise.resolve(data.toWritableMap())
+            } catch (e: Exception) {
+                promise.reject("VOID_ERROR", e.message, e)
+            }
+        }.start()
     }
 
     @ReactMethod
@@ -300,24 +304,26 @@ class PaxPosLinkModule(
     ) {
         println("Received data voidRefund1: ${data.toHashMap()}")
 
-        try {
-            val salesRequest =
-                PaxRequestModel(
-                    id = data.getString("id"),
-                    amount = data.takeIf { it.hasKey("amount") && !it.isNull("amount") }?.getInt("amount") ?: 0,
-                    tip = data.takeIf { it.hasKey("tip") && !it.isNull("tip") }?.getInt("tip"),
-                    paymentType = data.takeIf { it.hasKey("paymentType") && !it.isNull("paymentType") }?.getInt("paymentType"),
-                    ecrRefNum = data.getString("ecrRefNum") ?: "",
-                )
-            this.salesRequest = salesRequest
-            val req = setCreditRequest(TransactionType.VOID_SALE)
-            val rsp = DoCreditResponse()
-            val result = terminal?.transaction?.doCredit(req)
-            val data = buildTransactionResponse(rsp, result)
-            promise.resolve(data.toWritableMap())
-        } catch (e: Exception) {
-            return promise.resolve("Error to void transaction")
-        }
+        Thread {
+            try {
+                val salesRequest =
+                    PaxRequestModel(
+                        id = data.getString("id"),
+                        amount = data.takeIf { it.hasKey("amount") && !it.isNull("amount") }?.getInt("amount") ?: 0,
+                        tip = data.takeIf { it.hasKey("tip") && !it.isNull("tip") }?.getInt("tip"),
+                        paymentType = data.takeIf { it.hasKey("paymentType") && !it.isNull("paymentType") }?.getInt("paymentType"),
+                        ecrRefNum = data.getString("ecrRefNum") ?: "",
+                    )
+                this.salesRequest = salesRequest
+                val req = setCreditRequest(TransactionType.VOID_SALE)
+                val rsp = DoCreditResponse()
+                val result = terminal?.transaction?.doCredit(req)
+                val data = buildTransactionResponse(rsp, result)
+                promise.resolve(data.toWritableMap())
+            } catch (e: Exception) {
+                promise.reject("VOID_REFUND_ERROR", e.message, e)
+            }
+        }.start()
     }
 
     @ReactMethod
@@ -326,58 +332,66 @@ class PaxPosLinkModule(
         promise: Promise,
     ) {
         println("Received data refund1: ${data.toHashMap()}")
-        try {
-            val salesRequest =
-                PaxRequestModel(
-                    id = data.getString("id"),
-                    amount = data.takeIf { it.hasKey("amount") && !it.isNull("amount") }?.getInt("amount") ?: 0,
-                    tip = data.takeIf { it.hasKey("tip") && !it.isNull("tip") }?.getInt("tip"),
-                    paymentType = data.takeIf { it.hasKey("paymentType") && !it.isNull("paymentType") }?.getInt("paymentType"),
-                    ecrRefNum = data.getString("ecrRefNum") ?: "",
-                )
-            this.salesRequest = salesRequest
-            val req = setCreditRequest(TransactionType.RETURN)
-            val rsp = DoCreditResponse()
-            val result = terminal?.transaction?.doCredit(req)
-            val data = buildTransactionResponse(rsp, result)
-            promise.resolve(data.toWritableMap())
-        } catch (e: Exception) {
-            return promise.resolve("Error to return transaction")
-        }
+        Thread {
+            try {
+                val salesRequest =
+                    PaxRequestModel(
+                        id = data.getString("id"),
+                        amount = data.takeIf { it.hasKey("amount") && !it.isNull("amount") }?.getInt("amount") ?: 0,
+                        tip = data.takeIf { it.hasKey("tip") && !it.isNull("tip") }?.getInt("tip"),
+                        paymentType = data.takeIf { it.hasKey("paymentType") && !it.isNull("paymentType") }?.getInt("paymentType"),
+                        ecrRefNum = data.getString("ecrRefNum") ?: "",
+                    )
+                this.salesRequest = salesRequest
+                val req = setCreditRequest(TransactionType.RETURN)
+                val rsp = DoCreditResponse()
+                val result = terminal?.transaction?.doCredit(req)
+                val data = buildTransactionResponse(rsp, result)
+                promise.resolve(data.toWritableMap())
+            } catch (e: Exception) {
+                promise.reject("REFUND_ERROR", e.message, e)
+            }
+        }.start()
     }
 
     @ReactMethod
     fun batchCloseout(promise: Promise) {
-        try {
-            val batchCloseReq = BatchCloseRequest()
-            val result = terminal?.batch?.batchClose(batchCloseReq)
-            val paxResponse = buildBatchCloseResponse(result)
-            promise.resolve(paxResponse.toWritableMap())
-        } catch (e: Exception) {
-            promise.reject("BATCH_CLOSE_ERROR", e.message)
-        }
+        Thread {
+            try {
+                val batchCloseReq = BatchCloseRequest()
+                val result = terminal?.batch?.batchClose(batchCloseReq)
+                val paxResponse = buildBatchCloseResponse(result)
+                promise.resolve(paxResponse.toWritableMap())
+            } catch (e: Exception) {
+                promise.reject("BATCH_CLOSE_ERROR", e.message, e)
+            }
+        }.start()
     }
 
     @ReactMethod
     fun getBatchInformation(promise: Promise) {
-        try {
-            val map = Arguments.createMap()
-            val request = HistoryReportRequest()
-            val result = terminal?.report?.historyReport(request)
-            if (result?.code() == ExecutionCode.OK) {
-                val rsp = result.response()
-                map.putBoolean("status", true)
-                map.putInt("ecrReferenceNumber", getBatchStartDate())
-                map.putInt("totalRecord", getTotalTransactionCount())
-                map.putInt("totalAmount", getTotalTransactionAmount())
-                map.putBoolean("status", true)
-                map.putString("message", rsp?.responseMessage() ?: "Success")
-                map.putMap("data", convertHistoryReportResponseToMap(rsp))
-                promise.resolve(map)
+        Thread {
+            try {
+                val map = Arguments.createMap()
+                val request = HistoryReportRequest()
+                val result = terminal?.report?.historyReport(request)
+                if (result?.code() == ExecutionCode.OK) {
+                    val rsp = result.response()
+                    map.putBoolean("status", true)
+                    map.putInt("ecrReferenceNumber", getBatchStartDate())
+                    map.putInt("totalRecord", getTotalTransactionCount())
+                    map.putInt("totalAmount", getTotalTransactionAmount())
+                    map.putBoolean("status", true)
+                    map.putString("message", rsp?.responseMessage() ?: "Success")
+                    map.putMap("data", convertHistoryReportResponseToMap(rsp))
+                    promise.resolve(map)
+                } else {
+                    promise.reject("GET_BATCH_INFORMATION_FAILED", result?.message() ?: "Failed to get batch info")
+                }
+            } catch (e: Exception) {
+                promise.reject("GET_BATCH_INFORMATION_ERROR", e.message, e)
             }
-        } catch (e: Exception) {
-            promise.reject("GET_BATCH_INFORMATION_ERROR", e.message)
-        }
+        }.start()
     }
 
     private fun convertHistoryReportResponseToMap(rsp: HistoryReportResponse?): WritableMap {
@@ -414,12 +428,14 @@ class PaxPosLinkModule(
 
     @ReactMethod
     fun cancelTransaction(promise: Promise) {
-        try {
-            terminal?.cancel()
-            promise.resolve("Cancel transaction requested")
-        } catch (e: Exception) {
-            promise.reject("CANCEL_FAILED", e.message, e)
-        }
+        Thread {
+            try {
+                terminal?.cancel()
+                promise.resolve("Cancel transaction requested")
+            } catch (e: Exception) {
+                promise.reject("CANCEL_FAILED", e.message, e)
+            }
+        }.start()
     }
 
 //    fun voidOrRefundTransaction(startDate: Int, serialNumber: String): String {

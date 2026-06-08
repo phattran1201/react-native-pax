@@ -1,6 +1,6 @@
 {
   "version": "1.0.0",
-  "lastScanned": 1780048229549,
+  "lastScanned": 1780891095394,
   "projectRoot": "/Volumes/ExternalSSD/RN/react-native-pax",
   "techStack": {
     "languages": [
@@ -37,14 +37,15 @@
     "runtime": "Node.js 16.0.0"
   },
   "build": {
-    "buildCommand": null,
+    "buildCommand": "npm run build",
     "testCommand": "npm test",
     "lintCommand": "npm run lint",
     "devCommand": null,
     "scripts": {
+      "build": "bob build",
       "example": "bun --cwd example",
       "lint": "eslint \"**/*.{js,ts,tsx}\"",
-      "prebuild": "bun i && bun typecheck && bun lint",
+      "prebuild": "bun i && bun typecheck && bob build && bun lint",
       "release": "bun prebuild && release-it",
       "test": "jest",
       "typecheck": "tsc --noEmit"
@@ -60,6 +61,7 @@
     "isMonorepo": false,
     "workspaces": [],
     "mainDirectories": [
+      "lib",
       "src"
     ],
     "gitBranches": {
@@ -73,7 +75,7 @@
       "path": "android",
       "purpose": null,
       "fileCount": 5,
-      "lastAccessed": 1780048229503,
+      "lastAccessed": 1780891095375,
       "keyFiles": [
         "build.gradle",
         "gradle.properties",
@@ -86,15 +88,33 @@
       "path": "gradle",
       "purpose": null,
       "fileCount": 0,
-      "lastAccessed": 1780048229507,
+      "lastAccessed": 1780891095375,
+      "keyFiles": []
+    },
+    "ios": {
+      "path": "ios",
+      "purpose": null,
+      "fileCount": 2,
+      "lastAccessed": 1780891095376,
+      "keyFiles": [
+        "PaxPoslink.h",
+        "PaxPoslink.mm"
+      ]
+    },
+    "lib": {
+      "path": "lib",
+      "purpose": "Library code",
+      "fileCount": 0,
+      "lastAccessed": 1780891095382,
       "keyFiles": []
     },
     "src": {
       "path": "src",
       "purpose": "Source code",
-      "fileCount": 2,
-      "lastAccessed": 1780048229537,
+      "fileCount": 3,
+      "lastAccessed": 1780891095382,
       "keyFiles": [
+        "NativePaxPoslink.ts",
         "index.ts",
         "type.ts"
       ]
@@ -102,18 +122,45 @@
     "tasks": {
       "path": "tasks",
       "purpose": null,
-      "fileCount": 0,
-      "lastAccessed": 1780048229542,
-      "keyFiles": []
+      "fileCount": 1,
+      "lastAccessed": 1780891095382,
+      "keyFiles": [
+        "todo.md"
+      ]
     },
     "android/build": {
       "path": "android/build",
       "purpose": "Build output",
       "fileCount": 0,
-      "lastAccessed": 1780048229544,
+      "lastAccessed": 1780891095384,
       "keyFiles": []
     }
   },
-  "hotPaths": [],
+  "hotPaths": [
+    {
+      "path": "cocoapods_helper.rb",
+      "accessCount": 3,
+      "lastAccessed": 1780891865782,
+      "type": "file"
+    },
+    {
+      "path": "README.md",
+      "accessCount": 3,
+      "lastAccessed": 1780892034102,
+      "type": "file"
+    },
+    {
+      "path": "react_native_pax_pods.rb",
+      "accessCount": 2,
+      "lastAccessed": 1780892043476,
+      "type": "file"
+    },
+    {
+      "path": "react-native-pax.podspec",
+      "accessCount": 1,
+      "lastAccessed": 1780891189813,
+      "type": "file"
+    }
+  ],
   "userDirectives": []
 }

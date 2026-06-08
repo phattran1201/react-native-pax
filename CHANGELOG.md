@@ -1,5 +1,12 @@
 
 
+## [1.0.22](https://github.com/phattran1201/react-native-pax/compare/v1.0.21...v1.0.22) (2026-06-08)
+
+
+### Features
+
+* add Podfile helper to resolve SSZipArchive symbol conflicts with libPOSLinkAdmin ([#2](https://github.com/phattran1201/react-native-pax/issues/2)) ([16bf0f8](https://github.com/phattran1201/react-native-pax/commit/16bf0f8352a24d48e5b853d35439ed2304d9fd22))
+
 ## [1.0.21](https://github.com/phattran1201/react-native-pax/compare/v1.0.20...v1.0.21) (2026-05-29)
 
 ### Features
