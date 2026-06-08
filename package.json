@@ -69,7 +69,8 @@
     "README.md",
     "tsconfig.build.json",
     "tsconfig.json",
-    "react-native.config.mjs"
+    "react-native.config.mjs",
+    "react_native_pax_pods.rb"
   ],
   "scripts": {
     "build": "bob build",

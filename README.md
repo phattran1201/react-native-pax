@@ -26,6 +26,31 @@ yarn add @haroldtran/react-native-pax
 
 ⚠️ **Note: iOS implementation is currently not complete. Only Android is fully supported at this time.**
 
+#### Fixing Symbol Conflicts (Required)
+
+This library bundles `libPOSLinkAdmin.a`, which exports the same `unz*`/`zip*` symbols as `SSZipArchive`. Without the fix, the linker will throw duplicate symbol errors at build time.
+
+To resolve this, use the provided helper `react_native_pax_pods.rb`:
+
+**1. Require the helper at the top of your `Podfile`:**
+
+```ruby
+require_relative '../node_modules/@haroldtran/react-native-pax/react_native_pax_pods'
+```
+
+**2. Call it inside your `post_install` block:**
+
+```ruby
+post_install do |installer|
+  react_native_pax_pods(installer) # <== add this
+  # ... other post_install steps
+end
+```
+
+What this does: it prefixes all conflicting `unz*`/`zip*` symbols in `SSZipArchive` with `ssz_` via `GCC_PREPROCESSOR_DEFINITIONS`, so the linker sees distinct names and the conflict is resolved.
+
+#### General iOS Setup
+
 1. Navigate to your iOS project directory and install pods:
 
 ```sh
@@ -52,7 +77,7 @@ import {
   makePayment,
   makeRefund,
   makeVoid,
-  makeCloseBatch
+  makeCloseBatch,
 } from '@haroldtran/react-native-pax';
 ```
 
@@ -76,11 +101,11 @@ import { CreditTransactionType } from '@haroldtran/react-native-pax/lib/typescri
 
 try {
   const paymentResult = await makePayment(
-    'txn-123',                    // id (optional)
-    1000,                         // amount in cents (e.g., 1000 = $10.00)
-    150,                          // tip in cents (optional, e.g., 150 = $1.50)
+    'txn-123', // id (optional)
+    1000, // amount in cents (e.g., 1000 = $10.00)
+    150, // tip in cents (optional, e.g., 150 = $1.50)
     CreditTransactionType.Credit, // paymentType (1 = Credit, 2 = Debit)
-    'ECR123'                      // ecrRefNum (optional)
+    'ECR123' // ecrRefNum (optional)
   );
 
   console.log('Payment result:', paymentResult);
@@ -106,7 +131,7 @@ try {
 ```js
 try {
   const refundResult = await makeRefund({
-    amount: 1500  // amount in cents (e.g., 1500 = $15.00)
+    amount: 1500, // amount in cents (e.g., 1500 = $15.00)
   });
   console.log('Refund result:', refundResult);
   // refundResult is a PaxResponseModel object
@@ -120,7 +145,7 @@ try {
 ```js
 try {
   const voidResult = await makeVoid({
-    amount: 1500  // amount in cents (e.g., 1500 = $15.00)
+    amount: 1500, // amount in cents (e.g., 1500 = $15.00)
   });
   console.log('Void result:', voidResult);
   // voidResult is a PaxResponseModel object
@@ -255,11 +280,11 @@ See `src/type.ts` for the complete interface definition.
 
 | Feature               | Android | iOS |
 | --------------------- | ------- | --- |
-| Initialize Connection | ✅       | ❌   |
-| Payment Processing    | ✅       | ❌   |
-| Refunds               | ❌       | ❌   |
-| Voids                 | ❌       | ❌   |
-| Batch Operations      | ❌       | ❌   |
+| Initialize Connection | ✅      | ✅  |
+| Payment Processing    | ✅      | ✅  |
+| Refunds               | ✅      | ⚠️  |
+| Voids                 | ✅      | ⚠️  |
+| Batch Operations      | ✅      | ⚠️  |
 
 ## Contributing
 
