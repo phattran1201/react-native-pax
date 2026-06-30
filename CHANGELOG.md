@@ -1,5 +1,38 @@
 
 
+## [1.1.0](https://github.com/phattran1201/react-native-pax/compare/v1.0.22...v1.1.0) (2026-06-29)
+
+### Features
+
+* **All POSLink connection types** (mirror theo demo `ParameterManager.getCommSetting`): added `initPOSLinkConn(config)` supporting `TCP`, `SSL`, `HTTP`, `HTTPS`, `UART`, `USB`, `AIDL`, and `BLUETOOTH`. Exposed `PaxConnType` / `PaxConnConfig` types. `initPOSLink` (TCP) is kept for backward compatibility; every type — including USB — shares a single `finalizeTerminal` path. USB accepts an optional `deviceName` and **auto-requests USB permission** on connect (rejects `USB_PERMISSION_DENIED` if the user declines).
+* **UI helpers for picking/scanning a device**:
+  * `listUsbDevices()` → `PaxUsbDevice[]` — USB device picker.
+  * `getSupportedBaudRates()` → `string[]` and `listSerialPorts()` → `string[]` — UART baud + serial-port pickers (serial scan via `SerialPortFinderPax`).
+  * `checkBluetoothEnable()`, `startBluetoothSearch({ useBle?, timeout? })`, `getBluetoothDeviceList()` → `PaxBtDevice[]` `{ name, mac, rssi }`, `stopBluetoothSearch()` — Bluetooth/BLE scanning (poll model, via `PaxGLComm.getBtScanner()`/`getBleScanner()`).
+  * `requestUsbPermission()` now **awaits** the grant result (`true` granted / `false` declined) instead of returning immediately.
+* **AndroidManifest**: library now declares `INTERNET`, the `android.hardware.usb.host` feature (`required=false`), and the `com.pax.us.std.poslink.aidl` `<queries>` entry (required for AIDL on targetSdk ≥ 30). Bluetooth (dangerous) permissions are documented for the consuming app to declare.
+* **Pre-shaded PAX jars** to avoid `checkDebugDuplicateClasses` collisions with the Sunmi SDK (`L3AndRemoteOuterSDK`). The obfuscated default-package classes were relocated with jarjar: `a.**` → `pax.shaded.a.**` and `b.**` → `pax.shaded.b.**` in `POSLink_Core`, `POSLink_Admin`, and `POSLink_Semi`. The public `com.pax.*` API is unchanged. Consuming apps no longer need a runtime jarjar/shading Gradle task.
+
+* **Android PAX SDK upgrade to POSLink Semi-Integration V2.02.00 (2025-11-26)**: Replaced the Android `libs/` jars with the 2025 release:
+  * `POSLink_Core_Android_V2.00.03_20230828.jar` → `POSLink_Core_Android_V2.00.11_20251126.jar`
+  * `POSLink_Semi_Android_Plugin_V2.00.00_20230828.jar` → `POSLink_Semi_Android_Plugin_V2.02.00_20251126.jar`
+  * `POSLink_Admin_Android_Plugin_V2.00.00_20230828.jar` → `POSLink_Admin_Android_Plugin_V2.02.00_20251126.jar`
+  * `PaxLog_1.0.11_20220921.jar` → `PaxLog_1.0.13_20241118.jar`
+  * `GLComm_V1.12.01_20230515.jar` (unchanged)
+
+### Breaking SDK API migrations (`PaxPosLinkModule.kt`)
+
+* `HostGateway` (request) → `HostInformationRequest`; the `hostGateway` field on `DoCreditRequest`/`DoDebitRequest` is now `hostInformation`. Most legacy gateway/token fields were dropped by the SDK.
+* `HostResponse` → `HostInformationResponse` (response host info).
+* `TransactionBehavior` → `TransactionBehaviorRequest`. Removed fields: signature flags (capture/upload/acquire), `forceCc`, `forceFsa`, `cofIndicator`, `cofInitiator`.
+* `posEchoData` moved from the request to `HostInformationRequest`; `continuousScreen` moved from the request to `TransactionBehaviorRequest`.
+* Removed the unused `CheckRequest` builder (e-check classes removed from the SDK).
+
+### Breaking JS API changes
+
+* Removed `initPOSLinkUsb()` — use `initPOSLinkConn({ type: 'USB', timeout })` instead (it auto-requests USB permission).
+* `requestUsbPermission()` semantics changed: it now resolves only **after** the user answers the permission dialog (`true` = granted, `false` = declined), instead of resolving immediately when the dialog is shown.
+
 ## [1.0.22](https://github.com/phattran1201/react-native-pax/compare/v1.0.21...v1.0.22) (2026-06-08)
 
 

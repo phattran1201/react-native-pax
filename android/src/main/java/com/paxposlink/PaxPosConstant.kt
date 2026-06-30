@@ -23,6 +23,13 @@ data class PaxResponseModel(
     var data: WritableMap? = null,
     var message: String = "",
     var isPaymentSuccess: Boolean = false,
+    var execCode: String = "", // ExecutionCode: "OK" / "ERROR"
+    var execMessage: String = "", // message tầng SDK/giao tiếp
+    var responseCode: String = "", // mã POSLink (tầng terminal)
+    var responseMessage: String = "", // message tầng terminal
+    var hostResponseCode: String = "", // mã host/ngân hàng
+    var hostResponseMessage: String = "", // message tầng host
+    var issuerResponseCode: String = "", // mã issuer (lý do decline)
     var id: String = "",
     var transactionId: String = "",
     var transactionNo: String = "",
