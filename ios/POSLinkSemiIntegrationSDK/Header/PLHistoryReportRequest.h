@@ -13,10 +13,34 @@
  */
 
 #import <Foundation/Foundation.h>
-#import "PLRequest.h"
-#import "PLSemiConst.h"
-#import "PLAdminConst.h"
-#import "PLHistoryReportRequest.h"
+#if __has_include(<POSLinkAdmin/PLRequest.h>)
+   #import <POSLinkAdmin/PLRequest.h>
+#elif __has_include("PLRequest.h")
+   #import "PLRequest.h"
+#endif
+
+
+#if __has_include(<POSLinkAdmin/PLSemiConst.h>)
+   #import <POSLinkAdmin/PLSemiConst.h>
+#elif __has_include("PLSemiConst.h")
+   #import "PLSemiConst.h"
+#endif
+
+
+#if __has_include(<POSLinkAdmin/PLAdminConst.h>)
+   #import <POSLinkAdmin/PLAdminConst.h>
+#elif __has_include("PLAdminConst.h")
+   #import "PLAdminConst.h"
+#endif
+
+
+#if __has_include(<POSLinkAdmin/PLHistoryReportRequest.h>)
+   #import <POSLinkAdmin/PLHistoryReportRequest.h>
+#elif __has_include("PLHistoryReportRequest.h")
+   #import "PLHistoryReportRequest.h"
+#endif
+
+
 
 @interface PLHistoryReportRequest : PLRequest
 

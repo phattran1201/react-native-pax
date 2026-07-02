@@ -13,15 +13,41 @@
  */
 
 #import <Foundation/Foundation.h>
-#import "PLRequest.h"
+#if __has_include(<POSLinkAdmin/PLRequest.h>)
+   #import <POSLinkAdmin/PLRequest.h>
+#elif __has_include("PLRequest.h")
+   #import "PLRequest.h"
+#endif
 
-#import "PLAdminConst.h"
-#import "PLApplePayVas.h"
-#import "PLSetApplePayVasParametersRequest.h"
+
+
+#if __has_include(<POSLinkAdmin/PLAdminConst.h>)
+   #import <POSLinkAdmin/PLAdminConst.h>
+#elif __has_include("PLAdminConst.h")
+   #import "PLAdminConst.h"
+#endif
+
+
+#if __has_include(<POSLinkAdmin/PLApplePayVas.h>)
+   #import <POSLinkAdmin/PLApplePayVas.h>
+#elif __has_include("PLApplePayVas.h")
+   #import "PLApplePayVas.h"
+#endif
+
+
+#if __has_include(<POSLinkAdmin/PLSetApplePayVasParametersRequest.h>)
+   #import <POSLinkAdmin/PLSetApplePayVasParametersRequest.h>
+#elif __has_include("PLSetApplePayVasParametersRequest.h")
+   #import "PLSetApplePayVasParametersRequest.h"
+#endif
+
+
 
 @interface PLSetApplePayVasParametersRequest : PLRequest
 /**
- VAS mode. 
+ VAS mode.
+
+ Attribute : n1 
  */
 @property (readwrite, nonatomic, assign)enum VasMode vasMode;
 /**

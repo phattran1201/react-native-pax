@@ -13,86 +13,113 @@
  */
 
 #import <Foundation/Foundation.h>
-#import "PLRequest.h"
+#if __has_include(<POSLinkAdmin/PLRequest.h>)
+   #import <POSLinkAdmin/PLRequest.h>
+#elif __has_include("PLRequest.h")
+   #import "PLRequest.h"
+#endif
 
-#import "PLAdminConst.h"
-#import "PLSetSafParametersRequest.h"
+
+
+#if __has_include(<POSLinkAdmin/PLAdminConst.h>)
+   #import <POSLinkAdmin/PLAdminConst.h>
+#elif __has_include("PLAdminConst.h")
+   #import "PLAdminConst.h"
+#endif
+
+
+#if __has_include(<POSLinkAdmin/PLOfflineInformationRequest.h>)
+   #import <POSLinkAdmin/PLOfflineInformationRequest.h>
+#elif __has_include("PLOfflineInformationRequest.h")
+   #import "PLOfflineInformationRequest.h"
+#endif
+
+
+#if __has_include(<POSLinkAdmin/PLCardAmount.h>)
+   #import <POSLinkAdmin/PLCardAmount.h>
+#elif __has_include("PLCardAmount.h")
+   #import "PLCardAmount.h"
+#endif
+
+
+#if __has_include(<POSLinkAdmin/PLCardAmount.h>)
+   #import <POSLinkAdmin/PLCardAmount.h>
+#elif __has_include("PLCardAmount.h")
+   #import "PLCardAmount.h"
+#endif
+
+
+#if __has_include(<POSLinkAdmin/PLSetSafParametersRequest.h>)
+   #import <POSLinkAdmin/PLSetSafParametersRequest.h>
+#elif __has_include("PLSetSafParametersRequest.h")
+   #import "PLSetSafParametersRequest.h"
+#endif
+
+
 
 @interface PLSetSafParametersRequest : PLRequest
 /**
- Store and forward mode indicator. 
+ Store and forward mode indicator.
+
+ Attribute : n1 
  */
 @property (readwrite, nonatomic, assign)enum SafMode safMode;
 /**
- The effective start date time, YYYYMMDDhhmmss. Valid for SAF mode as 1.
+ Maximum number of SAF records. i.e. with max of 50, once it reaches 50 records, SAF will stop working.
 
- Attribute:n14 
- */
-@property (readwrite, nonatomic, copy)NSString *startDateTime;
-/**
- The effective end date time, YYYYMMDDhhmmss. Valid for SAF mode as 1.
-
- Attribute:n14 
- */
-@property (readwrite, nonatomic, copy)NSString *endDateTime;
-/**
- SAF On for next number of days from today. Valid for SAF mode as 1.
-
- Attribute:n...3 
- */
-@property (readwrite, nonatomic, copy)NSString *durationInDays;
-/**
- SAF max number of record - SAF only support this number of records. i.e. 50 SAF only, once it reached it will stop working.
-
-9999 by default.
-
- Attribute:n...4 
+ Attribute : n...4 
  */
 @property (readwrite, nonatomic, copy)NSString *maxNumber;
 /**
  Total ceiling amount. Once this amount is reached it will not accept any SAF record.
 
- Attribute:n...12 
+ Attribute : n...12 
  */
 @property (readwrite, nonatomic, copy)NSString *totalCeilingAmount;
 /**
  Once this amount is reached it will not accept any SAF record.
 
-Separated by Card Type with space in the card type sequence of "Visa MasterCard AMEX Diners Discover JCB enRoute VisaFleet MasterCardFleet FleetOne Fleetwide Fuelman Gascard Voyager WrightExpress Extended(other) Interac CUP Maestro Sinclair. "2000 2000 2000 2000 2000 2000 2000 2000 2000 2000 2000 2000 2000 2000 2000 2000 2000 2000 2000 2000".
+Default as null which means ceiling amount validation will not be started during SAF.
 
-1 exception that value of "2000" without any spaces means taking 2000 as unified ceiling amount for each card type.
-
-Default as empty which means ceiling amount validation will not be started during SAF.
-
- Attribute:ans...64 
+Once you set them, please set all of them. 
  */
-@property (readwrite, nonatomic, copy)NSString *ceilingAmountPerCardType;
+@property (readwrite, nonatomic, strong)PLCardAmount *ceilingAmountPerCardType;
 /**
  Once this amount per transaction is reached it will not accept any SAF record.
 
-Separated by Card Type with space in the card type sequence of "Visa MasterCard AMEX Diners Discover JCB enRoute VisaFleet MasterCardFleet FleetOne Fleetwide Fuelman Gascard Voyager WrightExpress Extended(other) Interac CUP Maestro Sinclair. "2000 2000 2000 2000 2000 2000 2000 2000 2000 2000 2000 2000 2000 2000 2000 2000 2000 2000 2000 2000".
+Default as null which means HALO amount validation will not be started during SAF.
 
-1 exception that value of "2000" without any spaces means taking 2000 as unified HALO amount for each card type.
-
-Default as empty which means HALO amount validation will not be started during SAF.
-
- Attribute:ans...64 
+Once you set them, please set all of them. 
  */
-@property (readwrite, nonatomic, copy)NSString *haloPerCardType;
+@property (readwrite, nonatomic, strong)PLCardAmount *haloPerCardType;
 /**
- SAF Uploading mode. 
+ SAF Uploading mode.
+
+ Attribute : n1 
  */
 @property (readwrite, nonatomic, assign)enum SafUploadMode uploadMode;
 /**
  Auto uploading checking interval in unit of 100ms.
 
- Attribute:n...4 
+ Attribute : n...4 
  */
 @property (readwrite, nonatomic, copy)NSString *autoUploadIntervalTime;
 /**
- Delete SAF Confirmation. 
+ Delete SAF Confirmation.
+
+ Attribute : n1 
  */
 @property (readwrite, nonatomic, assign)enum DeleteSafConfirmation deleteSafConfirmation;
+/**
+ Indicates which transactions will be uploaded during the batch close.
+
+ Attribute : n1 
+ */
+@property (readwrite, nonatomic, assign)enum SafUploadIndicator safUploadIndicator;
+/**
+ Offline Information. Set this data group if you need to set additional variables when safMode is "StayOffline". 
+ */
+@property (readwrite, nonatomic, strong)PLOfflineInformationRequest *offlineInformation;
 
 
 @end

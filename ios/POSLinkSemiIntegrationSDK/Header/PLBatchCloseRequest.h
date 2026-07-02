@@ -13,17 +13,47 @@
  */
 
 #import <Foundation/Foundation.h>
-#import "PLRequest.h"
-#import "PLSemiConst.h"
-#import "PLAdminConst.h"
-#import "PLMultiMerchant.h"
-#import "PLBatchCloseRequest.h"
+#if __has_include(<POSLinkAdmin/PLRequest.h>)
+   #import <POSLinkAdmin/PLRequest.h>
+#elif __has_include("PLRequest.h")
+   #import "PLRequest.h"
+#endif
+
+
+#if __has_include(<POSLinkAdmin/PLSemiConst.h>)
+   #import <POSLinkAdmin/PLSemiConst.h>
+#elif __has_include("PLSemiConst.h")
+   #import "PLSemiConst.h"
+#endif
+
+
+#if __has_include(<POSLinkAdmin/PLAdminConst.h>)
+   #import <POSLinkAdmin/PLAdminConst.h>
+#elif __has_include("PLAdminConst.h")
+   #import "PLAdminConst.h"
+#endif
+
+
+#if __has_include(<POSLinkAdmin/PLMultiMerchant.h>)
+   #import <POSLinkAdmin/PLMultiMerchant.h>
+#elif __has_include("PLMultiMerchant.h")
+   #import "PLMultiMerchant.h"
+#endif
+
+
+#if __has_include(<POSLinkAdmin/PLBatchCloseRequest.h>)
+   #import <POSLinkAdmin/PLBatchCloseRequest.h>
+#elif __has_include("PLBatchCloseRequest.h")
+   #import "PLBatchCloseRequest.h"
+#endif
+
+
 
 @interface PLBatchCloseRequest : PLRequest
 /**
  The date time, YYYYMMDDhhmmss.
 
- Attribute:n14 
+ Attribute : n14 
  */
 @property (readwrite, nonatomic, copy)NSString *timeStamp;
 /**

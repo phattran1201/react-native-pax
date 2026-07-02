@@ -9,13 +9,9 @@
  * ============================================================================
  */
 
-#import <Foundation/Foundation.h>
-
-@interface PLSemiConst : NSObject
-
+#ifndef PLSemiConst_h
+#define PLSemiConst_h
 /* Consts*/
-
-
 enum VehicleClassId {
     /**
      The value is not set.
@@ -288,28 +284,9 @@ enum SafIndicator {
     SafIndicatorDeleteAllSafRecords = 4,
 };
 
-enum CheckSaleType {
-    /**
-     The value is not set.
-     */
-    CheckSaleTypeNotSet = 1,
-    /**
-     Verification.
-     */
-    CheckSaleTypeVerification = 2,
-    /**
-     Conversion.
-     */
-    CheckSaleTypeConversion = 3,
-    /**
-     Guarantee.
-     */
-    CheckSaleTypeGuarantee = 4,
-};
-
 enum CofInitiator {
     /**
-     When the value set to NotSet, it means not support.
+     When the value set to NotSet, it means not supported.
      */
     CofInitiatorNotSet = 1,
     /**
@@ -462,9 +439,57 @@ enum CardType {
      */
     CardTypeSinclair = 21,
     /**
+     MotorCard
+     */
+    CardTypeMotorCard = 22,
+    /**
+     PrivateCard
+     */
+    CardTypePrivateCard = 23,
+    /**
+     PEAJE1
+     */
+    CardTypePeaje1 = 24,
+    /**
+     KRESS
+     */
+    CardTypeKress = 25,
+    /**
+     PREPAGOPR
+     */
+    CardTypePrepagopr = 26,
+    /**
+     ADSG
+     */
+    CardTypeAdsg = 27,
+    /**
+     AEE
+     */
+    CardTypeAee = 28,
+    /**
+     FLEETWAY
+     */
+    CardTypeFleetWay = 29,
+    /**
+     FLEETWAY2
+     */
+    CardTypeFleetWay2 = 30,
+    /**
+     FLEETWAY3
+     */
+    CardTypeFleetWay3 = 31,
+    /**
+     FLEETWAY4
+     */
+    CardTypeFleetWay4 = 32,
+    /**
+     Debit Network Alliance
+     */
+    CardTypeDna = 33,
+    /**
      If the card not in the range, use OTHER as the card type.
      */
-    CardTypeOther = 22,
+    CardTypeOther = 34,
 };
 
 enum AccessibilityPinPad {
@@ -473,7 +498,7 @@ enum AccessibilityPinPad {
      */
     AccessibilityPinPadNotSet = 1,
     /**
-     Do not support A11Y pin pad; No switch..
+     Does not support A11Y pin pad; No switch.
      */
     AccessibilityPinPadNotSupport = 2,
     /**
@@ -664,6 +689,10 @@ enum TaxType {
      Energy Tax.
      */
     TaxTypeEnergyTax = 14,
+    /**
+     Reduced State Tax.
+     */
+    TaxTypeReducedStateTax = 15,
 };
 
 enum GiftTenderType {
@@ -769,60 +798,6 @@ enum LodgingNoShowFlag {
     LodgingNoShowFlagShow = 3,
 };
 
-enum CheckIdType {
-    /**
-     The value is not set.
-     */
-    CheckIdTypeNotSet = 1,
-    /**
-     Driver license.
-     */
-    CheckIdTypeDriverLicense = 2,
-    /**
-     SSN.
-     */
-    CheckIdTypeSsn = 3,
-    /**
-     Military ID.
-     */
-    CheckIdTypeMilitaryId = 4,
-    /**
-     CourtesyCard.
-     */
-    CheckIdTypeCourtesyCard = 5,
-    /**
-     Proprietary card.
-     */
-    CheckIdTypeProprietaryCard = 6,
-    /**
-     Passport number.
-     */
-    CheckIdTypePassportNumber = 7,
-};
-
-enum CheckType {
-    /**
-     The value is not set.
-     */
-    CheckTypeNotSet = 1,
-    /**
-     Personal.
-     */
-    CheckTypePersonal = 2,
-    /**
-     Business.
-     */
-    CheckTypeBusiness = 3,
-    /**
-     Government.
-     */
-    CheckTypeGovernment = 4,
-    /**
-     Two-party.
-     */
-    CheckTypeTwoParty = 5,
-};
-
 enum HostGatewayReturnReason {
     /**
      When the value set to NotSet, it means choosing GeneralReturn.
@@ -903,6 +878,21 @@ enum LodgingSpecialProgramCode {
     LodgingSpecialProgramCodeExpressCheckOutService = 6,
 };
 
+enum GiftCardIndicator {
+    /**
+     The value is not set.
+     */
+    GiftCardIndicatorNotSet = 1,
+    /**
+     Gift card not purchased.
+     */
+    GiftCardIndicatorNotPurchased = 2,
+    /**
+     Gift card purchased.
+     */
+    GiftCardIndicatorPurchased = 3,
+};
+
 enum ExtraChargeItemType {
     /**
      The value is not set.
@@ -934,6 +924,21 @@ enum ExtraChargeItemType {
     ExtraChargeItemTypeParkingViolation = 7,
 };
 
+enum EnableCardUniqueIdentifier {
+    /**
+     When the value set to NotSet, it means choosing Off.
+     */
+    EnableCardUniqueIdentifierNotSet = 1,
+    /**
+     Not obtain unique card identifier.
+     */
+    EnableCardUniqueIdentifierOff = 2,
+    /**
+     Obtain unique card identifier.
+     */
+    EnableCardUniqueIdentifierOn = 3,
+};
+
 enum AdditionalResponseDataFlag {
     /**
      When the value set to NotSet, it means choosing No.
@@ -962,6 +967,21 @@ enum PinEntryStatus {
      PIN Verified.
      */
     PinEntryStatusPinVerified = 3,
+};
+
+enum FleetCardIndicate {
+    /**
+     The value is not set.
+     */
+    FleetCardIndicateNotSet = 1,
+    /**
+     It is a fleet card.
+     */
+    FleetCardIndicateYes = 2,
+    /**
+     It is not a fleet card.
+     */
+    FleetCardIndicateNo = 3,
 };
 
 enum SignatureUploadFlag {
@@ -1051,6 +1071,21 @@ enum SignatureAcquireFlag {
     SignatureAcquireFlagRequired = 3,
 };
 
+enum VehicleUsageCode {
+    /**
+     The value is not set.
+     */
+    VehicleUsageCodeNotSet = 1,
+    /**
+     Private.
+     */
+    VehicleUsageCodePrivate = 2,
+    /**
+     Business.
+     */
+    VehicleUsageCodeBusiness = 3,
+};
+
 enum MotoECommerceSecureType {
     /**
      The value is not set.
@@ -1080,17 +1115,25 @@ enum EbtCountType {
      */
     EbtCountTypeFoodStamp = 3,
     /**
-     Voucher.
-     */
-    EbtCountTypeVoucher = 4,
-    /**
      eWIC.
      */
-    EbtCountTypeEwic = 5,
+    EbtCountTypeEwic = 4,
     /**
      eWIC Voucher.
      */
-    EbtCountTypeEwicVoucher = 6,
+    EbtCountTypeEwicVoucher = 5,
+    /**
+     Cash Voucher.
+     */
+    EbtCountTypeCashVoucher = 6,
+    /**
+     Food Stamp Voucher.
+     */
+    EbtCountTypeFoodStampVoucher = 7,
+    /**
+     [Deprecated]Voucher.
+     */
+    EbtCountTypeVoucher = 8,
 };
 
 enum HostProgramType {
@@ -1228,4 +1271,4 @@ enum CardPresentIndicator {
     CardPresentIndicatorCardNotPresent = 3,
 };
 
-@end
+#endif /* PLSemiConst_h */

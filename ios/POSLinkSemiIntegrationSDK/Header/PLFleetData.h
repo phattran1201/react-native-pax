@@ -10,46 +10,67 @@
  */
 /**
  Fleet Data.
+Please Note：This class can not be set it with FsaData or EwicData at the same time.
  */
 
 #import <Foundation/Foundation.h>
-#import "PLSemiConst.h"
-#import "PLAdminConst.h"
-#import "PLFleetData.h"
+#if __has_include(<POSLinkAdmin/PLSemiConst.h>)
+   #import <POSLinkAdmin/PLSemiConst.h>
+#elif __has_include("PLSemiConst.h")
+   #import "PLSemiConst.h"
+#endif
+
+
+#if __has_include(<POSLinkAdmin/PLAdminConst.h>)
+   #import <POSLinkAdmin/PLAdminConst.h>
+#elif __has_include("PLAdminConst.h")
+   #import "PLAdminConst.h"
+#endif
+
+
+#if __has_include(<POSLinkAdmin/PLFleetData.h>)
+   #import <POSLinkAdmin/PLFleetData.h>
+#elif __has_include("PLFleetData.h")
+   #import "PLFleetData.h"
+#endif
+
+
 
 @interface PLFleetData : NSObject
 /**
- Product code.
+ Product code identifying the specified product or service purchased. See SemiIntegrationReference - Conexxus Product Codes for details about recognized product codes.
 
- Attribute:n...8 
+ Attribute : n...8 
  */
 @property (readwrite, nonatomic, copy)NSString *productCode;
 /**
- Default format is $$$$$$$CC.
+ Total price of the specified product or service purchased. Value is a fixed-point decimal amount with two digits of precision.
 
- Attribute:n...9 
+For example, the value '12345' shall be interpreted as an amount of 123.45
+
+ Attribute : n...9 
  */
 @property (readwrite, nonatomic, copy)NSString *productAmount;
 /**
- Includes 3 implied decimals.
+ Price per unit of the specified product or service purchased. Value is a fixed-point decimal with three digits of precision.
 
-Example: If the price is a decimal such as $5.37, the number entered should be 5370. It needs 3 digits after the decimal point. If the price is a integer like $6, the number entered should be 6000.
+For example, the value '6000' shall be interpreted as a unit price of $6.000.
 
- Attribute:n...9 
+ Attribute : n...9 
  */
 @property (readwrite, nonatomic, copy)NSString *unitPrice;
 /**
- Includes 3 implied decimals.
+ Total quantity of the specified product or service purchased. Value is a fixed-point decimal with three digits of precision.
 
-For Example: If quantity is a decimal such as 4.17, the number entered should be 4170. It needs 3 digits after the decimal point. If quantity is a integer like 6, the number entered should be 6000.
+For example, the value '4170' shall be interpreted as a quantity of 4.170.
 
- Attribute:n...9 
+ Attribute : n...9 
  */
 @property (readwrite, nonatomic, copy)NSString *quantity;
 /**
- Unit of measure.
+ Unit of measure for the quantity of the specified product or service purchased. Acceptable values are host dependent.
 
- Attribute:ans1 
+ Attribute : ans1 
  */
 @property (readwrite, nonatomic, copy)NSString *unitOfMeasure;
 

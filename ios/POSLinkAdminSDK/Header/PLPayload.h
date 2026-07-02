@@ -10,10 +10,38 @@
  */
 
 #import <Foundation/Foundation.h>
-#import "PLExecutionResult.h"
-#import "PLBaseTerminal.h"
-#import "PLPayloadRequest.h"
-#import "PLPayloadResponse.h"
+#if __has_include(<POSLinkAdmin/PLExecutionResult.h>)
+   #import <POSLinkAdmin/PLExecutionResult.h>
+#elif __has_include("PLExecutionResult.h")
+   #import "PLExecutionResult.h"
+#endif
+
+
+
+#if __has_include(<POSLinkAdmin/PLBaseTerminal.h>)
+   #import <POSLinkAdmin/PLBaseTerminal.h>
+#elif __has_include("PLBaseTerminal.h")
+   #import "PLBaseTerminal.h"
+#endif
+
+
+
+#if __has_include(<POSLinkAdmin/PLPayloadRequest.h>)
+   #import <POSLinkAdmin/PLPayloadRequest.h>
+#elif __has_include("PLPayloadRequest.h")
+   #import "PLPayloadRequest.h"
+#endif
+
+
+
+#if __has_include(<POSLinkAdmin/PLPayloadResponse.h>)
+   #import <POSLinkAdmin/PLPayloadResponse.h>
+#elif __has_include("PLPayloadResponse.h")
+   #import "PLPayloadResponse.h"
+#endif
+
+
+
 
 NS_ASSUME_NONNULL_BEGIN
 

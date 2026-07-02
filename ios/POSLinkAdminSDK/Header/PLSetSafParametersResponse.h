@@ -13,10 +13,28 @@
  */
 
 #import <Foundation/Foundation.h>
-#import "PLResponse.h"
+#if __has_include(<POSLinkAdmin/PLResponse.h>)
+   #import <POSLinkAdmin/PLResponse.h>
+#elif __has_include("PLResponse.h")
+   #import "PLResponse.h"
+#endif
 
-#import "PLAdminConst.h"
-#import "PLSetSafParametersResponse.h"
+
+
+#if __has_include(<POSLinkAdmin/PLAdminConst.h>)
+   #import <POSLinkAdmin/PLAdminConst.h>
+#elif __has_include("PLAdminConst.h")
+   #import "PLAdminConst.h"
+#endif
+
+
+#if __has_include(<POSLinkAdmin/PLSetSafParametersResponse.h>)
+   #import <POSLinkAdmin/PLSetSafParametersResponse.h>
+#elif __has_include("PLSetSafParametersResponse.h")
+   #import "PLSetSafParametersResponse.h"
+#endif
+
+
 
 @interface PLSetSafParametersResponse : PLResponse
 

@@ -76,12 +76,12 @@ typedef void (^didFinishedBlock)();
 
 /*!
  @abstract start scanning bluetooth devices, can be called in main thread
- @param timeout scan timeout, in second
- @param didDiscovered   a block called(in main thread) when a device is discovered
- @param didFinished     a block called(in main thread) when scanning is finished
- @param needUpdateRSSI  a flag indicates if need update RSSI, only for BT_TYPE_BLE
-    NOTE: if set to YES, didDiscoveredBlock may returns the same peripheral multiple times,
- thus updates RSSI.
+ @param timeout Scan timeout value, in seconds.
+ @param didDiscovered This block is called in the main thread when a device is discovered.
+ @param didFinished This block is called in the main thread when the scanning process is finished.
+ @param needUpdateRSSI A flag to indicate if RSSI updates are required. This is only appliable for BT_TYPE_BLE.\n
+ Note: If the flag is set to YES, didDiscoveredBlock may return the same peripheral multiple
+ times.
  */
 - (void)startWithTimeout:(NSInteger)timeout
           didDiscovered:(didDiscoveredBlock)didDiscovered

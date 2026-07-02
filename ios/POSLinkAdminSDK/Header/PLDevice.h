@@ -10,16 +10,86 @@
  */
 
 #import <Foundation/Foundation.h>
-#import "PLExecutionResult.h"
-#import "PLBaseTerminal.h"
-#import "PLMifareCardRequest.h"
-#import "PLCameraScanRequest.h"
-#import "PLPrinterRequest.h"
-#import "PLCardInsertDetectionRequest.h"
-#import "PLPrinterResponse.h"
-#import "PLMifareCardResponse.h"
-#import "PLCardInsertDetectionResponse.h"
-#import "PLCameraScanResponse.h"
+#if __has_include(<POSLinkAdmin/PLExecutionResult.h>)
+   #import <POSLinkAdmin/PLExecutionResult.h>
+#elif __has_include("PLExecutionResult.h")
+   #import "PLExecutionResult.h"
+#endif
+
+
+
+#if __has_include(<POSLinkAdmin/PLBaseTerminal.h>)
+   #import <POSLinkAdmin/PLBaseTerminal.h>
+#elif __has_include("PLBaseTerminal.h")
+   #import "PLBaseTerminal.h"
+#endif
+
+
+
+#if __has_include(<POSLinkAdmin/PLMifareCardRequest.h>)
+   #import <POSLinkAdmin/PLMifareCardRequest.h>
+#elif __has_include("PLMifareCardRequest.h")
+   #import "PLMifareCardRequest.h"
+#endif
+
+
+
+#if __has_include(<POSLinkAdmin/PLCameraScanRequest.h>)
+   #import <POSLinkAdmin/PLCameraScanRequest.h>
+#elif __has_include("PLCameraScanRequest.h")
+   #import "PLCameraScanRequest.h"
+#endif
+
+
+
+#if __has_include(<POSLinkAdmin/PLPrinterRequest.h>)
+   #import <POSLinkAdmin/PLPrinterRequest.h>
+#elif __has_include("PLPrinterRequest.h")
+   #import "PLPrinterRequest.h"
+#endif
+
+
+
+#if __has_include(<POSLinkAdmin/PLCardInsertDetectionRequest.h>)
+   #import <POSLinkAdmin/PLCardInsertDetectionRequest.h>
+#elif __has_include("PLCardInsertDetectionRequest.h")
+   #import "PLCardInsertDetectionRequest.h"
+#endif
+
+
+
+#if __has_include(<POSLinkAdmin/PLPrinterResponse.h>)
+   #import <POSLinkAdmin/PLPrinterResponse.h>
+#elif __has_include("PLPrinterResponse.h")
+   #import "PLPrinterResponse.h"
+#endif
+
+
+
+#if __has_include(<POSLinkAdmin/PLMifareCardResponse.h>)
+   #import <POSLinkAdmin/PLMifareCardResponse.h>
+#elif __has_include("PLMifareCardResponse.h")
+   #import "PLMifareCardResponse.h"
+#endif
+
+
+
+#if __has_include(<POSLinkAdmin/PLCardInsertDetectionResponse.h>)
+   #import <POSLinkAdmin/PLCardInsertDetectionResponse.h>
+#elif __has_include("PLCardInsertDetectionResponse.h")
+   #import "PLCardInsertDetectionResponse.h"
+#endif
+
+
+
+#if __has_include(<POSLinkAdmin/PLCameraScanResponse.h>)
+   #import <POSLinkAdmin/PLCameraScanResponse.h>
+#elif __has_include("PLCameraScanResponse.h")
+   #import "PLCameraScanResponse.h"
+#endif
+
+
+
 
 NS_ASSUME_NONNULL_BEGIN
 

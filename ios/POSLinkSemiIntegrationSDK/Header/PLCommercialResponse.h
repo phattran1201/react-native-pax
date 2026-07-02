@@ -13,49 +13,69 @@
  */
 
 #import <Foundation/Foundation.h>
-#import "PLSemiConst.h"
-#import "PLAdminConst.h"
-#import "PLCommercialResponse.h"
+#if __has_include(<POSLinkAdmin/PLSemiConst.h>)
+   #import <POSLinkAdmin/PLSemiConst.h>
+#elif __has_include("PLSemiConst.h")
+   #import "PLSemiConst.h"
+#endif
+
+
+#if __has_include(<POSLinkAdmin/PLAdminConst.h>)
+   #import <POSLinkAdmin/PLAdminConst.h>
+#elif __has_include("PLAdminConst.h")
+   #import "PLAdminConst.h"
+#endif
+
+
+#if __has_include(<POSLinkAdmin/PLCommercialResponse.h>)
+   #import <POSLinkAdmin/PLCommercialResponse.h>
+#elif __has_include("PLCommercialResponse.h")
+   #import "PLCommercialResponse.h"
+#endif
+
+
 
 @interface PLCommercialResponse : NSObject
 /**
  The order number supplied by the merchant.
 
- Attribute:ans...17 
+ Attribute : ans...17 
  */
 @property (readwrite, nonatomic, copy)NSString *poNumber;
 /**
  The reference identifier (e.g., Customer Code, Purchase Order Number, Cardholder Reference Number etc.) supplied by the commercial cardholder.
 
- Attribute:ans...25 
+ Attribute : ans...25 
  */
 @property (readwrite, nonatomic, copy)NSString *customerCode;
 /**
- The indicator of tax exempt. 
+ The indicator of tax exempt.
+
+ Attribute : ans...1 
  */
 @property (readwrite, nonatomic, assign)enum TaxExemptIndicator taxExempt;
 /**
  The tax exempt id, if the value of tax exempt is "1", this field is mandatory.
 
- Attribute:ans...12 
+ Attribute : ans...12 
  */
 @property (readwrite, nonatomic, copy)NSString *taxExemptId;
 /**
  The merchant tax id, will be returned if terminal supports commercial card and this value manual entered.
 
- Attribute:ans...15 
+ Attribute : ans...15 
  */
 @property (readwrite, nonatomic, copy)NSString *merchantTaxId;
 /**
- The destination zip code which will be returned if terminal supports commercial card and this value manual entered.
+ The destination zip code which will be returned if terminal supports commercial card and this value manual entered. The application supports 5 to 9 characters including numbers, letters and space.
 
- Attribute:ans...9 
+ Attribute : ans...9 
  */
 @property (readwrite, nonatomic, copy)NSString *destinationZipCode;
 /**
  The product description, will be returned if terminal supports commercial card and this value manual entered.
 
- Attribute:ans...40 
+ Attribute : ans...40 
  */
 @property (readwrite, nonatomic, copy)NSString *productDescription;
 

@@ -13,16 +13,34 @@
  */
 
 #import <Foundation/Foundation.h>
-#import "PLRequest.h"
+#if __has_include(<POSLinkAdmin/PLRequest.h>)
+   #import <POSLinkAdmin/PLRequest.h>
+#elif __has_include("PLRequest.h")
+   #import "PLRequest.h"
+#endif
 
-#import "PLAdminConst.h"
-#import "PLPayloadRequest.h"
+
+
+#if __has_include(<POSLinkAdmin/PLAdminConst.h>)
+   #import <POSLinkAdmin/PLAdminConst.h>
+#elif __has_include("PLAdminConst.h")
+   #import "PLAdminConst.h"
+#endif
+
+
+#if __has_include(<POSLinkAdmin/PLPayloadRequest.h>)
+   #import <POSLinkAdmin/PLPayloadRequest.h>
+#elif __has_include("PLPayloadRequest.h")
+   #import "PLPayloadRequest.h"
+#endif
+
+
 
 @interface PLPayloadRequest : PLRequest
 /**
  The data or message to pass through to the terminal. This payload must be in base64 format.
 
- Attribute:ans...4000 
+ Attribute : ans...4000 
  */
 @property (readwrite, nonatomic, copy)NSString *payload;
 

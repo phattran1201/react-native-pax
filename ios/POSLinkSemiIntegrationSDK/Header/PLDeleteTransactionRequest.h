@@ -13,10 +13,34 @@
  */
 
 #import <Foundation/Foundation.h>
-#import "PLRequest.h"
-#import "PLSemiConst.h"
-#import "PLAdminConst.h"
-#import "PLDeleteTransactionRequest.h"
+#if __has_include(<POSLinkAdmin/PLRequest.h>)
+   #import <POSLinkAdmin/PLRequest.h>
+#elif __has_include("PLRequest.h")
+   #import "PLRequest.h"
+#endif
+
+
+#if __has_include(<POSLinkAdmin/PLSemiConst.h>)
+   #import <POSLinkAdmin/PLSemiConst.h>
+#elif __has_include("PLSemiConst.h")
+   #import "PLSemiConst.h"
+#endif
+
+
+#if __has_include(<POSLinkAdmin/PLAdminConst.h>)
+   #import <POSLinkAdmin/PLAdminConst.h>
+#elif __has_include("PLAdminConst.h")
+   #import "PLAdminConst.h"
+#endif
+
+
+#if __has_include(<POSLinkAdmin/PLDeleteTransactionRequest.h>)
+   #import <POSLinkAdmin/PLDeleteTransactionRequest.h>
+#elif __has_include("PLDeleteTransactionRequest.h")
+   #import "PLDeleteTransactionRequest.h"
+#endif
+
+
 
 @interface PLDeleteTransactionRequest : PLRequest
 /**
@@ -34,7 +58,7 @@
 /**
  The log index in terminal.
 
- Attribute:n...4 
+ Attribute : n...4 
  */
 @property (readwrite, nonatomic, copy)NSString *recordNumber;
 /**
@@ -46,25 +70,25 @@
 
 9000 < Index <= 9999, failed data base for SAF.
 
- Attribute:n...4 
+ Attribute : n...4 
  */
 @property (readwrite, nonatomic, copy)NSString *originalReferenceNumber;
 /**
  Retrieve the transaction record with the matching authorization number.
 
- Attribute:ans...32 
+ Attribute : ans...32 
  */
 @property (readwrite, nonatomic, copy)NSString *authorizationCode;
 /**
  Retrieve the transaction record with the ECR reference number.
 
- Attribute:ans...16 
+ Attribute : ans...32 
  */
 @property (readwrite, nonatomic, copy)NSString *ecrReferenceNumber;
 /**
- An unique ID for each transaction.
+ A unique ID for each transaction.
 
- Attribute:ans...64 
+ Attribute : ans...64 
  */
 @property (readwrite, nonatomic, copy)NSString *globalUid;
 

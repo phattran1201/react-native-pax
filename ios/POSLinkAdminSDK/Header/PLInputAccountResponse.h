@@ -13,64 +13,92 @@
  */
 
 #import <Foundation/Foundation.h>
-#import "PLResponse.h"
+#if __has_include(<POSLinkAdmin/PLResponse.h>)
+   #import <POSLinkAdmin/PLResponse.h>
+#elif __has_include("PLResponse.h")
+   #import "PLResponse.h"
+#endif
 
-#import "PLAdminConst.h"
-#import "PLInputAccountResponse.h"
+
+
+#if __has_include(<POSLinkAdmin/PLAdminConst.h>)
+   #import <POSLinkAdmin/PLAdminConst.h>
+#elif __has_include("PLAdminConst.h")
+   #import "PLAdminConst.h"
+#endif
+
+
+#if __has_include(<POSLinkAdmin/PLInputAccountResponse.h>)
+   #import <POSLinkAdmin/PLInputAccountResponse.h>
+#elif __has_include("PLInputAccountResponse.h")
+   #import "PLInputAccountResponse.h"
+#endif
+
+
 
 @interface PLInputAccountResponse : PLResponse
 /**
- Entry mode. Chip, ChipFallBackSwipe, FrontCamera and RearCamera is not support. 
+ Entry mode. Chip, ChipFallBackSwipe, FrontCamera and RearCamera is not support.
+
+ Attribute : n1 
  */
 @property (readwrite, nonatomic, assign)enum EntryMode entryMode;
 /**
  Track1 data (May be encrypted).
 
- Attribute:ans...128 
+ Attribute : ans...128 
  */
 @property (readwrite, nonatomic, copy)NSString *track1Data;
 /**
  Track2 data (May be encrypted).
 
- Attribute:ans...128 
+ Attribute : ans...128 
  */
 @property (readwrite, nonatomic, copy)NSString *track2Data;
 /**
  Track3 data (May be encrypted).
 
- Attribute:ans...128 
+ Attribute : ans...128 
  */
 @property (readwrite, nonatomic, copy)NSString *track3Data;
 /**
- Account Number for manual entry (May be encrypted).
+ Account Number for if data is available on the card or was entered manually (May be encrypted.)
 
- Attribute:ans...32 
+ Attribute : ans...32 
  */
 @property (readwrite, nonatomic, copy)NSString *pan;
 /**
- The expiration date for manual entry, MMYY.
+ The expiration date if data is available on the card or was entered manually, MMYY.
 
- Attribute:n4 
+ Attribute : n4 
  */
 @property (readwrite, nonatomic, copy)NSString *expiryDate;
 /**
  QR code from scanner in plain text.
 
- Attribute:ans...128 
+ Attribute : ans...128 
  */
 @property (readwrite, nonatomic, copy)NSString *qrCode;
 /**
  The KSN value for account encryption as DUKPT.
 
- Attribute:ans...20 
+ Attribute : ans...20 
  */
 @property (readwrite, nonatomic, copy)NSString *ksn;
 /**
- Card holder name.
+ Cardholder name.
 
- Attribute:ans...45 
+ Attribute : ans...45 
  */
 @property (readwrite, nonatomic, copy)NSString *cardHolder;
+/**
+ Encrypted Transmission Block (ETB). Required for decrypting track data encrypted using Voltage E2EE.
+
+Only valid when EncryptionFlag is set to VoltageE2ee.
+
+ Attribute : ans...512 
+ */
+@property (readwrite, nonatomic, copy)NSString *etb;
 
 
 @end

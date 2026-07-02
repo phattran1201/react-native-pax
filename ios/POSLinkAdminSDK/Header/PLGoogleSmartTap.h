@@ -14,64 +14,98 @@
 
 #import <Foundation/Foundation.h>
 
-#import "PLAdminConst.h"
-#import "PLGoogleServiceTypeBitmap.h"
-#import "PLGoogleSmartTapCapBitmap.h"
-#import "PLGoogleSmartTap.h"
+#if __has_include(<POSLinkAdmin/PLAdminConst.h>)
+   #import <POSLinkAdmin/PLAdminConst.h>
+#elif __has_include("PLAdminConst.h")
+   #import "PLAdminConst.h"
+#endif
+
+
+#if __has_include(<POSLinkAdmin/PLGoogleServiceTypeBitmap.h>)
+   #import <POSLinkAdmin/PLGoogleServiceTypeBitmap.h>
+#elif __has_include("PLGoogleServiceTypeBitmap.h")
+   #import "PLGoogleServiceTypeBitmap.h"
+#endif
+
+
+#if __has_include(<POSLinkAdmin/PLGoogleSmartTapCapBitmap.h>)
+   #import <POSLinkAdmin/PLGoogleSmartTapCapBitmap.h>
+#elif __has_include("PLGoogleSmartTapCapBitmap.h")
+   #import "PLGoogleSmartTapCapBitmap.h"
+#endif
+
+
+#if __has_include(<POSLinkAdmin/PLGoogleSmartTap.h>)
+   #import <POSLinkAdmin/PLGoogleSmartTap.h>
+#elif __has_include("PLGoogleSmartTap.h")
+   #import "PLGoogleSmartTap.h"
+#endif
+
+
 
 @interface PLGoogleSmartTap : NSObject
 /**
- Bitmaps for the various capabilities that the ECR supports. 
+ Bitmaps for the various capabilities that the ECR supports.
+
+ Attribute : n32 
  */
 @property (readwrite, nonatomic, strong)PLGoogleSmartTapCapBitmap *googleSmartTapCap;
 /**
  Predefined number specific to the merchant.
 
- Attribute:n8 
+ Attribute : n8 
  */
 @property (readwrite, nonatomic, copy)NSString *collectId;
 /**
  Merchant address code.
 
- Attribute:ans...16 
+ Attribute : ans...16 
  */
 @property (readwrite, nonatomic, copy)NSString *storeLocalId;
 /**
  Merchant terminal code.
 
- Attribute:ans...16 
+ Attribute : ans...16 
  */
 @property (readwrite, nonatomic, copy)NSString *terminalId;
 /**
- Merchant name.
+ Merchant's name.
 
- Attribute:ans...32 
+ Attribute : ans...32 
  */
 @property (readwrite, nonatomic, copy)NSString *merchantName;
 /**
  Digit merchant code referring to the category of the merchant as defined by the networks.
 
- Attribute:n...4 
+ Attribute : n...4 
  */
 @property (readwrite, nonatomic, copy)NSString *merchantCategory;
 /**
- Service Type. 
+ Service Type.
+
+ Attribute : n16 
  */
 @property (readwrite, nonatomic, strong)PLGoogleServiceTypeBitmap *serviceType;
 /**
- Security. 
+ Security.
+
+ Attribute : n1 
  */
 @property (readwrite, nonatomic, assign)enum Security security;
 /**
  End Tap
 
-Default is NormalFlow. 
+Default is NormalFlow.
+
+ Attribute : n1 
  */
 @property (readwrite, nonatomic, assign)enum EndTap endTap;
 /**
  Ose To Ppse.
 
-Default is NormalFlow. 
+Default is NormalFlow.
+
+ Attribute : n1 
  */
 @property (readwrite, nonatomic, assign)enum OseToPpse oseToPpse;
 

@@ -13,10 +13,28 @@
  */
 
 #import <Foundation/Foundation.h>
-#import "PLRequest.h"
+#if __has_include(<POSLinkAdmin/PLRequest.h>)
+   #import <POSLinkAdmin/PLRequest.h>
+#elif __has_include("PLRequest.h")
+   #import "PLRequest.h"
+#endif
 
-#import "PLAdminConst.h"
-#import "PLGetPedInformationRequest.h"
+
+
+#if __has_include(<POSLinkAdmin/PLAdminConst.h>)
+   #import <POSLinkAdmin/PLAdminConst.h>
+#elif __has_include("PLAdminConst.h")
+   #import "PLAdminConst.h"
+#endif
+
+
+#if __has_include(<POSLinkAdmin/PLGetPedInformationRequest.h>)
+   #import <POSLinkAdmin/PLGetPedInformationRequest.h>
+#elif __has_include("PLGetPedInformationRequest.h")
+   #import "PLGetPedInformationRequest.h"
+#endif
+
+
 
 @interface PLGetPedInformationRequest : PLRequest
 /**
@@ -24,7 +42,9 @@
 
 Empty value means all key information.
 
-If you want to specify Key Slot, you need to specify key type first. 
+If you want to specify Key Slot, you need to specify key type first.
+
+ Attribute : n1 
  */
 @property (readwrite, nonatomic, assign)enum KeyType keyType;
 /**
@@ -32,7 +52,7 @@ If you want to specify Key Slot, you need to specify key type first.
 
 Empty value means all slot.
 
- Attribute:var 
+ Attribute : var 
  */
 @property (readwrite, nonatomic, copy)NSString *keySlot;
 

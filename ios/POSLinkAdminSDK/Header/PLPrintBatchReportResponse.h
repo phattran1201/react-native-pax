@@ -9,16 +9,34 @@
  * ============================================================================
  */
 /**
- Reset Response
+ Print Batch Report Response
  */
 
 #import <Foundation/Foundation.h>
-#import "PLResponse.h"
+#if __has_include(<POSLinkAdmin/PLResponse.h>)
+   #import <POSLinkAdmin/PLResponse.h>
+#elif __has_include("PLResponse.h")
+   #import "PLResponse.h"
+#endif
 
-#import "PLAdminConst.h"
-#import "PLResetResponse.h"
 
-@interface PLResetResponse : PLResponse
+
+#if __has_include(<POSLinkAdmin/PLAdminConst.h>)
+   #import <POSLinkAdmin/PLAdminConst.h>
+#elif __has_include("PLAdminConst.h")
+   #import "PLAdminConst.h"
+#endif
+
+
+#if __has_include(<POSLinkAdmin/PLPrintBatchReportResponse.h>)
+   #import <POSLinkAdmin/PLPrintBatchReportResponse.h>
+#elif __has_include("PLPrintBatchReportResponse.h")
+   #import "PLPrintBatchReportResponse.h"
+#endif
+
+
+
+@interface PLPrintBatchReportResponse : PLResponse
 
 
 @end

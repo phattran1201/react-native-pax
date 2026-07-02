@@ -13,14 +13,34 @@
  */
 
 #import <Foundation/Foundation.h>
-#import "PLRequest.h"
+#if __has_include(<POSLinkAdmin/PLRequest.h>)
+   #import <POSLinkAdmin/PLRequest.h>
+#elif __has_include("PLRequest.h")
+   #import "PLRequest.h"
+#endif
 
-#import "PLAdminConst.h"
-#import "PLIncreaseKsnRequest.h"
+
+
+#if __has_include(<POSLinkAdmin/PLAdminConst.h>)
+   #import <POSLinkAdmin/PLAdminConst.h>
+#elif __has_include("PLAdminConst.h")
+   #import "PLAdminConst.h"
+#endif
+
+
+#if __has_include(<POSLinkAdmin/PLIncreaseKsnRequest.h>)
+   #import <POSLinkAdmin/PLIncreaseKsnRequest.h>
+#elif __has_include("PLIncreaseKsnRequest.h")
+   #import "PLIncreaseKsnRequest.h"
+#endif
+
+
 
 @interface PLIncreaseKsnRequest : PLRequest
 /**
- Key type. Support DesDukptKey and AesDukptKey. 
+ Key type. Support DesDukptKey and AesDukptKey.
+
+ Attribute : n1 
  */
 @property (readwrite, nonatomic, assign)enum KeyType keyType;
 /**
@@ -32,7 +52,7 @@ Prolin(D200,D220, S920,Q20,Q30,Px5,Px7): 1-99 (DES DUKPT and Master Session), 1-
 
 PayDroid(A60, A80, A920, A930, Aries Series): 1-99 (DES DUKPT and Master Session), 1-40(AES DUKPT).
 
- Attribute:n...2 
+ Attribute : n...2 
  */
 @property (readwrite, nonatomic, copy)NSString *keySlot;
 

@@ -14,20 +14,32 @@
 
 #import <Foundation/Foundation.h>
 
-#import "PLAdminConst.h"
-#import "PLItemDetail.h"
+#if __has_include(<POSLinkAdmin/PLAdminConst.h>)
+   #import <POSLinkAdmin/PLAdminConst.h>
+#elif __has_include("PLAdminConst.h")
+   #import "PLAdminConst.h"
+#endif
+
+
+#if __has_include(<POSLinkAdmin/PLItemDetail.h>)
+   #import <POSLinkAdmin/PLItemDetail.h>
+#elif __has_include("PLItemDetail.h")
+   #import "PLItemDetail.h"
+#endif
+
+
 
 @interface PLItemDetail : NSObject
 /**
  Product name.
 
- Attribute:ans...20 
+ Attribute : ans...20 
  */
 @property (readwrite, nonatomic, copy)NSString *productName;
 /**
  PLU or UPC data for report only, won't be displayed on the screen.
 
- Attribute:n...16 
+ Attribute : n...16 
  */
 @property (readwrite, nonatomic, copy)NSString *pluCode;
 /**
@@ -37,31 +49,33 @@ Format can be either [symbol]$$$$$$CC or $$$$$$CC[symbol] or[symbol]$$$$$$CC[sym
 
 The following symbols are supported: "-", "(", ")".
 
- Attribute:ans...9 
+ Attribute : ans...9 
  */
 @property (readwrite, nonatomic, copy)NSString *price;
 /**
  Unit.
 
-Default is PerItem. 
+Default is PerItem.
+
+ Attribute : n1 
  */
 @property (readwrite, nonatomic, assign)enum ItemDetailUnit unit;
 /**
  Produce price per unit. Format is $$$$$$CC.
 
- Attribute:n...8 
+ Attribute : n...8 
  */
 @property (readwrite, nonatomic, copy)NSString *unitPrice;
 /**
  Product total tax for report only, won't be displayed on the screen. Format is $$$$$$CC.
 
- Attribute:n...8 
+ Attribute : n...8 
  */
 @property (readwrite, nonatomic, copy)NSString *tax;
 /**
  Product quantity (depends on the unit) for example, 10 = 10 item, 10 = 10 pound, 10 = 10 feet.
 
- Attribute:ans...6 
+ Attribute : ans...6 
  */
 @property (readwrite, nonatomic, copy)NSString *quantity;
 /**
@@ -69,7 +83,7 @@ Default is PerItem.
 
 If there is more than one item in request, this field is invalid.
 
- Attribute:ans...16 
+ Attribute : ans...16 
  */
 @property (readwrite, nonatomic, copy)NSString *productImageName;
 /**
@@ -77,7 +91,7 @@ If there is more than one item in request, this field is invalid.
 
 If there is more than one item in request, this field is invalid.
 
- Attribute:ans...16 
+ Attribute : ans...16 
  */
 @property (readwrite, nonatomic, copy)NSString *productImageDescription;
 

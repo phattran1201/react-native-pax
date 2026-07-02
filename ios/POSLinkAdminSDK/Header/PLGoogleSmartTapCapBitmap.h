@@ -14,8 +14,20 @@
 
 #import <Foundation/Foundation.h>
 
-#import "PLAdminConst.h"
-#import "PLGoogleSmartTapCapBitmap.h"
+#if __has_include(<POSLinkAdmin/PLAdminConst.h>)
+   #import <POSLinkAdmin/PLAdminConst.h>
+#elif __has_include("PLAdminConst.h")
+   #import "PLAdminConst.h"
+#endif
+
+
+#if __has_include(<POSLinkAdmin/PLGoogleSmartTapCapBitmap.h>)
+   #import <POSLinkAdmin/PLGoogleSmartTapCapBitmap.h>
+#elif __has_include("PLGoogleSmartTapCapBitmap.h")
+   #import "PLGoogleSmartTapCapBitmap.h"
+#endif
+
+
 
 @interface PLGoogleSmartTapCapBitmap : NSObject
 /**
@@ -23,7 +35,9 @@
 
 true: support.
 
-false: not support. 
+false: not supported.
+
+ Attribute : n1 
  */
 @property (readwrite, nonatomic, assign)BOOL standAlone;
 /**
@@ -31,7 +45,9 @@ false: not support.
 
 true: support.
 
-false: not support. 
+false: not supported.
+
+ Attribute : n1 
  */
 @property (readwrite, nonatomic, assign)BOOL semiIntegrated;
 /**
@@ -39,7 +55,9 @@ false: not support.
 
 true: support.
 
-false: not support. 
+false: not supported.
+
+ Attribute : n1 
  */
 @property (readwrite, nonatomic, assign)BOOL unattended;
 /**
@@ -47,7 +65,9 @@ false: not support.
 
 true: support.
 
-false: not support. 
+false: not supported.
+
+ Attribute : n1 
  */
 @property (readwrite, nonatomic, assign)BOOL online;
 /**
@@ -55,7 +75,9 @@ false: not support.
 
 true: support.
 
-false: not support. 
+false: not supported.
+
+ Attribute : n1 
  */
 @property (readwrite, nonatomic, assign)BOOL offline;
 /**
@@ -63,7 +85,9 @@ false: not support.
 
 true: support.
 
-false: not support. 
+false: not supported.
+
+ Attribute : n1 
  */
 @property (readwrite, nonatomic, assign)BOOL mmp;
 /**
@@ -71,7 +95,9 @@ false: not support.
 
 true: support.
 
-false: not support. 
+false: not supported.
+
+ Attribute : n1 
  */
 @property (readwrite, nonatomic, assign)BOOL zlibSupport;
 /**
@@ -79,7 +105,9 @@ false: not support.
 
 true: support.
 
-false: not support. 
+false: not supported.
+
+ Attribute : n1 
  */
 @property (readwrite, nonatomic, assign)BOOL printer;
 /**
@@ -87,7 +115,9 @@ false: not support.
 
 true: support.
 
-false: not support. 
+false: not supported.
+
+ Attribute : n1 
  */
 @property (readwrite, nonatomic, assign)BOOL printerGraphics;
 /**
@@ -95,7 +125,9 @@ false: not support.
 
 true: support.
 
-false: not support. 
+false: not supported.
+
+ Attribute : n1 
  */
 @property (readwrite, nonatomic, assign)BOOL display;
 /**
@@ -103,7 +135,9 @@ false: not support.
 
 true: support.
 
-false: not support. 
+false: not supported.
+
+ Attribute : n1 
  */
 @property (readwrite, nonatomic, assign)BOOL images;
 /**
@@ -111,7 +145,9 @@ false: not support.
 
 true: support.
 
-false: not support. 
+false: not supported.
+
+ Attribute : n1 
  */
 @property (readwrite, nonatomic, assign)BOOL audio;
 /**
@@ -119,7 +155,9 @@ false: not support.
 
 true: support.
 
-false: not support. 
+false: not supported.
+
+ Attribute : n1 
  */
 @property (readwrite, nonatomic, assign)BOOL animation;
 /**
@@ -127,7 +165,9 @@ false: not support.
 
 true: support.
 
-false: not support. 
+false: not supported.
+
+ Attribute : n1 
  */
 @property (readwrite, nonatomic, assign)BOOL video;
 /**
@@ -135,7 +175,9 @@ false: not support.
 
 true: support.
 
-false: not support. 
+false: not supported.
+
+ Attribute : n1 
  */
 @property (readwrite, nonatomic, assign)BOOL supportPayment;
 /**
@@ -143,7 +185,9 @@ false: not support.
 
 true: support.
 
-false: not support. 
+false: not supported.
+
+ Attribute : n1 
  */
 @property (readwrite, nonatomic, assign)BOOL supportDigitalReceipt;
 /**
@@ -151,7 +195,9 @@ false: not support.
 
 true: support.
 
-false: not support. 
+false: not supported.
+
+ Attribute : n1 
  */
 @property (readwrite, nonatomic, assign)BOOL supportServiceIssuance;
 /**
@@ -159,7 +205,9 @@ false: not support.
 
 true: support.
 
-false: not support. 
+false: not supported.
+
+ Attribute : n1 
  */
 @property (readwrite, nonatomic, assign)BOOL supportOtaPosData;
 /**
@@ -167,7 +215,9 @@ false: not support.
 
 true: support.
 
-false: not support. 
+false: not supported.
+
+ Attribute : n1 
  */
 @property (readwrite, nonatomic, assign)BOOL onlinePin;
 /**
@@ -175,7 +225,9 @@ false: not support.
 
 true: support.
 
-false: not support. 
+false: not supported.
+
+ Attribute : n1 
  */
 @property (readwrite, nonatomic, assign)BOOL cdPin;
 /**
@@ -183,7 +235,9 @@ false: not support.
 
 true: support.
 
-false: not support. 
+false: not supported.
+
+ Attribute : n1 
  */
 @property (readwrite, nonatomic, assign)BOOL signature;
 /**
@@ -191,7 +245,9 @@ false: not support.
 
 true: support.
 
-false: not support. 
+false: not supported.
+
+ Attribute : n1 
  */
 @property (readwrite, nonatomic, assign)BOOL noCvm;
 /**
@@ -199,7 +255,9 @@ false: not support.
 
 true: support.
 
-false: not support. 
+false: not supported.
+
+ Attribute : n1 
  */
 @property (readwrite, nonatomic, assign)BOOL deviceGeneratedCode;
 /**
@@ -207,7 +265,9 @@ false: not support.
 
 true: support.
 
-false: not support. 
+false: not supported.
+
+ Attribute : n1 
  */
 @property (readwrite, nonatomic, assign)BOOL spGeneratedCode;
 /**
@@ -215,7 +275,9 @@ false: not support.
 
 true: support.
 
-false: not support. 
+false: not supported.
+
+ Attribute : n1 
  */
 @property (readwrite, nonatomic, assign)BOOL idCapture;
 /**
@@ -223,7 +285,9 @@ false: not support.
 
 true: support.
 
-false: not support. 
+false: not supported.
+
+ Attribute : n1 
  */
 @property (readwrite, nonatomic, assign)BOOL bioMetric;
 

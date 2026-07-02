@@ -9,32 +9,34 @@
  * ============================================================================
  */
 /**
- Request host credential information.
+ Clears card data from all buffers on the card reader.
  */
 
 #import <Foundation/Foundation.h>
-#import "PLSemiConst.h"
-#import "PLAdminConst.h"
-#import "PLHostCredential.h"
+#if __has_include(<POSLinkAdmin/PLRequest.h>)
+   #import <POSLinkAdmin/PLRequest.h>
+#elif __has_include("PLRequest.h")
+   #import "PLRequest.h"
+#endif
 
-@interface PLHostCredential : NSObject
-/**
- Merchant's account code/identifier/access token.
 
- Attribute:ans...255 
- */
-@property (readwrite, nonatomic, copy)NSString *mid;
-/**
- User account for service/additional fees.
 
- Attribute:ans...150 
- */
-@property (readwrite, nonatomic, copy)NSString *serviceUser;
-/**
- User account password for service/additional fees.
+#if __has_include(<POSLinkAdmin/PLAdminConst.h>)
+   #import <POSLinkAdmin/PLAdminConst.h>
+#elif __has_include("PLAdminConst.h")
+   #import "PLAdminConst.h"
+#endif
 
- Attribute:ans...50 
- */
-@property (readwrite, nonatomic, copy)NSString *servicePassword;
+
+#if __has_include(<POSLinkAdmin/PLClearCardBufferRequest.h>)
+   #import <POSLinkAdmin/PLClearCardBufferRequest.h>
+#elif __has_include("PLClearCardBufferRequest.h")
+   #import "PLClearCardBufferRequest.h"
+#endif
+
+
+
+@interface PLClearCardBufferRequest : PLRequest
+
 
 @end

@@ -13,11 +13,35 @@
  */
 
 #import <Foundation/Foundation.h>
-#import "PLRequest.h"
+#if __has_include(<POSLinkAdmin/PLRequest.h>)
+   #import <POSLinkAdmin/PLRequest.h>
+#elif __has_include("PLRequest.h")
+   #import "PLRequest.h"
+#endif
 
-#import "PLAdminConst.h"
-#import "PLMultiMerchant.h"
-#import "PLSetVariableRequest.h"
+
+
+#if __has_include(<POSLinkAdmin/PLAdminConst.h>)
+   #import <POSLinkAdmin/PLAdminConst.h>
+#elif __has_include("PLAdminConst.h")
+   #import "PLAdminConst.h"
+#endif
+
+
+#if __has_include(<POSLinkAdmin/PLMultiMerchant.h>)
+   #import <POSLinkAdmin/PLMultiMerchant.h>
+#elif __has_include("PLMultiMerchant.h")
+   #import "PLMultiMerchant.h"
+#endif
+
+
+#if __has_include(<POSLinkAdmin/PLSetVariableRequest.h>)
+   #import <POSLinkAdmin/PLSetVariableRequest.h>
+#elif __has_include("PLSetVariableRequest.h")
+   #import "PLSetVariableRequest.h"
+#endif
+
+
 
 @interface PLSetVariableRequest : PLRequest
 /**
@@ -27,61 +51,61 @@
 /**
  The name of the variable
 
- Attribute:ans...32 
+ Attribute : ans...32 
  */
 @property (readwrite, nonatomic, copy)NSString *variableName1;
 /**
  The value of the variable
 
- Attribute:ans...64 
+ Attribute : ans...64 
  */
 @property (readwrite, nonatomic, copy)NSString *variableValue1;
 /**
  The name of the variable
 
- Attribute:ans...32 
+ Attribute : ans...32 
  */
 @property (readwrite, nonatomic, copy)NSString *variableName2;
 /**
  The value of the variable
 
- Attribute:ans...64 
+ Attribute : ans...64 
  */
 @property (readwrite, nonatomic, copy)NSString *variableValue2;
 /**
  The name of the variable
 
- Attribute:ans...32 
+ Attribute : ans...32 
  */
 @property (readwrite, nonatomic, copy)NSString *variableName3;
 /**
  The value of the variable
 
- Attribute:ans...64 
+ Attribute : ans...64 
  */
 @property (readwrite, nonatomic, copy)NSString *variableValue3;
 /**
  The name of the variable
 
- Attribute:ans...32 
+ Attribute : ans...32 
  */
 @property (readwrite, nonatomic, copy)NSString *variableName4;
 /**
  The value of the variable
 
- Attribute:ans...64 
+ Attribute : ans...64 
  */
 @property (readwrite, nonatomic, copy)NSString *variableValue4;
 /**
  The name of the variable
 
- Attribute:ans...32 
+ Attribute : ans...32 
  */
 @property (readwrite, nonatomic, copy)NSString *variableName5;
 /**
  The value of the variable
 
- Attribute:ans...64 
+ Attribute : ans...64 
  */
 @property (readwrite, nonatomic, copy)NSString *variableValue5;
 /**

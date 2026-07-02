@@ -13,10 +13,28 @@
  */
 
 #import <Foundation/Foundation.h>
-#import "PLResponse.h"
+#if __has_include(<POSLinkAdmin/PLResponse.h>)
+   #import <POSLinkAdmin/PLResponse.h>
+#elif __has_include("PLResponse.h")
+   #import "PLResponse.h"
+#endif
 
-#import "PLAdminConst.h"
-#import "PLShowDialogFormResponse.h"
+
+
+#if __has_include(<POSLinkAdmin/PLAdminConst.h>)
+   #import <POSLinkAdmin/PLAdminConst.h>
+#elif __has_include("PLAdminConst.h")
+   #import "PLAdminConst.h"
+#endif
+
+
+#if __has_include(<POSLinkAdmin/PLShowDialogFormResponse.h>)
+   #import <POSLinkAdmin/PLShowDialogFormResponse.h>
+#elif __has_include("PLShowDialogFormResponse.h")
+   #import "PLShowDialogFormResponse.h"
+#endif
+
+
 
 @interface PLShowDialogFormResponse : PLResponse
 /**
@@ -28,7 +46,7 @@ CheckBox Selection,
 
 "1,2,3,4" means all four checkboxes are selected. ',' is the delimiter.
 
- Attribute:ans...10 
+ Attribute : ans...10 
  */
 @property (readwrite, nonatomic, copy)NSString *labelSelected;
 

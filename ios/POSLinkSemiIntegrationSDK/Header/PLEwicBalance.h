@@ -13,27 +13,45 @@
  */
 
 #import <Foundation/Foundation.h>
-#import "PLSemiConst.h"
-#import "PLAdminConst.h"
-#import "PLEwicBalance.h"
+#if __has_include(<POSLinkAdmin/PLSemiConst.h>)
+   #import <POSLinkAdmin/PLSemiConst.h>
+#elif __has_include("PLSemiConst.h")
+   #import "PLSemiConst.h"
+#endif
+
+
+#if __has_include(<POSLinkAdmin/PLAdminConst.h>)
+   #import <POSLinkAdmin/PLAdminConst.h>
+#elif __has_include("PLAdminConst.h")
+   #import "PLAdminConst.h"
+#endif
+
+
+#if __has_include(<POSLinkAdmin/PLEwicBalance.h>)
+   #import <POSLinkAdmin/PLEwicBalance.h>
+#elif __has_include("PLEwicBalance.h")
+   #import "PLEwicBalance.h"
+#endif
+
+
 
 @interface PLEwicBalance : NSObject
 /**
  Product code.
 
- Attribute:n2 
+ Attribute : n2 
  */
 @property (readwrite, nonatomic, copy)NSString *productCode;
 /**
  Sub-product code.
 
- Attribute:n3 
+ Attribute : n3 
  */
 @property (readwrite, nonatomic, copy)NSString *subCode;
 /**
  Balance.
 
- Attribute:n...5 
+ Attribute : n...5 
  */
 @property (readwrite, nonatomic, copy)NSString *balance;
 

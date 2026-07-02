@@ -14,24 +14,40 @@
 
 #import <Foundation/Foundation.h>
 
-#import "PLAdminConst.h"
-#import "PLGoogleServiceTypeBitmap.h"
+#if __has_include(<POSLinkAdmin/PLAdminConst.h>)
+   #import <POSLinkAdmin/PLAdminConst.h>
+#elif __has_include("PLAdminConst.h")
+   #import "PLAdminConst.h"
+#endif
+
+
+#if __has_include(<POSLinkAdmin/PLGoogleServiceTypeBitmap.h>)
+   #import <POSLinkAdmin/PLGoogleServiceTypeBitmap.h>
+#elif __has_include("PLGoogleServiceTypeBitmap.h")
+   #import "PLGoogleServiceTypeBitmap.h"
+#endif
+
+
 
 @interface PLGoogleServiceTypeBitmap : NSObject
 /**
- All services. This flag must be true when specify other flags.
+ All services. This flag must be true when specifying other flags.
 
 true: service type is chosen.
 
-false: service type is not chosen. 
+false: service type is not chosen.
+
+ Attribute : n1 
  */
 @property (readwrite, nonatomic, assign)BOOL allServices;
 /**
- All services except PPSE. This flag must be true when specify other flags.
+ All services except PPSE. This flag must be true when specifying other flags.
 
 true: service type is chosen.
 
-false: service type is not chosen. 
+false: service type is not chosen.
+
+ Attribute : n1 
  */
 @property (readwrite, nonatomic, assign)BOOL allServicesExceptPpse;
 /**
@@ -39,7 +55,9 @@ false: service type is not chosen.
 
 true: service type is chosen.
 
-false: service type is not chosen. 
+false: service type is not chosen.
+
+ Attribute : n1 
  */
 @property (readwrite, nonatomic, assign)BOOL ppse;
 /**
@@ -47,7 +65,9 @@ false: service type is not chosen.
 
 true: service type is chosen.
 
-false: service type is not chosen. 
+false: service type is not chosen.
+
+ Attribute : n1 
  */
 @property (readwrite, nonatomic, assign)BOOL loyalty;
 /**
@@ -55,7 +75,9 @@ false: service type is not chosen.
 
 true: service type is chosen.
 
-false: service type is not chosen. 
+false: service type is not chosen.
+
+ Attribute : n1 
  */
 @property (readwrite, nonatomic, assign)BOOL offer;
 /**
@@ -63,7 +85,9 @@ false: service type is not chosen.
 
 true: service type is chosen.
 
-false: service type is not chosen. 
+false: service type is not chosen.
+
+ Attribute : n1 
  */
 @property (readwrite, nonatomic, assign)BOOL giftCard1;
 /**
@@ -71,7 +95,9 @@ false: service type is not chosen.
 
 true: service type is chosen.
 
-false: service type is not chosen. 
+false: service type is not chosen.
+
+ Attribute : n1 
  */
 @property (readwrite, nonatomic, assign)BOOL privateLabelCard;
 /**
@@ -79,7 +105,9 @@ false: service type is not chosen.
 
 true: service type is chosen.
 
-false: service type is not chosen. 
+false: service type is not chosen.
+
+ Attribute : n1 
  */
 @property (readwrite, nonatomic, assign)BOOL cloudBasedWallet;
 /**
@@ -87,7 +115,9 @@ false: service type is not chosen.
 
 true: service type is chosen.
 
-false: service type is not chosen. 
+false: service type is not chosen.
+
+ Attribute : n1 
  */
 @property (readwrite, nonatomic, assign)BOOL mobileMarketingPlatform;
 /**
@@ -95,7 +125,9 @@ false: service type is not chosen.
 
 true: service type is chosen.
 
-false: service type is not chosen. 
+false: service type is not chosen.
+
+ Attribute : n1 
  */
 @property (readwrite, nonatomic, assign)BOOL walletCustomer;
 

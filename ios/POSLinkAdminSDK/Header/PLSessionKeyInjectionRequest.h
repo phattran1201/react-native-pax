@@ -13,32 +13,52 @@
  */
 
 #import <Foundation/Foundation.h>
-#import "PLRequest.h"
+#if __has_include(<POSLinkAdmin/PLRequest.h>)
+   #import <POSLinkAdmin/PLRequest.h>
+#elif __has_include("PLRequest.h")
+   #import "PLRequest.h"
+#endif
 
-#import "PLAdminConst.h"
-#import "PLSessionKeyInjectionRequest.h"
+
+
+#if __has_include(<POSLinkAdmin/PLAdminConst.h>)
+   #import <POSLinkAdmin/PLAdminConst.h>
+#elif __has_include("PLAdminConst.h")
+   #import "PLAdminConst.h"
+#endif
+
+
+#if __has_include(<POSLinkAdmin/PLSessionKeyInjectionRequest.h>)
+   #import <POSLinkAdmin/PLSessionKeyInjectionRequest.h>
+#elif __has_include("PLSessionKeyInjectionRequest.h")
+   #import "PLSessionKeyInjectionRequest.h"
+#endif
+
+
 
 @interface PLSessionKeyInjectionRequest : PLRequest
 /**
  Reserve. Must set to 1 (Terminal Master Key).
 
- Attribute:n1 
+ Attribute : n1 
  */
 @property (readwrite, nonatomic, copy)NSString *sourceKeyType;
 /**
  The source key index should be [1, 99].
 
- Attribute:n...2 
+ Attribute : n...2 
  */
 @property (readwrite, nonatomic, copy)NSString *sourceKeyIndex;
 /**
- Destination key type. 
+ Destination key type.
+
+ Attribute : n1 
  */
 @property (readwrite, nonatomic, assign)enum DestinationKeyType destinationKeyType;
 /**
  The destination key index should be [1, 99].
 
- Attribute:n...2 
+ Attribute : n...2 
  */
 @property (readwrite, nonatomic, copy)NSString *destinationKeyIndex;
 /**
@@ -48,11 +68,13 @@ Valid key length is 8, 16, 24.
 
 Key data must be in ASCII format. For example, the 8 bytes binary array "\x11\x22\x33\x44\x55\x66\x77\x88" can be converted into "1122334455667788".
 
- Attribute:an...48 
+ Attribute : an...48 
  */
 @property (readwrite, nonatomic, copy)NSString *destinationKeyValue;
 /**
- Check Mode. 
+ Check Mode.
+
+ Attribute : n1 
  */
 @property (readwrite, nonatomic, assign)enum CheckMode checkMode;
 /**
@@ -62,7 +84,7 @@ If check mode = DesOrTdesEncryptionAndCheckKcv, the buffer(KCV) length should be
 
 The data must be in ASCII format. For example, the 4 bytes binary array "\x11\x22\x33\x44" can be converted into "11223344".
 
- Attribute:an...8 
+ Attribute : an...8 
  */
 @property (readwrite, nonatomic, copy)NSString *checkBuffer;
 

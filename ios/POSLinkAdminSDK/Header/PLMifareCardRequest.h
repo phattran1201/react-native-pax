@@ -13,30 +13,52 @@
  */
 
 #import <Foundation/Foundation.h>
-#import "PLRequest.h"
+#if __has_include(<POSLinkAdmin/PLRequest.h>)
+   #import <POSLinkAdmin/PLRequest.h>
+#elif __has_include("PLRequest.h")
+   #import "PLRequest.h"
+#endif
 
-#import "PLAdminConst.h"
-#import "PLMifareCardRequest.h"
+
+
+#if __has_include(<POSLinkAdmin/PLAdminConst.h>)
+   #import <POSLinkAdmin/PLAdminConst.h>
+#elif __has_include("PLAdminConst.h")
+   #import "PLAdminConst.h"
+#endif
+
+
+#if __has_include(<POSLinkAdmin/PLMifareCardRequest.h>)
+   #import <POSLinkAdmin/PLMifareCardRequest.h>
+#elif __has_include("PLMifareCardRequest.h")
+   #import "PLMifareCardRequest.h"
+#endif
+
+
 
 @interface PLMifareCardRequest : PLRequest
 /**
- M1 Command type. 
+ M1 Command type.
+
+ Attribute : n1 
  */
 @property (readwrite, nonatomic, assign)enum M1CommandType m1Command;
 /**
  Block number indicator.
 
- Attribute:n...2 
+ Attribute : n...2 
  */
 @property (readwrite, nonatomic, copy)NSString *blockNumber;
 /**
  Password to authority. The field is mandatory when M1CommandType is "Read", "Write", "OperateWithIncreaseValue", "OperateWithDecreaseValue", and "OperateWithBackupValue".
 
- Attribute:ans...32 
+ Attribute : ans...32 
  */
 @property (readwrite, nonatomic, copy)NSString *password;
 /**
- Password type. The field is mandatory when M1CommandType is "Read", "Write", "OperateWithIncreaseValue", "OperateWithDecreaseValue", and "OperateWithBackupValue" 
+ Password type. The field is mandatory when M1CommandType is "Read", "Write", "OperateWithIncreaseValue", "OperateWithDecreaseValue", and "OperateWithBackupValue"
+
+ Attribute : n1 
  */
 @property (readwrite, nonatomic, assign)enum PasswordType passwordType;
 /**
@@ -48,7 +70,7 @@ OperateWithIncreaseValue: The format is decimal and the max length is 9.
 
 OperateWithDecreaseValue: The format is decimal and the max length is 9.
 
- Attribute:ans...32 
+ Attribute : ans...32 
  */
 @property (readwrite, nonatomic, copy)NSString *blockValue;
 /**
@@ -60,13 +82,13 @@ OperateWithDecreaseValue: operate with decrease value
 
 OperateWithBackupValue: operate with backup value
 
- Attribute:n...2 
+ Attribute : n...2 
  */
 @property (readwrite, nonatomic, copy)NSString *updateBlockNumber;
 /**
  Timeout in 100ms for detecting card. The valid value should be [0, 9999]. If value is null, it means no timeout and waiting for user cancelation or detecting card.
 
- Attribute:n...4 
+ Attribute : n...4 
  */
 @property (readwrite, nonatomic, copy)NSString *timeout;
 

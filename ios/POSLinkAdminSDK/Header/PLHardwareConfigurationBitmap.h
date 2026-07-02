@@ -14,8 +14,20 @@
 
 #import <Foundation/Foundation.h>
 
-#import "PLAdminConst.h"
-#import "PLHardwareConfigurationBitmap.h"
+#if __has_include(<POSLinkAdmin/PLAdminConst.h>)
+   #import <POSLinkAdmin/PLAdminConst.h>
+#elif __has_include("PLAdminConst.h")
+   #import "PLAdminConst.h"
+#endif
+
+
+#if __has_include(<POSLinkAdmin/PLHardwareConfigurationBitmap.h>)
+   #import <POSLinkAdmin/PLHardwareConfigurationBitmap.h>
+#elif __has_include("PLHardwareConfigurationBitmap.h")
+   #import "PLHardwareConfigurationBitmap.h"
+#endif
+
+
 
 @interface PLHardwareConfigurationBitmap : NSObject
 /**
@@ -23,7 +35,9 @@
 
 true: is present and supported by the application.
 
-false: is not supported or present. 
+false: is not supported or present.
+
+ Attribute : n1 
  */
 @property (readwrite, nonatomic, assign)BOOL magstripe;
 /**
@@ -31,7 +45,9 @@ false: is not supported or present.
 
 true: is present and supported by the application.
 
-false: is not supported or present. 
+false: is not supported or present.
+
+ Attribute : n1 
  */
 @property (readwrite, nonatomic, assign)BOOL emvChip;
 /**
@@ -39,7 +55,9 @@ false: is not supported or present.
 
 true: is present and supported by the application.
 
-false: is not supported or present. 
+false: is not supported or present.
+
+ Attribute : n1 
  */
 @property (readwrite, nonatomic, assign)BOOL emvContactless;
 /**
@@ -47,7 +65,9 @@ false: is not supported or present.
 
 true: is present and supported by the application.
 
-false: is not supported or present. 
+false: is not supported or present.
+
+ Attribute : n1 
  */
 @property (readwrite, nonatomic, assign)BOOL cameraFront;
 /**
@@ -55,7 +75,9 @@ false: is not supported or present.
 
 true: is present and supported by the application.
 
-false: is not supported or present. 
+false: is not supported or present.
+
+ Attribute : n1 
  */
 @property (readwrite, nonatomic, assign)BOOL laserScanner;
 /**
@@ -63,7 +85,9 @@ false: is not supported or present.
 
 true: is present and supported by the application.
 
-false: is not supported or present. 
+false: is not supported or present.
+
+ Attribute : n1 
  */
 @property (readwrite, nonatomic, assign)BOOL cameraRear;
 /**
@@ -71,7 +95,9 @@ false: is not supported or present.
 
 true: is present and supported by the application.
 
-false: is not supported or present. 
+false: is not supported or present.
+
+ Attribute : n1 
  */
 @property (readwrite, nonatomic, assign)BOOL printer;
 /**
@@ -79,7 +105,9 @@ false: is not supported or present.
 
 true: is present and supported by the application.
 
-false: is not supported or present. 
+false: is not supported or present.
+
+ Attribute : n1 
  */
 @property (readwrite, nonatomic, assign)BOOL touchscreen;
 

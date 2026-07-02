@@ -10,22 +10,118 @@
  */
 
 #import <Foundation/Foundation.h>
-#import "PLExecutionResult.h"
-#import "PLBaseTerminal.h"
-#import "PLBatchClearRequest.h"
-#import "PLPurgeBatchRequest.h"
-#import "PLForceBatchCloseRequest.h"
-#import "PLBatchCloseRequest.h"
-#import "PLDeleteTransactionRequest.h"
-#import "PLSafUploadRequest.h"
-#import "PLDeleteSafFileRequest.h"
-#import "PLForceBatchCloseResponse.h"
-#import "PLDeleteSafFileResponse.h"
-#import "PLBatchClearResponse.h"
-#import "PLPurgeBatchResponse.h"
-#import "PLBatchCloseResponse.h"
-#import "PLDeleteTransactionResponse.h"
-#import "PLSafUploadResponse.h"
+#if __has_include(<POSLinkAdmin/PLExecutionResult.h>)
+   #import <POSLinkAdmin/PLExecutionResult.h>
+#elif __has_include("PLExecutionResult.h")
+   #import "PLExecutionResult.h"
+#endif
+
+
+
+#if __has_include(<POSLinkAdmin/PLBaseTerminal.h>)
+   #import <POSLinkAdmin/PLBaseTerminal.h>
+#elif __has_include("PLBaseTerminal.h")
+   #import "PLBaseTerminal.h"
+#endif
+
+
+
+#if __has_include(<POSLinkAdmin/PLBatchClearRequest.h>)
+   #import <POSLinkAdmin/PLBatchClearRequest.h>
+#elif __has_include("PLBatchClearRequest.h")
+   #import "PLBatchClearRequest.h"
+#endif
+
+
+
+#if __has_include(<POSLinkAdmin/PLForceBatchCloseRequest.h>)
+   #import <POSLinkAdmin/PLForceBatchCloseRequest.h>
+#elif __has_include("PLForceBatchCloseRequest.h")
+   #import "PLForceBatchCloseRequest.h"
+#endif
+
+
+
+#if __has_include(<POSLinkAdmin/PLBatchCloseRequest.h>)
+   #import <POSLinkAdmin/PLBatchCloseRequest.h>
+#elif __has_include("PLBatchCloseRequest.h")
+   #import "PLBatchCloseRequest.h"
+#endif
+
+
+
+#if __has_include(<POSLinkAdmin/PLDeleteTransactionRequest.h>)
+   #import <POSLinkAdmin/PLDeleteTransactionRequest.h>
+#elif __has_include("PLDeleteTransactionRequest.h")
+   #import "PLDeleteTransactionRequest.h"
+#endif
+
+
+
+#if __has_include(<POSLinkAdmin/PLSafUploadRequest.h>)
+   #import <POSLinkAdmin/PLSafUploadRequest.h>
+#elif __has_include("PLSafUploadRequest.h")
+   #import "PLSafUploadRequest.h"
+#endif
+
+
+
+#if __has_include(<POSLinkAdmin/PLDeleteSafFileRequest.h>)
+   #import <POSLinkAdmin/PLDeleteSafFileRequest.h>
+#elif __has_include("PLDeleteSafFileRequest.h")
+   #import "PLDeleteSafFileRequest.h"
+#endif
+
+
+
+#if __has_include(<POSLinkAdmin/PLForceBatchCloseResponse.h>)
+   #import <POSLinkAdmin/PLForceBatchCloseResponse.h>
+#elif __has_include("PLForceBatchCloseResponse.h")
+   #import "PLForceBatchCloseResponse.h"
+#endif
+
+
+
+#if __has_include(<POSLinkAdmin/PLDeleteSafFileResponse.h>)
+   #import <POSLinkAdmin/PLDeleteSafFileResponse.h>
+#elif __has_include("PLDeleteSafFileResponse.h")
+   #import "PLDeleteSafFileResponse.h"
+#endif
+
+
+
+#if __has_include(<POSLinkAdmin/PLBatchClearResponse.h>)
+   #import <POSLinkAdmin/PLBatchClearResponse.h>
+#elif __has_include("PLBatchClearResponse.h")
+   #import "PLBatchClearResponse.h"
+#endif
+
+
+
+#if __has_include(<POSLinkAdmin/PLBatchCloseResponse.h>)
+   #import <POSLinkAdmin/PLBatchCloseResponse.h>
+#elif __has_include("PLBatchCloseResponse.h")
+   #import "PLBatchCloseResponse.h"
+#endif
+
+
+
+#if __has_include(<POSLinkAdmin/PLDeleteTransactionResponse.h>)
+   #import <POSLinkAdmin/PLDeleteTransactionResponse.h>
+#elif __has_include("PLDeleteTransactionResponse.h")
+   #import "PLDeleteTransactionResponse.h"
+#endif
+
+
+
+#if __has_include(<POSLinkAdmin/PLSafUploadResponse.h>)
+   #import <POSLinkAdmin/PLSafUploadResponse.h>
+#elif __has_include("PLSafUploadResponse.h")
+   #import "PLSafUploadResponse.h"
+#endif
+
+
+
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -47,15 +143,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)batchClearWithRequest:(PLBatchClearRequest *)request completion:(void(^)(PLBatchClearResponse *response,PLExecutionResult *result))completion;
 
 /**
- * Purge Batch Request
- *
- * @param request Request data.
- * @param completion Callback of response data.
-*/
-- (void)purgeBatchWithRequest:(PLPurgeBatchRequest *)request completion:(void(^)(PLPurgeBatchResponse *response,PLExecutionResult *result))completion;
-
-/**
- * Force Batch Close Request
+ * Force the batch to clear or close as a last resort when the current batch cannot be closed.
  *
  * @param request Request data.
  * @param completion Callback of response data.

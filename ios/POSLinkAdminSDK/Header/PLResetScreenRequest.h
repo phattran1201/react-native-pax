@@ -9,16 +9,34 @@
  * ============================================================================
  */
 /**
- Reset Request
+ Reset Screen Request
  */
 
 #import <Foundation/Foundation.h>
-#import "PLRequest.h"
+#if __has_include(<POSLinkAdmin/PLRequest.h>)
+   #import <POSLinkAdmin/PLRequest.h>
+#elif __has_include("PLRequest.h")
+   #import "PLRequest.h"
+#endif
 
-#import "PLAdminConst.h"
-#import "PLResetRequest.h"
 
-@interface PLResetRequest : PLRequest
+
+#if __has_include(<POSLinkAdmin/PLAdminConst.h>)
+   #import <POSLinkAdmin/PLAdminConst.h>
+#elif __has_include("PLAdminConst.h")
+   #import "PLAdminConst.h"
+#endif
+
+
+#if __has_include(<POSLinkAdmin/PLResetScreenRequest.h>)
+   #import <POSLinkAdmin/PLResetScreenRequest.h>
+#elif __has_include("PLResetScreenRequest.h")
+   #import "PLResetScreenRequest.h"
+#endif
+
+
+
+@interface PLResetScreenRequest : PLRequest
 
 
 @end

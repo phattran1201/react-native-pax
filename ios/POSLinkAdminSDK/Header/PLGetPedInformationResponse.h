@@ -13,40 +13,94 @@
  */
 
 #import <Foundation/Foundation.h>
-#import "PLResponse.h"
+#if __has_include(<POSLinkAdmin/PLResponse.h>)
+   #import <POSLinkAdmin/PLResponse.h>
+#elif __has_include("PLResponse.h")
+   #import "PLResponse.h"
+#endif
 
-#import "PLAdminConst.h"
-#import "PLDukptKeyInformation.h"
-#import "PLDukptKeyInformation.h"
-#import "PLMasterSessionKeyInformation.h"
-#import "PLMasterSessionKeyInformation.h"
-#import "PLMasterSessionKeyInformation.h"
-#import "PLMasterSessionKeyInformation.h"
-#import "PLGetPedInformationResponse.h"
+
+
+#if __has_include(<POSLinkAdmin/PLAdminConst.h>)
+   #import <POSLinkAdmin/PLAdminConst.h>
+#elif __has_include("PLAdminConst.h")
+   #import "PLAdminConst.h"
+#endif
+
+
+#if __has_include(<POSLinkAdmin/PLDukptKeyInformation.h>)
+   #import <POSLinkAdmin/PLDukptKeyInformation.h>
+#elif __has_include("PLDukptKeyInformation.h")
+   #import "PLDukptKeyInformation.h"
+#endif
+
+
+#if __has_include(<POSLinkAdmin/PLDukptKeyInformation.h>)
+   #import <POSLinkAdmin/PLDukptKeyInformation.h>
+#elif __has_include("PLDukptKeyInformation.h")
+   #import "PLDukptKeyInformation.h"
+#endif
+
+
+#if __has_include(<POSLinkAdmin/PLMasterSessionKeyInformation.h>)
+   #import <POSLinkAdmin/PLMasterSessionKeyInformation.h>
+#elif __has_include("PLMasterSessionKeyInformation.h")
+   #import "PLMasterSessionKeyInformation.h"
+#endif
+
+
+#if __has_include(<POSLinkAdmin/PLMasterSessionKeyInformation.h>)
+   #import <POSLinkAdmin/PLMasterSessionKeyInformation.h>
+#elif __has_include("PLMasterSessionKeyInformation.h")
+   #import "PLMasterSessionKeyInformation.h"
+#endif
+
+
+#if __has_include(<POSLinkAdmin/PLMasterSessionKeyInformation.h>)
+   #import <POSLinkAdmin/PLMasterSessionKeyInformation.h>
+#elif __has_include("PLMasterSessionKeyInformation.h")
+   #import "PLMasterSessionKeyInformation.h"
+#endif
+
+
+#if __has_include(<POSLinkAdmin/PLMasterSessionKeyInformation.h>)
+   #import <POSLinkAdmin/PLMasterSessionKeyInformation.h>
+#elif __has_include("PLMasterSessionKeyInformation.h")
+   #import "PLMasterSessionKeyInformation.h"
+#endif
+
+
+#if __has_include(<POSLinkAdmin/PLGetPedInformationResponse.h>)
+   #import <POSLinkAdmin/PLGetPedInformationResponse.h>
+#elif __has_include("PLGetPedInformationResponse.h")
+   #import "PLGetPedInformationResponse.h"
+#endif
+
+
 
 @interface PLGetPedInformationResponse : PLResponse
 /**
  Master available key slot count.
 
- Attribute:n...2 
+ Attribute : n...2 
  */
 @property (readwrite, nonatomic, copy)NSString *masterAvailableKeySlotCount;
 /**
  Session available key slot count.
 
- Attribute:n...2 
+ Attribute : n...2 
  */
 @property (readwrite, nonatomic, copy)NSString *sessionAvailableKeySlotCount;
 /**
  Dukpt available key slot count.
 
- Attribute:n...2 
+ Attribute : n...2 
  */
 @property (readwrite, nonatomic, copy)NSString *dukptAvailableKeySlotCount;
 /**
  AES Dukpt available key slot count.
 
- Attribute:n...2 
+ Attribute : n...2 
  */
 @property (readwrite, nonatomic, copy)NSString *aesDukptAvailableKeySlotCount;
 /**

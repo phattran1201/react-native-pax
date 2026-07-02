@@ -13,9 +13,27 @@
  */
 
 #import <Foundation/Foundation.h>
-#import "PLSemiConst.h"
-#import "PLAdminConst.h"
-#import "PLTransactionPromptBitmap.h"
+#if __has_include(<POSLinkAdmin/PLSemiConst.h>)
+   #import <POSLinkAdmin/PLSemiConst.h>
+#elif __has_include("PLSemiConst.h")
+   #import "PLSemiConst.h"
+#endif
+
+
+#if __has_include(<POSLinkAdmin/PLAdminConst.h>)
+   #import <POSLinkAdmin/PLAdminConst.h>
+#elif __has_include("PLAdminConst.h")
+   #import "PLAdminConst.h"
+#endif
+
+
+#if __has_include(<POSLinkAdmin/PLTransactionPromptBitmap.h>)
+   #import <POSLinkAdmin/PLTransactionPromptBitmap.h>
+#elif __has_include("PLTransactionPromptBitmap.h")
+   #import "PLTransactionPromptBitmap.h"
+#endif
+
+
 
 @interface PLTransactionPromptBitmap : NSObject
 /**
@@ -23,7 +41,9 @@
 
 false: disable.
 
-true: enable. 
+true: enable.
+
+ Attribute : n1 
  */
 @property (readwrite, nonatomic, assign)BOOL confirmTotalAmount;
 /**
@@ -31,7 +51,9 @@ true: enable.
 
 false: disable.
 
-true: enable. 
+true: enable.
+
+ Attribute : n1 
  */
 @property (readwrite, nonatomic, assign)BOOL confirmSurchargeAmount;
 /**
@@ -39,7 +61,9 @@ true: enable.
 
 false: disable.
 
-true: enable. 
+true: enable.
+
+ Attribute : n1 
  */
 @property (readwrite, nonatomic, assign)BOOL confirmVoidTransaction;
 /**
@@ -47,7 +71,9 @@ true: enable.
 
 false: disable.
 
-true: enable. 
+true: enable.
+
+ Attribute : n1 
  */
 @property (readwrite, nonatomic, assign)BOOL avsAddress;
 /**
@@ -55,7 +81,9 @@ true: enable.
 
 false: disable.
 
-true: enable. 
+true: enable.
+
+ Attribute : n1 
  */
 @property (readwrite, nonatomic, assign)BOOL avsZip;
 /**
@@ -63,7 +91,9 @@ true: enable.
 
 false: disable.
 
-true: enable. 
+true: enable.
+
+ Attribute : n1 
  */
 @property (readwrite, nonatomic, assign)BOOL tax;
 /**
@@ -71,7 +101,9 @@ true: enable.
 
 false: disable.
 
-true: enable. 
+true: enable.
+
+ Attribute : n1 
  */
 @property (readwrite, nonatomic, assign)BOOL cvv;
 /**
@@ -79,7 +111,9 @@ true: enable.
 
 false: disable.
 
-true: enable. 
+true: enable.
+
+ Attribute : n1 
  */
 @property (readwrite, nonatomic, assign)BOOL cashback;
 /**
@@ -87,7 +121,9 @@ true: enable.
 
 false: disable.
 
-true: enable. 
+true: enable.
+
+ Attribute : n1 
  */
 @property (readwrite, nonatomic, assign)BOOL clerkOrServerId;
 /**
@@ -95,7 +131,9 @@ true: enable.
 
 false: disable.
 
-true: enable. 
+true: enable.
+
+ Attribute : n1 
  */
 @property (readwrite, nonatomic, assign)BOOL orderNumberOrPoNumber;
 /**
@@ -103,7 +141,9 @@ true: enable.
 
 false: disable.
 
-true: enable. 
+true: enable.
+
+ Attribute : n1 
  */
 @property (readwrite, nonatomic, assign)BOOL invoiceNumber;
 /**
@@ -111,7 +151,9 @@ true: enable.
 
 false: disable.
 
-true: enable. 
+true: enable.
+
+ Attribute : n1 
  */
 @property (readwrite, nonatomic, assign)BOOL debitAccount;
 /**
@@ -119,7 +161,9 @@ true: enable.
 
 false: disable.
 
-true: enable. 
+true: enable.
+
+ Attribute : n1 
  */
 @property (readwrite, nonatomic, assign)BOOL giftCvdOrPin;
 /**
@@ -127,7 +171,9 @@ true: enable.
 
 false: disable.
 
-true: enable. 
+true: enable.
+
+ Attribute : n1 
  */
 @property (readwrite, nonatomic, assign)BOOL giftTenderType;
 /**
@@ -135,7 +181,9 @@ true: enable.
 
 false: disable.
 
-true: enable. 
+true: enable.
+
+ Attribute : n1 
  */
 @property (readwrite, nonatomic, assign)BOOL giftSaleMode;
 /**
@@ -143,7 +191,9 @@ true: enable.
 
 false: disable.
 
-true: enable. 
+true: enable.
+
+ Attribute : n1 
  */
 @property (readwrite, nonatomic, assign)BOOL shiftId;
 /**
@@ -151,7 +201,9 @@ true: enable.
 
 false: disable.
 
-true: enable. 
+true: enable.
+
+ Attribute : n1 
  */
 @property (readwrite, nonatomic, assign)BOOL tableNumber;
 /**
@@ -159,7 +211,9 @@ true: enable.
 
 false: disable.
 
-true: enable. 
+true: enable.
+
+ Attribute : n1 
  */
 @property (readwrite, nonatomic, assign)BOOL guestNumber;
 /**
@@ -167,8 +221,20 @@ true: enable.
 
 false: disable.
 
-true: enable. 
+true: enable.
+
+ Attribute : n1 
  */
 @property (readwrite, nonatomic, assign)BOOL expiryDatePrompt;
+/**
+ MOTO Type.
+
+false: disable.
+
+true: enable.
+
+ Attribute : n1 
+ */
+@property (readwrite, nonatomic, assign)BOOL motoType;
 
 @end

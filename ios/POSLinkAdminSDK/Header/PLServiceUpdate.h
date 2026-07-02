@@ -14,24 +14,38 @@
 
 #import <Foundation/Foundation.h>
 
-#import "PLAdminConst.h"
-#import "PLServiceUpdate.h"
+#if __has_include(<POSLinkAdmin/PLAdminConst.h>)
+   #import <POSLinkAdmin/PLAdminConst.h>
+#elif __has_include("PLAdminConst.h")
+   #import "PLAdminConst.h"
+#endif
+
+
+#if __has_include(<POSLinkAdmin/PLServiceUpdate.h>)
+   #import <POSLinkAdmin/PLServiceUpdate.h>
+#elif __has_include("PLServiceUpdate.h")
+   #import "PLServiceUpdate.h"
+#endif
+
+
 
 @interface PLServiceUpdate : NSObject
 /**
  Service update ID.
 
- Attribute:ans...12 
+ Attribute : ans...12 
  */
 @property (readwrite, nonatomic, copy)NSString *updateId;
 /**
- Provide update operations for application services. 
+ Provide update operations for application services.
+
+ Attribute : n1 
  */
 @property (readwrite, nonatomic, assign)enum UpdateOperation updateOperation;
 /**
  Details of service updates
 
- Attribute:ans...64 
+ Attribute : ans...64 
  */
 @property (readwrite, nonatomic, copy)NSString *updatePayload;
 

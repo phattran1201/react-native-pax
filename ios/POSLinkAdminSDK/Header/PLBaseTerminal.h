@@ -11,7 +11,6 @@
 
 #import <Foundation/Foundation.h>
 #import "PLCommunicationSetting.h"
-#import "PLLogSetting.h"
 #import "PLUploadLogResult.h"
 
 
@@ -70,7 +69,7 @@ NS_ASSUME_NONNULL_BEGIN
  *Call POSLink to tell terminal to upload terminal logs and then POSLink upload POSLink log itself. Terminal logs and POSLink logs will be uploaded to the server specified by the terminal.\n
  *Need to set CommSetting to communicate with the terminal. \n
  *Note:\n
- *1.When terminal upload log, the log which is uploaded successful will be delete from terminal.\n
+ *1.When terminal uploads the log, the log which is uploaded successfully will be deleted from the terminal.\n
  *2.The terminal log is saved in only one log file, won't be split into many files by date, so whenever you use upload log command the terminal will only upload one file.\n
  *3.Only some necessary information or exceptions occur or errors occur, the log will be generated.\n
  *The disclaimers: https://www.pax.us/privacy-policy/.\n

@@ -13,44 +13,74 @@
  */
 
 #import <Foundation/Foundation.h>
-#import "PLRequest.h"
+#if __has_include(<POSLinkAdmin/PLRequest.h>)
+   #import <POSLinkAdmin/PLRequest.h>
+#elif __has_include("PLRequest.h")
+   #import "PLRequest.h"
+#endif
 
-#import "PLAdminConst.h"
-#import "PLInputAccountRequest.h"
+
+
+#if __has_include(<POSLinkAdmin/PLAdminConst.h>)
+   #import <POSLinkAdmin/PLAdminConst.h>
+#elif __has_include("PLAdminConst.h")
+   #import "PLAdminConst.h"
+#endif
+
+
+#if __has_include(<POSLinkAdmin/PLInputAccountRequest.h>)
+   #import <POSLinkAdmin/PLInputAccountRequest.h>
+#elif __has_include("PLInputAccountRequest.h")
+   #import "PLInputAccountRequest.h"
+#endif
+
+
 
 @interface PLInputAccountRequest : PLRequest
 /**
- Whether magnetic card swipe is allowed. 
+ Whether magnetic card swipe is allowed.
+
+ Attribute : n1 
  */
 @property (readwrite, nonatomic, assign)enum PinpadEnableFlag magneticSwipePinpadEnableFlag;
 /**
- Whether manual entry is allowed. 
+ Whether manual entry is allowed.
+
+ Attribute : n1 
  */
 @property (readwrite, nonatomic, assign)enum PinpadEnableFlag manualPinpadEnableFlag;
 /**
- Whether contactless entry is allowed. 
+ Whether contactless entry is allowed.
+
+ Attribute : n1 
  */
 @property (readwrite, nonatomic, assign)enum PinpadEnableFlag contactlessPinpadEnableFlag;
 /**
- Whether scanner entry is allowed. 
+ Whether scanner entry is allowed.
+
+ Attribute : n1 
  */
 @property (readwrite, nonatomic, assign)enum PinpadEnableFlag scannerPinpadEnableFlag;
 /**
  Whether expiry date needs to be prompted during manual entry.
 
-Default is NotNeeded. 
+Default is NotNeeded.
+
+ Attribute : n1 
  */
 @property (readwrite, nonatomic, assign)enum ExpiryDatePrompt expiryDatePrompt;
 /**
  Timeout in 100ms for waiting account entry. Valid value should be [200, 9999].
 
- Attribute:n...4 
+ Attribute : n...4 
  */
 @property (readwrite, nonatomic, copy)NSString *timeout;
 /**
  Encryption flag.
 
-Default is NotEncrypted. 
+Default is NotEncrypted.
+
+ Attribute : n1 
  */
 @property (readwrite, nonatomic, assign)enum EncryptionFlag encryptionFlag;
 /**
@@ -62,19 +92,19 @@ Prolin(D200,D220, S920,Q20,Q30,Px5,Px7): 1-99.
 
 PayDroid(A60, A80, A920, A930, Aries Series): 1-99.
 
- Attribute:n...2 
+ Attribute : n...2 
  */
 @property (readwrite, nonatomic, copy)NSString *keySlot;
 /**
  MIN account length. Default to 10. Valid value [1, 32].
 
- Attribute:n...2 
+ Attribute : n...2 
  */
 @property (readwrite, nonatomic, copy)NSString *minAccountLength;
 /**
  MAX account length. Default to 19. Valid value [1, 32].
 
- Attribute:n...2 
+ Attribute : n...2 
  */
 @property (readwrite, nonatomic, copy)NSString *maxAccountLength;
 /**
@@ -86,7 +116,9 @@ PayDroid(A60, A80, A920, A930, Aries Series): 1-99.
  */
 @property (readwrite, nonatomic, assign)enum TransactionType transactionType;
 /**
- Continuous screen. 
+ Continuous screen.
+
+ Attribute : n1 
  */
 @property (readwrite, nonatomic, assign)enum ContinuousScreen continuousScreen;
 

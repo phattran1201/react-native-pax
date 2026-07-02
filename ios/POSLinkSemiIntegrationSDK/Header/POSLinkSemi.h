@@ -10,10 +10,30 @@
  */
 
 #import <Foundation/Foundation.h>
-#import "PLSemiTerminal.h"
-#import "PLCommunicationSetting.h"
-#import "PLLogSetting.h"
 
+#if __has_include(<POSLinkSemiIntegration/PLSemiTerminal.h>)
+    // If xcframework is available
+    #import <POSLinkSemiIntegration/PLSemiTerminal.h>
+#elif __has_include("PLSemiTerminal.h")
+    // If .a static library header file is available
+    #import "PLSemiTerminal.h"
+#endif
+
+#if __has_include(<POSLinkSemiIntegration/PLCommunicationSetting.h>)
+    // If xcframework is available
+    #import <POSLinkSemiIntegration/PLCommunicationSetting.h>
+#elif __has_include("PLCommunicationSetting.h")
+    // If .a static library header file is available
+    #import "PLCommunicationSetting.h"
+#endif
+
+#if __has_include(<POSLinkAdmin/PLLogSetting.h>)
+    // If xcframework is available
+    #import <POSLinkAdmin/PLLogSetting.h>
+#elif __has_include("PLLogSetting.h")
+    // If .a static library header file is available
+    #import "PLLogSetting.h"
+#endif
 
 
 @interface POSLinkSemi : NSObject
@@ -23,20 +43,20 @@
  * Get a instance of PLSemiTerminal.
  * This function will verify whether the terminal exists. It may take several minutes. If the verification fails, it will return NULL and need to be verified again.
  *
- * @parma commSetting Setting of communication mode.
+ * @param commSetting Setting of communication mode.
 */
 - (PLSemiTerminal * _Nullable)getTerminalWithCommunicationSetting:(PLCommunicationSetting *)commSetting;
 /**
  * Set Log
  *
- * @parma logSetting logSetting.
+ * @param logSetting logSetting.
 */
 - (void)setLogSetting:(PLLogSetting *)logSetting;
 
 /**
  * Remove Terminal
  *
- * @parma terminal terminal.
+ * @param terminal terminal.
 */
 - (void)removeTerminal:(PLSemiTerminal *)terminal;
 

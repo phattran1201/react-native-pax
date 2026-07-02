@@ -13,20 +13,75 @@
  */
 
 #import <Foundation/Foundation.h>
-#import "PLResponse.h"
-#import "PLSemiConst.h"
-#import "PLAdminConst.h"
-#import "PLTraceResponse.h"
-#import "PLAccountResponse.h"
-#import "PLAmountResponse.h"
-#import "PLHostResponse.h"
-#import "PLLocalFailedReportResponse.h"
+#if __has_include(<POSLinkAdmin/PLResponse.h>)
+   #import <POSLinkAdmin/PLResponse.h>
+#elif __has_include("PLResponse.h")
+   #import "PLResponse.h"
+#endif
+
+
+#if __has_include(<POSLinkAdmin/PLSemiConst.h>)
+   #import <POSLinkAdmin/PLSemiConst.h>
+#elif __has_include("PLSemiConst.h")
+   #import "PLSemiConst.h"
+#endif
+
+
+#if __has_include(<POSLinkAdmin/PLAdminConst.h>)
+   #import <POSLinkAdmin/PLAdminConst.h>
+#elif __has_include("PLAdminConst.h")
+   #import "PLAdminConst.h"
+#endif
+
+
+#if __has_include(<POSLinkAdmin/PLTraceResponse.h>)
+   #import <POSLinkAdmin/PLTraceResponse.h>
+#elif __has_include("PLTraceResponse.h")
+   #import "PLTraceResponse.h"
+#endif
+
+
+#if __has_include(<POSLinkAdmin/PLAccountResponse.h>)
+   #import <POSLinkAdmin/PLAccountResponse.h>
+#elif __has_include("PLAccountResponse.h")
+   #import "PLAccountResponse.h"
+#endif
+
+
+#if __has_include(<POSLinkAdmin/PLAmountResponse.h>)
+   #import <POSLinkAdmin/PLAmountResponse.h>
+#elif __has_include("PLAmountResponse.h")
+   #import "PLAmountResponse.h"
+#endif
+
+
+#if __has_include(<POSLinkAdmin/PLAdditionalResponseData.h>)
+   #import <POSLinkAdmin/PLAdditionalResponseData.h>
+#elif __has_include("PLAdditionalResponseData.h")
+   #import "PLAdditionalResponseData.h"
+#endif
+
+
+#if __has_include(<POSLinkAdmin/PLHostInformationResponse.h>)
+   #import <POSLinkAdmin/PLHostInformationResponse.h>
+#elif __has_include("PLHostInformationResponse.h")
+   #import "PLHostInformationResponse.h"
+#endif
+
+
+#if __has_include(<POSLinkAdmin/PLLocalFailedReportResponse.h>)
+   #import <POSLinkAdmin/PLLocalFailedReportResponse.h>
+#elif __has_include("PLLocalFailedReportResponse.h")
+   #import "PLLocalFailedReportResponse.h"
+#endif
+
+
 
 @interface PLLocalFailedReportResponse : PLResponse
 /**
  Host information 
  */
-@property (readwrite, nonatomic, strong)PLHostResponse *hostInformation;
+@property (readwrite, nonatomic, strong)PLHostInformationResponse *hostInformation;
 /**
  EDC type 
  */

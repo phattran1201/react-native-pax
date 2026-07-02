@@ -13,22 +13,65 @@
  */
 
 #import <Foundation/Foundation.h>
-#import "PLResponse.h"
-#import "PLSemiConst.h"
-#import "PLAdminConst.h"
-#import "PLTorResponse.h"
-#import "PLHostResponse.h"
-#import "PLForceBatchCloseResponse.h"
+#if __has_include(<POSLinkAdmin/PLResponse.h>)
+   #import <POSLinkAdmin/PLResponse.h>
+#elif __has_include("PLResponse.h")
+   #import "PLResponse.h"
+#endif
+
+
+#if __has_include(<POSLinkAdmin/PLSemiConst.h>)
+   #import <POSLinkAdmin/PLSemiConst.h>
+#elif __has_include("PLSemiConst.h")
+   #import "PLSemiConst.h"
+#endif
+
+
+#if __has_include(<POSLinkAdmin/PLAdminConst.h>)
+   #import <POSLinkAdmin/PLAdminConst.h>
+#elif __has_include("PLAdminConst.h")
+   #import "PLAdminConst.h"
+#endif
+
+
+#if __has_include(<POSLinkAdmin/PLTorResponse.h>)
+   #import <POSLinkAdmin/PLTorResponse.h>
+#elif __has_include("PLTorResponse.h")
+   #import "PLTorResponse.h"
+#endif
+
+
+#if __has_include(<POSLinkAdmin/PLAdditionalResponseData.h>)
+   #import <POSLinkAdmin/PLAdditionalResponseData.h>
+#elif __has_include("PLAdditionalResponseData.h")
+   #import "PLAdditionalResponseData.h"
+#endif
+
+
+#if __has_include(<POSLinkAdmin/PLHostInformationResponse.h>)
+   #import <POSLinkAdmin/PLHostInformationResponse.h>
+#elif __has_include("PLHostInformationResponse.h")
+   #import "PLHostInformationResponse.h"
+#endif
+
+
+#if __has_include(<POSLinkAdmin/PLForceBatchCloseResponse.h>)
+   #import <POSLinkAdmin/PLForceBatchCloseResponse.h>
+#elif __has_include("PLForceBatchCloseResponse.h")
+   #import "PLForceBatchCloseResponse.h"
+#endif
+
+
 
 @interface PLForceBatchCloseResponse : PLResponse
 /**
  Host information. 
  */
-@property (readwrite, nonatomic, strong)PLHostResponse *hostInformation;
+@property (readwrite, nonatomic, strong)PLHostInformationResponse *hostInformation;
 /**
  The line number in this package.
 
- Attribute:n...2 
+ Attribute : n...2 
  */
 @property (readwrite, nonatomic, copy)NSString *lineNumber;
 /**
@@ -38,25 +81,25 @@ LineMessage:line1<US>line2<US>line3<US>...<US>line64, terminal only returns the 
 
 The length of each line length should be less than 32 bytes.
 
- Attribute:ans...2112 
+ Attribute : ans...2112 
  */
 @property (readwrite, nonatomic, copy)NSString *linesMessage;
 /**
  The date time, YYYYMMDDhhmmss, If ECR doesn't send time stamp to terminal, this field is mandatory.
 
- Attribute:n14 
+ Attribute : n14 
  */
 @property (readwrite, nonatomic, copy)NSString *timeStamp;
 /**
  Terminal ID, If terminal id exists, this field is mandatory.
 
- Attribute:ans...20 
+ Attribute : ans...20 
  */
 @property (readwrite, nonatomic, copy)NSString *tid;
 /**
  Merchant ID, if merchant id exists, this field is mandatory.
 
- Attribute:ans...20 
+ Attribute : ans...20 
  */
 @property (readwrite, nonatomic, copy)NSString *mid;
 /**
@@ -64,7 +107,7 @@ The length of each line length should be less than 32 bytes.
 
 Batch process is blocked and failed transaction is still in normal database.
 
- Attribute:n...4 
+ Attribute : n...4 
  */
 @property (readwrite, nonatomic, copy)NSString *failedTransactionNumber;
 /**
@@ -72,19 +115,19 @@ Batch process is blocked and failed transaction is still in normal database.
 
 Batch process has not been blocked for failed uploading while failed transaction has been moved to failed database.
 
- Attribute:n...4 
+ Attribute : n...4 
  */
 @property (readwrite, nonatomic, copy)NSString *failedCount;
 /**
  Number of failed records during the SAF uploading process.
 
- Attribute:n...4 
+ Attribute : n...4 
  */
 @property (readwrite, nonatomic, copy)NSString *safFailedCount;
 /**
  Number of total records in SAF failed Database after the SAF uploading process.
 
- Attribute:n...4 
+ Attribute : n...4 
  */
 @property (readwrite, nonatomic, copy)NSString *safFailedTotal;
 /**

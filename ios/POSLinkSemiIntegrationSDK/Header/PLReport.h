@@ -10,22 +10,150 @@
  */
 
 #import <Foundation/Foundation.h>
-#import "PLExecutionResult.h"
-#import "PLBaseTerminal.h"
-#import "PLHostReportRequest.h"
-#import "PLHistoryReportRequest.h"
-#import "PLSafSummaryReportRequest.h"
-#import "PLLocalFailedReportRequest.h"
-#import "PLLocalDetailReportRequest.h"
-#import "PLHostDetailReportRequest.h"
-#import "PLLocalTotalReportRequest.h"
-#import "PLLocalDetailReportResponse.h"
-#import "PLSafSummaryReportResponse.h"
-#import "PLHistoryReportResponse.h"
-#import "PLLocalTotalReportResponse.h"
-#import "PLLocalFailedReportResponse.h"
-#import "PLHostDetailReportResponse.h"
-#import "PLHostReportResponse.h"
+#if __has_include(<POSLinkAdmin/PLExecutionResult.h>)
+   #import <POSLinkAdmin/PLExecutionResult.h>
+#elif __has_include("PLExecutionResult.h")
+   #import "PLExecutionResult.h"
+#endif
+
+
+
+#if __has_include(<POSLinkAdmin/PLBaseTerminal.h>)
+   #import <POSLinkAdmin/PLBaseTerminal.h>
+#elif __has_include("PLBaseTerminal.h")
+   #import "PLBaseTerminal.h"
+#endif
+
+
+
+#if __has_include(<POSLinkAdmin/PLHostReportRequest.h>)
+   #import <POSLinkAdmin/PLHostReportRequest.h>
+#elif __has_include("PLHostReportRequest.h")
+   #import "PLHostReportRequest.h"
+#endif
+
+
+
+#if __has_include(<POSLinkAdmin/PLHistoryReportRequest.h>)
+   #import <POSLinkAdmin/PLHistoryReportRequest.h>
+#elif __has_include("PLHistoryReportRequest.h")
+   #import "PLHistoryReportRequest.h"
+#endif
+
+
+
+#if __has_include(<POSLinkAdmin/PLSafSummaryReportRequest.h>)
+   #import <POSLinkAdmin/PLSafSummaryReportRequest.h>
+#elif __has_include("PLSafSummaryReportRequest.h")
+   #import "PLSafSummaryReportRequest.h"
+#endif
+
+
+
+#if __has_include(<POSLinkAdmin/PLLocalFailedReportRequest.h>)
+   #import <POSLinkAdmin/PLLocalFailedReportRequest.h>
+#elif __has_include("PLLocalFailedReportRequest.h")
+   #import "PLLocalFailedReportRequest.h"
+#endif
+
+
+
+#if __has_include(<POSLinkAdmin/PLLocalDetailReportRequest.h>)
+   #import <POSLinkAdmin/PLLocalDetailReportRequest.h>
+#elif __has_include("PLLocalDetailReportRequest.h")
+   #import "PLLocalDetailReportRequest.h"
+#endif
+
+
+
+#if __has_include(<POSLinkAdmin/PLHostDetailReportRequest.h>)
+   #import <POSLinkAdmin/PLHostDetailReportRequest.h>
+#elif __has_include("PLHostDetailReportRequest.h")
+   #import "PLHostDetailReportRequest.h"
+#endif
+
+
+
+#if __has_include(<POSLinkAdmin/PLLocalTotalReportRequest.h>)
+   #import <POSLinkAdmin/PLLocalTotalReportRequest.h>
+#elif __has_include("PLLocalTotalReportRequest.h")
+   #import "PLLocalTotalReportRequest.h"
+#endif
+
+
+
+#if __has_include(<POSLinkAdmin/PLGetBatchHistoryListRequest.h>)
+   #import <POSLinkAdmin/PLGetBatchHistoryListRequest.h>
+#elif __has_include("PLGetBatchHistoryListRequest.h")
+   #import "PLGetBatchHistoryListRequest.h"
+#endif
+
+
+
+#if __has_include(<POSLinkAdmin/PLLocalDetailReportResponse.h>)
+   #import <POSLinkAdmin/PLLocalDetailReportResponse.h>
+#elif __has_include("PLLocalDetailReportResponse.h")
+   #import "PLLocalDetailReportResponse.h"
+#endif
+
+
+
+#if __has_include(<POSLinkAdmin/PLSafSummaryReportResponse.h>)
+   #import <POSLinkAdmin/PLSafSummaryReportResponse.h>
+#elif __has_include("PLSafSummaryReportResponse.h")
+   #import "PLSafSummaryReportResponse.h"
+#endif
+
+
+
+#if __has_include(<POSLinkAdmin/PLHistoryReportResponse.h>)
+   #import <POSLinkAdmin/PLHistoryReportResponse.h>
+#elif __has_include("PLHistoryReportResponse.h")
+   #import "PLHistoryReportResponse.h"
+#endif
+
+
+
+#if __has_include(<POSLinkAdmin/PLLocalTotalReportResponse.h>)
+   #import <POSLinkAdmin/PLLocalTotalReportResponse.h>
+#elif __has_include("PLLocalTotalReportResponse.h")
+   #import "PLLocalTotalReportResponse.h"
+#endif
+
+
+
+#if __has_include(<POSLinkAdmin/PLGetBatchHistoryListResponse.h>)
+   #import <POSLinkAdmin/PLGetBatchHistoryListResponse.h>
+#elif __has_include("PLGetBatchHistoryListResponse.h")
+   #import "PLGetBatchHistoryListResponse.h"
+#endif
+
+
+
+#if __has_include(<POSLinkAdmin/PLLocalFailedReportResponse.h>)
+   #import <POSLinkAdmin/PLLocalFailedReportResponse.h>
+#elif __has_include("PLLocalFailedReportResponse.h")
+   #import "PLLocalFailedReportResponse.h"
+#endif
+
+
+
+#if __has_include(<POSLinkAdmin/PLHostDetailReportResponse.h>)
+   #import <POSLinkAdmin/PLHostDetailReportResponse.h>
+#elif __has_include("PLHostDetailReportResponse.h")
+   #import "PLHostDetailReportResponse.h"
+#endif
+
+
+
+#if __has_include(<POSLinkAdmin/PLHostReportResponse.h>)
+   #import <POSLinkAdmin/PLHostReportResponse.h>
+#elif __has_include("PLHostReportResponse.h")
+   #import "PLHostReportResponse.h"
+#endif
+
+
+
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -93,6 +221,14 @@ NS_ASSUME_NONNULL_BEGIN
  * @param completion Callback of response data.
 */
 - (void)localTotalReportWithRequest:(PLLocalTotalReportRequest *)request completion:(void(^)(PLLocalTotalReportResponse *response,PLExecutionResult *result))completion;
+
+/**
+ * Get Batch History List Request
+ *
+ * @param request Request data.
+ * @param completion Callback of response data.
+*/
+- (void)getBatchHistoryListWithRequest:(PLGetBatchHistoryListRequest *)request completion:(void(^)(PLGetBatchHistoryListResponse *response,PLExecutionResult *result))completion;
 
 
 @end

@@ -10,12 +10,31 @@
  */
 /**
  eWIC data.
+Please Note：This class can not be set it with FsaData or FleetData at the same time.
  */
 
 #import <Foundation/Foundation.h>
-#import "PLSemiConst.h"
-#import "PLAdminConst.h"
-#import "PLEwicData.h"
+#if __has_include(<POSLinkAdmin/PLSemiConst.h>)
+   #import <POSLinkAdmin/PLSemiConst.h>
+#elif __has_include("PLSemiConst.h")
+   #import "PLSemiConst.h"
+#endif
+
+
+#if __has_include(<POSLinkAdmin/PLAdminConst.h>)
+   #import <POSLinkAdmin/PLAdminConst.h>
+#elif __has_include("PLAdminConst.h")
+   #import "PLAdminConst.h"
+#endif
+
+
+#if __has_include(<POSLinkAdmin/PLEwicData.h>)
+   #import <POSLinkAdmin/PLEwicData.h>
+#elif __has_include("PLEwicData.h")
+   #import "PLEwicData.h"
+#endif
+
+
 
 @interface PLEwicData : NSObject
 /**
@@ -25,25 +44,25 @@
 
 1: PLU data
 
- Attribute:n1 
+ Attribute : n1 
  */
 @property (readwrite, nonatomic, copy)NSString *upcPluInd;
 /**
  This field contains the UPC or PLU data.
 
- Attribute:n...16 
+ Attribute : n...16 
  */
 @property (readwrite, nonatomic, copy)NSString *upcPluData;
 /**
   This field represents the store price per unit. Default format is $$$$CC.
 
- Attribute:n6 
+ Attribute : n6 
  */
 @property (readwrite, nonatomic, copy)NSString *upcPrice;
 /**
  This field represents the number of items or the total weight of items for a particular UPC/PLU.Include 2 implied decimals.
 
- Attribute:n...5 
+ Attribute : n...5 
  */
 @property (readwrite, nonatomic, copy)NSString *upcQty;
 

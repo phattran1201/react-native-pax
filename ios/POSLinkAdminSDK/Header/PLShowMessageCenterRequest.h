@@ -13,38 +13,58 @@
  */
 
 #import <Foundation/Foundation.h>
-#import "PLRequest.h"
+#if __has_include(<POSLinkAdmin/PLRequest.h>)
+   #import <POSLinkAdmin/PLRequest.h>
+#elif __has_include("PLRequest.h")
+   #import "PLRequest.h"
+#endif
 
-#import "PLAdminConst.h"
-#import "PLShowMessageCenterRequest.h"
+
+
+#if __has_include(<POSLinkAdmin/PLAdminConst.h>)
+   #import <POSLinkAdmin/PLAdminConst.h>
+#elif __has_include("PLAdminConst.h")
+   #import "PLAdminConst.h"
+#endif
+
+
+#if __has_include(<POSLinkAdmin/PLShowMessageCenterRequest.h>)
+   #import <POSLinkAdmin/PLShowMessageCenterRequest.h>
+#elif __has_include("PLShowMessageCenterRequest.h")
+   #import "PLShowMessageCenterRequest.h"
+#endif
+
+
 
 @interface PLShowMessageCenterRequest : PLRequest
 /**
  Title which defaults to "Thank you for shopping with us!".
 
- Attribute:ans...36 
+ Attribute : ans...36 
  */
 @property (readwrite, nonatomic, copy)NSString *title;
 /**
  Message Line 1 which defaults to "Successful Transaction Authorization".
 
- Attribute:ans...60 
+ Attribute : ans...60 
  */
 @property (readwrite, nonatomic, copy)NSString *message1;
 /**
  Message Line 2 which defaults to "Please take your receipt".
 
- Attribute:ans...60 
+ Attribute : ans...60 
  */
 @property (readwrite, nonatomic, copy)NSString *message2;
 /**
  Timeout in 100ms. Valid value should be [0, 9999]. The value of "0" means non-blocking mode.
 
- Attribute:n...4 
+ Attribute : n...4 
  */
 @property (readwrite, nonatomic, copy)NSString *timeout;
 /**
- Pinpad type. Defalut is "InternalPinpad". "ExternalPinpad" and "ExternalPinpadFirst" is A80 only, if use other device will return param error. 
+ Pinpad type. Default is "InternalPinpad". "ExternalPinpad" and "ExternalPinpadFirst" are for A80 only. If used on another device, it will return param error.
+
+ Attribute : n1 
  */
 @property (readwrite, nonatomic, assign)enum PinpadType pinpadType;
 /**
@@ -68,9 +88,9 @@ Please Note:
 
     2)Traditional terminals support .r files.
 
-Please see Terminal Image Formats, Icon Image column for the image's original format required in Reference.
+5. Icon will only display when CustomUI is disabled.
 
- Attribute:ans...9 
+Please see Terminal Image Formats, Icon Image column for the image's original format required in Reference. 
  */
 @property (readwrite, nonatomic, copy)NSString *iconName;
 

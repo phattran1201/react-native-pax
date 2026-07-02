@@ -13,52 +13,64 @@
  */
 
 #import <Foundation/Foundation.h>
-#import "PLSemiConst.h"
-#import "PLAdminConst.h"
-#import "PLEdcTotalCount.h"
+#if __has_include(<POSLinkAdmin/PLSemiConst.h>)
+   #import <POSLinkAdmin/PLSemiConst.h>
+#elif __has_include("PLSemiConst.h")
+   #import "PLSemiConst.h"
+#endif
+
+
+#if __has_include(<POSLinkAdmin/PLAdminConst.h>)
+   #import <POSLinkAdmin/PLAdminConst.h>
+#elif __has_include("PLAdminConst.h")
+   #import "PLAdminConst.h"
+#endif
+
+
+#if __has_include(<POSLinkAdmin/PLEdcTotalCount.h>)
+   #import <POSLinkAdmin/PLEdcTotalCount.h>
+#elif __has_include("PLEdcTotalCount.h")
+   #import "PLEdcTotalCount.h"
+#endif
+
+
 
 @interface PLEdcTotalCount : NSObject
 /**
  CreditCount
 
- Attribute:n...4 
+ Attribute : n...4 
  */
 @property (readwrite, nonatomic, copy)NSString *creditCount;
 /**
  DebitCount
 
- Attribute:n...4 
+ Attribute : n...4 
  */
 @property (readwrite, nonatomic, copy)NSString *debitCount;
 /**
  EbtCount
 
- Attribute:n...4 
+ Attribute : n...4 
  */
 @property (readwrite, nonatomic, copy)NSString *ebtCount;
 /**
  GiftCount
 
- Attribute:n...4 
+ Attribute : n...4 
  */
 @property (readwrite, nonatomic, copy)NSString *giftCount;
 /**
  LoyaltyCount
 
- Attribute:n...4 
+ Attribute : n...4 
  */
 @property (readwrite, nonatomic, copy)NSString *loyaltyCount;
 /**
  CashCount
 
- Attribute:n...4 
+ Attribute : n...4 
  */
 @property (readwrite, nonatomic, copy)NSString *cashCount;
-/**
- CheckCount
-
- Attribute:n...4 
- */
-@property (readwrite, nonatomic, copy)NSString *checkCount;
 
 @end

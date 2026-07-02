@@ -13,45 +13,67 @@
  */
 
 #import <Foundation/Foundation.h>
-#import "PLSemiConst.h"
-#import "PLAdminConst.h"
-#import "PLMotoECommerceRequest.h"
+#if __has_include(<POSLinkAdmin/PLSemiConst.h>)
+   #import <POSLinkAdmin/PLSemiConst.h>
+#elif __has_include("PLSemiConst.h")
+   #import "PLSemiConst.h"
+#endif
+
+
+#if __has_include(<POSLinkAdmin/PLAdminConst.h>)
+   #import <POSLinkAdmin/PLAdminConst.h>
+#elif __has_include("PLAdminConst.h")
+   #import "PLAdminConst.h"
+#endif
+
+
+#if __has_include(<POSLinkAdmin/PLMotoECommerceRequest.h>)
+   #import <POSLinkAdmin/PLMotoECommerceRequest.h>
+#elif __has_include("PLMotoECommerceRequest.h")
+   #import "PLMotoECommerceRequest.h"
+#endif
+
+
 
 @interface PLMotoECommerceRequest : NSObject
 /**
- The value of MOTO/e-Commerce mode.
+ The MOTO order type for a transaction.
 
-ECommerceMode is not support at now. 
+ECommerceMode is not currently supported.
+
+ Attribute : a1 
  */
 @property (readwrite, nonatomic, assign)enum MotoECommerceMode mode;
 /**
- MOTO/e-Commerce transaction type.
+ The MOTO/e-commerce transaction period type.
 
-Note: this field doesn't support at now. 
+This field is not currently supported.
+
+ Attribute : a1 
  */
 @property (readwrite, nonatomic, assign)enum MotoECommerceTransactionType transactionType;
 /**
- E-Commerce secure type
+ The e-commerce transaction secure type. This field is not currently supported.
 
-Not valid when Moto/e-Commerce mode is MailOrderMode or TeleOrderMode. 
+ Attribute : a1 
  */
 @property (readwrite, nonatomic, assign)enum MotoECommerceSecureType secureType;
 /**
- Order number for MOTO/e-Commerce.
+ The MOTO order number for a transaction.
 
- Attribute:ans...16 
+ Attribute : ans...16 
  */
 @property (readwrite, nonatomic, copy)NSString *orderNumber;
 /**
- Total installments number.
+ Total installments number. This field is not currently supported.
 
- Attribute:n...3 
+ Attribute : n...3 
  */
 @property (readwrite, nonatomic, copy)NSString *installments;
 /**
- Current installment number.
+ Current installment number. This field is not currently supported.
 
- Attribute:n...3 
+ Attribute : n...3 
  */
 @property (readwrite, nonatomic, copy)NSString *currentInstallment;
 

@@ -13,74 +13,98 @@
  */
 
 #import <Foundation/Foundation.h>
-#import "PLSemiConst.h"
-#import "PLAdminConst.h"
-#import "PLTaxDetail.h"
-#import "PLLineItemDetail.h"
+#if __has_include(<POSLinkAdmin/PLSemiConst.h>)
+   #import <POSLinkAdmin/PLSemiConst.h>
+#elif __has_include("PLSemiConst.h")
+   #import "PLSemiConst.h"
+#endif
+
+
+#if __has_include(<POSLinkAdmin/PLAdminConst.h>)
+   #import <POSLinkAdmin/PLAdminConst.h>
+#elif __has_include("PLAdminConst.h")
+   #import "PLAdminConst.h"
+#endif
+
+
+#if __has_include(<POSLinkAdmin/PLTaxDetail.h>)
+   #import <POSLinkAdmin/PLTaxDetail.h>
+#elif __has_include("PLTaxDetail.h")
+   #import "PLTaxDetail.h"
+#endif
+
+
+#if __has_include(<POSLinkAdmin/PLLineItemDetail.h>)
+   #import <POSLinkAdmin/PLLineItemDetail.h>
+#elif __has_include("PLLineItemDetail.h")
+   #import "PLLineItemDetail.h"
+#endif
+
+
 
 @interface PLLineItemDetail : NSObject
 /**
  Line item sequence number.
 
- Attribute:n...3 
+ Attribute : n...3 
  */
 @property (readwrite, nonatomic, copy)NSString *itemSequenceNumber;
 /**
  Line item product code.
 
- Attribute:ans...12 
+ Attribute : ans...12 
  */
 @property (readwrite, nonatomic, copy)NSString *productCode;
 /**
  Line item commodity code. The international description code used to classify the item purchased.
 
- Attribute:ans...12 
+ Attribute : ans...12 
  */
 @property (readwrite, nonatomic, copy)NSString *itemCommodityCode;
 /**
  Specific description of the item purchased and related to the commodity code.
 
- Attribute:ans...35 
+ Attribute : ans...35 
  */
 @property (readwrite, nonatomic, copy)NSString *itemDescription;
 /**
  This field represents the number of units of the item purchased.
 
- Attribute:n..12 
+ Attribute : n..12 
  */
 @property (readwrite, nonatomic, copy)NSString *itemQuantity;
 /**
  The unit of measure code, refer to unit of measure sheet.
 
- Attribute:ans...12 
+ Attribute : ans...12 
  */
 @property (readwrite, nonatomic, copy)NSString *itemMeasurementUnit;
 /**
  The unit price of the item purchased.
 
- Attribute:n...9 
+ Attribute : n...9 
  */
 @property (readwrite, nonatomic, copy)NSString *itemUnitPrice;
 /**
  Discount amount applied to the item purchased.
 
- Attribute:n...9 
+ Attribute : n...9 
  */
 @property (readwrite, nonatomic, copy)NSString *itemDiscountAmount;
 /**
  The rate at which the item is discounted.Includes 2 implied decimals.
 
- Attribute:n...5 
+ Attribute : n...5 
  */
 @property (readwrite, nonatomic, copy)NSString *itemDiscountRate;
 /**
- Tax Details. 
+ Used to report the amounts for different Tax Types in the transaction. 
  */
 @property (readwrite, nonatomic, copy)NSArray<PLTaxDetail *> *taxDetails;
 /**
  Unit cost multiplied by the quantity and less the discount per line item.
 
- Attribute:n...12 
+ Attribute : n...12 
  */
 @property (readwrite, nonatomic, copy)NSString *lineItemTotal;
 

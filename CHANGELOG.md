@@ -33,6 +33,27 @@
 * Removed `initPOSLinkUsb()` — use `initPOSLinkConn({ type: 'USB', timeout })` instead (it auto-requests USB permission).
 * `requestUsbPermission()` semantics changed: it now resolves only **after** the user answers the permission dialog (`true` = granted, `false` = declined), instead of resolving immediately when the dialog is shown.
 
+### iOS — feature parity + SDK upgrade
+
+* **iOS PAX SDK upgrade to POSLink Semi-Integration V2.02.00 (2025-12-09)**: replaced the bundled iOS SDK (`ios/POSLinkSemiIntegrationSDK`, `ios/POSLinkAdminSDK` — `.a` + `Header/`) with the V2.02.00 release from the official demo, matching the Android jars. The existing static-lib packaging and import style are kept unchanged — `vendored_libraries` + `HEADER_SEARCH_PATHS` to the `Header/` dirs; fat libs remain `x86_64 + arm64`, so the `EXCLUDED_ARCHS[sdk=iphonesimulator*] = arm64` workaround still applies (no arm64 simulator slice is shipped).
+* **iOS native module brought to parity with Android** (`ios/PaxPoslink.mm`) — implemented every method already declared in the shared TurboModule spec but previously missing on iOS (they would crash at runtime under the New Architecture):
+  * `initPOSLinkConn(config)` — connect over any type the iOS SDK supports: `TCP`, `SSL`, `HTTP`, `HTTPS`, `BLUETOOTH`. `UART`/`USB`/`AIDL` are not available on iOS and are rejected with `UNSUPPORTED_CONN_TYPE`. Shares one `connectWithCommSetting:` path with `initPOSLink`.
+  * `checkBluetoothEnable()` — CoreBluetooth power-state via a persistent `CBCentralManager` (async, 4 s safety timeout).
+  * `startBluetoothSearch(useBle, timeout)` / `stopBluetoothSearch()` / `getBluetoothDeviceList()` → `{ name, mac, rssi }` — Bluetooth scan via the SDK's `MposBluetoothScan` (same import the demo's `POSLinkPluginBtSearch` uses), poll model with MAC-deduped results. `timeout` is interpreted as ms (Android-compatible) and converted to seconds.
+  * `requestUsbPermission()` → `false`, and `listUsbDevices()` / `getSupportedBaudRates()` / `listSerialPorts()` → `[]` — graceful no-ops, since USB/UART/serial do not exist on iOS.
+
+### iOS — breaking SDK API migrations (`PaxPoslink.mm`)
+
+* `PLTransactionBehavior` → `PLTransactionBehaviorRequest`; `continuousScreen` moved from `PLDoCreditRequest` onto the transaction behavior (mirrors the Android V2.02.00 change).
+* `PLHostResponse` → `PLHostInformationResponse`; dropped `traceNumber` / `transactionIdentifier` (removed from the SDK).
+* `PLTraceResponse.authorizationResponse` removed → authorization code now read from `hostInformation.authorizationCode`.
+* `transactionId` now sourced from `traceInformation.globalUid` (replacing the deprecated `paymentTransactionInformation.globalUid`).
+* `PLTotalCount`/`PLTotalAmount` and `PLEdcTotalCount`/`PLEdcTotalAmount` dropped `checkCount`/`checkAmount` (the SDK now exposes `qrCode*` instead).
+
+> **Host-app requirement**: `checkBluetoothEnable` instantiates `CBCentralManager`, so the consuming app must declare `NSBluetoothAlwaysUsageDescription` in its `Info.plist` (iOS will crash otherwise).
+
+> **iOS Simulator (Apple Silicon)**: the bundled PAX `.a` libs ship an `arm64` slice built for *device* only (no `arm64` simulator slice), so linking for the Simulator on an M-series Mac fails with `Building for 'iOS-simulator', but linking in object file ... built for 'iOS'`. Build on a real device, or set `EXCLUDED_ARCHS[sdk=iphonesimulator*] = arm64` (on both the Pods and the app target) and run under Rosetta. See the README "iOS Simulator on Apple Silicon" section.
+
 ## [1.0.22](https://github.com/phattran1201/react-native-pax/compare/v1.0.21...v1.0.22) (2026-06-08)
 
 

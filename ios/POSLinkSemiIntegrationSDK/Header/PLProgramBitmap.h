@@ -13,9 +13,27 @@
  */
 
 #import <Foundation/Foundation.h>
-#import "PLSemiConst.h"
-#import "PLAdminConst.h"
-#import "PLProgramBitmap.h"
+#if __has_include(<POSLinkAdmin/PLSemiConst.h>)
+   #import <POSLinkAdmin/PLSemiConst.h>
+#elif __has_include("PLSemiConst.h")
+   #import "PLSemiConst.h"
+#endif
+
+
+#if __has_include(<POSLinkAdmin/PLAdminConst.h>)
+   #import <POSLinkAdmin/PLAdminConst.h>
+#elif __has_include("PLAdminConst.h")
+   #import "PLAdminConst.h"
+#endif
+
+
+#if __has_include(<POSLinkAdmin/PLProgramBitmap.h>)
+   #import <POSLinkAdmin/PLProgramBitmap.h>
+#elif __has_include("PLProgramBitmap.h")
+   #import "PLProgramBitmap.h"
+#endif
+
+
 
 @interface PLProgramBitmap : NSObject
 /**
@@ -23,7 +41,9 @@
 
 false: off.
 
-true: on. 
+true: on.
+
+ Attribute : n1 
  */
 @property (readwrite, nonatomic, assign)BOOL commercialCard;
 /**
@@ -31,7 +51,9 @@ true: on.
 
 false: off.
 
-true: on. 
+true: on.
+
+ Attribute : n1 
  */
 @property (readwrite, nonatomic, assign)BOOL fsa;
 /**
@@ -39,7 +61,9 @@ true: on.
 
 false: off.
 
-true: on. 
+true: on.
+
+ Attribute : n1 
  */
 @property (readwrite, nonatomic, assign)BOOL fleetCard;
 /**
@@ -47,7 +71,9 @@ true: on.
 
 false: off.
 
-true: on. 
+true: on.
+
+ Attribute : n1 
  */
 @property (readwrite, nonatomic, assign)BOOL ewic;
 

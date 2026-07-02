@@ -13,11 +13,41 @@
  */
 
 #import <Foundation/Foundation.h>
-#import "PLResponse.h"
-#import "PLSemiConst.h"
-#import "PLAdminConst.h"
-#import "PLTorResponse.h"
-#import "PLDeleteTransactionResponse.h"
+#if __has_include(<POSLinkAdmin/PLResponse.h>)
+   #import <POSLinkAdmin/PLResponse.h>
+#elif __has_include("PLResponse.h")
+   #import "PLResponse.h"
+#endif
+
+
+#if __has_include(<POSLinkAdmin/PLSemiConst.h>)
+   #import <POSLinkAdmin/PLSemiConst.h>
+#elif __has_include("PLSemiConst.h")
+   #import "PLSemiConst.h"
+#endif
+
+
+#if __has_include(<POSLinkAdmin/PLAdminConst.h>)
+   #import <POSLinkAdmin/PLAdminConst.h>
+#elif __has_include("PLAdminConst.h")
+   #import "PLAdminConst.h"
+#endif
+
+
+#if __has_include(<POSLinkAdmin/PLTorResponse.h>)
+   #import <POSLinkAdmin/PLTorResponse.h>
+#elif __has_include("PLTorResponse.h")
+   #import "PLTorResponse.h"
+#endif
+
+
+#if __has_include(<POSLinkAdmin/PLDeleteTransactionResponse.h>)
+   #import <POSLinkAdmin/PLDeleteTransactionResponse.h>
+#elif __has_include("PLDeleteTransactionResponse.h")
+   #import "PLDeleteTransactionResponse.h"
+#endif
+
+
 
 @interface PLDeleteTransactionResponse : PLResponse
 /**

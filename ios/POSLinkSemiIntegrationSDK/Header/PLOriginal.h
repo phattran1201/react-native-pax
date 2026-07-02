@@ -9,86 +9,86 @@
  * ============================================================================
  */
 /**
+ @deprecated Since V2.01.00.
  Response Original Information.
  */
 
 #import <Foundation/Foundation.h>
-#import "PLSemiConst.h"
-#import "PLAdminConst.h"
-#import "PLOriginal.h"
+#if __has_include(<POSLinkAdmin/PLSemiConst.h>)
+   #import <POSLinkAdmin/PLSemiConst.h>
+#elif __has_include("PLSemiConst.h")
+   #import "PLSemiConst.h"
+#endif
 
+
+#if __has_include(<POSLinkAdmin/PLAdminConst.h>)
+   #import <POSLinkAdmin/PLAdminConst.h>
+#elif __has_include("PLAdminConst.h")
+   #import "PLAdminConst.h"
+#endif
+
+
+#if __has_include(<POSLinkAdmin/PLOriginal.h>)
+   #import <POSLinkAdmin/PLOriginal.h>
+#elif __has_include("PLOriginal.h")
+   #import "PLOriginal.h"
+#endif
+
+
+
+__attribute__((deprecated("Deprecated since V2.01.00")))
 @interface PLOriginal : NSObject
 /**
  Original Transaction Date in YYYYMMDD format.
 
 Conditional for some hosts for subsequent transactions after Sale, i.e. Return…
 
-If the Host requires this mandatory field, the current date on terminal will be send.
+If the Host requires this field, the current date on the terminal will be sent.
 
- Attribute:n8 
+ Attribute : n8
+ @deprecated Since V2.01.00. See TraceRequest.OriginalTransactionDate. 
  */
-@property (readwrite, nonatomic, copy)NSString *transactionDate;
+@property (readwrite, nonatomic, copy)NSString *transactionDate __attribute__((deprecated("Deprecated since V2.01.00. See TraceRequest.OriginalTransactionDate")));
 /**
  Last 4 digits of account number for original transaction.
 
 Conditional for matching card on terminal in subsequent transactions after Sale, i.e. Return…
 
- Attribute:n4 
+ Attribute : n4
+ @deprecated Since V2.01.00. See AccountRequest.OriginalPan. 
  */
-@property (readwrite, nonatomic, copy)NSString *pan;
+@property (readwrite, nonatomic, copy)NSString *pan __attribute__((deprecated("Deprecated since V2.01.00. See AccountRequest.OriginalPan")));
 /**
  Expiry date in MMYY of account number for original transaction.
 
 Conditional for matching card on terminal in subsequent transactions after Sale, i.e. Return…
 
- Attribute:n4 
+ Attribute : n4
+ @deprecated Since V2.01.00. See AccountRequest.OriginalExpiryDate. 
  */
-@property (readwrite, nonatomic, copy)NSString *expiryDate;
+@property (readwrite, nonatomic, copy)NSString *expiryDate __attribute__((deprecated("Deprecated since V2.01.00. See AccountRequest.OriginalExpiryDate")));
 /**
  Original Transaction Time in HHMMSS format.
 
 Conditional for some hosts for subsequent transactions after Sale, i.e. Return…
 
-If the Host requires this mandatory field, the current time on terminal will be send.
+If the Host requires this field, the current date on the terminal will be sent.
 
- Attribute:n6 
+ Attribute : n6
+ @deprecated Since V2.01.00. See TraceRequest.OriginalTransactionTime. 
  */
-@property (readwrite, nonatomic, copy)NSString *transactionTime;
+@property (readwrite, nonatomic, copy)NSString *transactionTime __attribute__((deprecated("Deprecated since V2.01.00. See TraceRequest.OriginalTransactionTime")));
 /**
- Original transaction settlement date, the format is YYYYMMDD.
-
- Attribute:n8 
+ Original transaction type. Used for follow up transactions.
+ @deprecated Since V2.01.00. Remove to Request class such as DoCreditRequest.OriginalTransactionType. 
  */
-@property (readwrite, nonatomic, copy)NSString *settlementDate;
-/**
- Original transaction type. 
- */
-@property (readwrite, nonatomic, assign)enum TransactionType transactionType;
+@property (readwrite, nonatomic, assign)enum TransactionType transactionType __attribute__((deprecated("Deprecated since V2.01.00. Remove to Request class such as DoCreditRequest.OriginalTransactionType")));
 /**
  The Original Amount, $$$$$$$CC.
 
- Attribute:n...9 
+ Attribute : n...9
+ @deprecated Since V2.01.00. See AmountRequest.OriginalAmount. 
  */
-@property (readwrite, nonatomic, copy)NSString *amount;
-/**
- The original batch Number.
-
- Attribute:ans...32 
- */
-@property (readwrite, nonatomic, copy)NSString *batchNumber;
-/**
- Original Payment Service 2000.
-
-Data returned as part of the original authorization response from the issuer, used in follow up transactions (token/card-on-file, reversals, incremental). Format varies by card scheme.
-
- Attribute:an...22 
- */
-@property (readwrite, nonatomic, copy)NSString *paymentService2000;
-/**
- Original authorization data used in follow up transactions.
-
- Attribute:an...66 
- */
-@property (readwrite, nonatomic, copy)NSString *authorizationResponse;
+@property (readwrite, nonatomic, copy)NSString *amount __attribute__((deprecated("Deprecated since V2.01.00. See AmountRequest.OriginalAmount")));
 
 @end

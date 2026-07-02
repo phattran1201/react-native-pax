@@ -13,14 +13,40 @@
  */
 
 #import <Foundation/Foundation.h>
-#import "PLRequest.h"
-#import "PLSemiConst.h"
-#import "PLAdminConst.h"
-#import "PLSafSummaryReportRequest.h"
+#if __has_include(<POSLinkAdmin/PLRequest.h>)
+   #import <POSLinkAdmin/PLRequest.h>
+#elif __has_include("PLRequest.h")
+   #import "PLRequest.h"
+#endif
+
+
+#if __has_include(<POSLinkAdmin/PLSemiConst.h>)
+   #import <POSLinkAdmin/PLSemiConst.h>
+#elif __has_include("PLSemiConst.h")
+   #import "PLSemiConst.h"
+#endif
+
+
+#if __has_include(<POSLinkAdmin/PLAdminConst.h>)
+   #import <POSLinkAdmin/PLAdminConst.h>
+#elif __has_include("PLAdminConst.h")
+   #import "PLAdminConst.h"
+#endif
+
+
+#if __has_include(<POSLinkAdmin/PLSafSummaryReportRequest.h>)
+   #import <POSLinkAdmin/PLSafSummaryReportRequest.h>
+#elif __has_include("PLSafSummaryReportRequest.h")
+   #import "PLSafSummaryReportRequest.h"
+#endif
+
+
 
 @interface PLSafSummaryReportRequest : PLRequest
 /**
- Store and forward transaction report indicator. 
+ Store and forward transaction report indicator.
+
+ Attribute : n1 
  */
 @property (readwrite, nonatomic, assign)enum SafReportIndicator safIndicator;
 

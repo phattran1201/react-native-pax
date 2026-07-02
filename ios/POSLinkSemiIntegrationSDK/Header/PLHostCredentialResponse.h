@@ -13,15 +13,33 @@
  */
 
 #import <Foundation/Foundation.h>
-#import "PLSemiConst.h"
-#import "PLAdminConst.h"
-#import "PLHostCredentialResponse.h"
+#if __has_include(<POSLinkAdmin/PLSemiConst.h>)
+   #import <POSLinkAdmin/PLSemiConst.h>
+#elif __has_include("PLSemiConst.h")
+   #import "PLSemiConst.h"
+#endif
+
+
+#if __has_include(<POSLinkAdmin/PLAdminConst.h>)
+   #import <POSLinkAdmin/PLAdminConst.h>
+#elif __has_include("PLAdminConst.h")
+   #import "PLAdminConst.h"
+#endif
+
+
+#if __has_include(<POSLinkAdmin/PLHostCredentialResponse.h>)
+   #import <POSLinkAdmin/PLHostCredentialResponse.h>
+#elif __has_include("PLHostCredentialResponse.h")
+   #import "PLHostCredentialResponse.h"
+#endif
+
+
 
 @interface PLHostCredentialResponse : NSObject
 /**
  Returned by the host, the unique ID assigned to a terminal.
 
- Attribute:n4 
+ Attribute : n4 
  */
 @property (readwrite, nonatomic, copy)NSString *hostTid;
 

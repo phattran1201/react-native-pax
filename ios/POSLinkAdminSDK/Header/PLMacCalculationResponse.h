@@ -13,22 +13,40 @@
  */
 
 #import <Foundation/Foundation.h>
-#import "PLResponse.h"
+#if __has_include(<POSLinkAdmin/PLResponse.h>)
+   #import <POSLinkAdmin/PLResponse.h>
+#elif __has_include("PLResponse.h")
+   #import "PLResponse.h"
+#endif
 
-#import "PLAdminConst.h"
-#import "PLMacCalculationResponse.h"
+
+
+#if __has_include(<POSLinkAdmin/PLAdminConst.h>)
+   #import <POSLinkAdmin/PLAdminConst.h>
+#elif __has_include("PLAdminConst.h")
+   #import "PLAdminConst.h"
+#endif
+
+
+#if __has_include(<POSLinkAdmin/PLMacCalculationResponse.h>)
+   #import <POSLinkAdmin/PLMacCalculationResponse.h>
+#elif __has_include("PLMacCalculationResponse.h")
+   #import "PLMacCalculationResponse.h"
+#endif
+
+
 
 @interface PLMacCalculationResponse : PLResponse
 /**
  The MAC result, represented in hexadecimal.
 
- Attribute:ans...16 
+ Attribute : ans...16 
  */
 @property (readwrite, nonatomic, copy)NSString *resultData;
 /**
  KSN value.
 
- Attribute:ans...16 
+ Attribute : ans...16 
  */
 @property (readwrite, nonatomic, copy)NSString *ksn;
 

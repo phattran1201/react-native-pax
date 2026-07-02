@@ -13,16 +13,34 @@
  */
 
 #import <Foundation/Foundation.h>
-#import "PLRequest.h"
+#if __has_include(<POSLinkAdmin/PLRequest.h>)
+   #import <POSLinkAdmin/PLRequest.h>
+#elif __has_include("PLRequest.h")
+   #import "PLRequest.h"
+#endif
 
-#import "PLAdminConst.h"
-#import "PLCheckFileRequest.h"
+
+
+#if __has_include(<POSLinkAdmin/PLAdminConst.h>)
+   #import <POSLinkAdmin/PLAdminConst.h>
+#elif __has_include("PLAdminConst.h")
+   #import "PLAdminConst.h"
+#endif
+
+
+#if __has_include(<POSLinkAdmin/PLCheckFileRequest.h>)
+   #import <POSLinkAdmin/PLCheckFileRequest.h>
+#elif __has_include("PLCheckFileRequest.h")
+   #import "PLCheckFileRequest.h"
+#endif
+
+
 
 @interface PLCheckFileRequest : PLRequest
 /**
  The file name with the suffix.
 
- Attribute:ans...16 
+ Attribute : ans...16 
  */
 @property (readwrite, nonatomic, copy)NSString *fileName;
 

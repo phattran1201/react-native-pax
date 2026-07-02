@@ -9,16 +9,34 @@
  * ============================================================================
  */
 /**
- Reset MSR Request
+ Upload Logs Response
  */
 
 #import <Foundation/Foundation.h>
-#import "PLRequest.h"
+#if __has_include(<POSLinkAdmin/PLResponse.h>)
+   #import <POSLinkAdmin/PLResponse.h>
+#elif __has_include("PLResponse.h")
+   #import "PLResponse.h"
+#endif
 
-#import "PLAdminConst.h"
-#import "PLResetMsrRequest.h"
 
-@interface PLResetMsrRequest : PLRequest
+
+#if __has_include(<POSLinkAdmin/PLAdminConst.h>)
+   #import <POSLinkAdmin/PLAdminConst.h>
+#elif __has_include("PLAdminConst.h")
+   #import "PLAdminConst.h"
+#endif
+
+
+#if __has_include(<POSLinkAdmin/PLUploadLogsResponse.h>)
+   #import <POSLinkAdmin/PLUploadLogsResponse.h>
+#elif __has_include("PLUploadLogsResponse.h")
+   #import "PLUploadLogsResponse.h"
+#endif
+
+
+
+@interface PLUploadLogsResponse : PLResponse
 
 
 @end

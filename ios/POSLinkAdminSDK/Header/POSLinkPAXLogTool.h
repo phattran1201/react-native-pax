@@ -19,6 +19,7 @@
 [NSString stringWithFormat:(fmt), ##__VA_ARGS__]\
 ]];
 
+
 /*
  
  #pragma GCC diagnostic ignored "-Wundeclared-selector"

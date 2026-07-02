@@ -13,14 +13,34 @@
  */
 
 #import <Foundation/Foundation.h>
-#import "PLResponse.h"
+#if __has_include(<POSLinkAdmin/PLResponse.h>)
+   #import <POSLinkAdmin/PLResponse.h>
+#elif __has_include("PLResponse.h")
+   #import "PLResponse.h"
+#endif
 
-#import "PLAdminConst.h"
-#import "PLCardInsertDetectionResponse.h"
+
+
+#if __has_include(<POSLinkAdmin/PLAdminConst.h>)
+   #import <POSLinkAdmin/PLAdminConst.h>
+#elif __has_include("PLAdminConst.h")
+   #import "PLAdminConst.h"
+#endif
+
+
+#if __has_include(<POSLinkAdmin/PLCardInsertDetectionResponse.h>)
+   #import <POSLinkAdmin/PLCardInsertDetectionResponse.h>
+#elif __has_include("PLCardInsertDetectionResponse.h")
+   #import "PLCardInsertDetectionResponse.h"
+#endif
+
+
 
 @interface PLCardInsertDetectionResponse : PLResponse
 /**
- Card Insert Status. 
+ Card Insert Status.
+
+ Attribute : n1 
  */
 @property (readwrite, nonatomic, assign)enum CardInsertStatus cardInsertStatus;
 

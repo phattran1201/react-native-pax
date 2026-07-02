@@ -13,9 +13,27 @@
  */
 
 #import <Foundation/Foundation.h>
-#import "PLSemiConst.h"
-#import "PLAdminConst.h"
-#import "PLTaxDetail.h"
+#if __has_include(<POSLinkAdmin/PLSemiConst.h>)
+   #import <POSLinkAdmin/PLSemiConst.h>
+#elif __has_include("PLSemiConst.h")
+   #import "PLSemiConst.h"
+#endif
+
+
+#if __has_include(<POSLinkAdmin/PLAdminConst.h>)
+   #import <POSLinkAdmin/PLAdminConst.h>
+#elif __has_include("PLAdminConst.h")
+   #import "PLAdminConst.h"
+#endif
+
+
+#if __has_include(<POSLinkAdmin/PLTaxDetail.h>)
+   #import <POSLinkAdmin/PLTaxDetail.h>
+#elif __has_include("PLTaxDetail.h")
+   #import "PLTaxDetail.h"
+#endif
+
+
 
 @interface PLTaxDetail : NSObject
 /**
@@ -25,13 +43,13 @@
 /**
  Tax Amount. The portion of the amount that represents the tax of field 1. Includes 2 implied decimals.
 
- Attribute:n...12 
+ Attribute : n...12 
  */
 @property (readwrite, nonatomic, copy)NSString *taxAmount;
 /**
  The rate of tax of field 1. Includes 2 implied decimals.
 
- Attribute:n...4 
+ Attribute : n...4 
  */
 @property (readwrite, nonatomic, copy)NSString *taxRate;
 /**
@@ -39,7 +57,7 @@
 
 When Tax Type is 07(Value Added Tax (VAT)), this field is merchant's VAT registration number.
 
- Attribute:ans...15 
+ Attribute : ans...15 
  */
 @property (readwrite, nonatomic, copy)NSString *merchantTaxId;
 /**
@@ -47,19 +65,19 @@ When Tax Type is 07(Value Added Tax (VAT)), this field is merchant's VAT registr
 
 When Tax Type is 07(Value Added Tax (VAT)), this field is customer's VAT registration number.
 
- Attribute:ans...15 
+ Attribute : ans...15 
  */
 @property (readwrite, nonatomic, copy)NSString *customerTaxId;
 /**
  Valid when Tax Type = 07(Value Added Tax (VAT))
 
- Attribute:ans...16 
+ Attribute : ans...16 
  */
 @property (readwrite, nonatomic, copy)NSString *valueAddedTaxInvoiceNumber;
 /**
  The alternate tax identifier description for the line item.
 
- Attribute:n...12 
+ Attribute : n...12 
  */
 @property (readwrite, nonatomic, copy)NSString *alternateTaxId;
 

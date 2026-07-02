@@ -14,24 +14,38 @@
 
 #import <Foundation/Foundation.h>
 
-#import "PLAdminConst.h"
-#import "PLStbButton.h"
+#if __has_include(<POSLinkAdmin/PLAdminConst.h>)
+   #import <POSLinkAdmin/PLAdminConst.h>
+#elif __has_include("PLAdminConst.h")
+   #import "PLAdminConst.h"
+#endif
+
+
+#if __has_include(<POSLinkAdmin/PLStbButton.h>)
+   #import <POSLinkAdmin/PLStbButton.h>
+#elif __has_include("PLStbButton.h")
+   #import "PLStbButton.h"
+#endif
+
+
 
 @interface PLStbButton : NSObject
 /**
  The name of button on terminal
 
- Attribute:ans...24 
+ Attribute : ans...24 
  */
 @property (readwrite, nonatomic, copy)NSString *name;
 /**
  Please use the hexadecimal to represent the color. For example, ffffff which represent the white color. 00ff00 which means the green color. If this value not to be set, the default value will be used.
 
- Attribute:ans6 
+ Attribute : ans6 
  */
 @property (readwrite, nonatomic, copy)NSString *color;
 /**
- The hard key to be mapped for Button. 
+ The hard key to be mapped for Button.
+
+ Attribute : var 
  */
 @property (readwrite, nonatomic, assign)enum HardKey hardKey;
 

@@ -13,134 +13,160 @@
  */
 
 #import <Foundation/Foundation.h>
-#import "PLSemiConst.h"
-#import "PLAdminConst.h"
-#import "PLExtraChargeItem.h"
-#import "PLAutoRental.h"
+#if __has_include(<POSLinkAdmin/PLSemiConst.h>)
+   #import <POSLinkAdmin/PLSemiConst.h>
+#elif __has_include("PLSemiConst.h")
+   #import "PLSemiConst.h"
+#endif
+
+
+#if __has_include(<POSLinkAdmin/PLAdminConst.h>)
+   #import <POSLinkAdmin/PLAdminConst.h>
+#elif __has_include("PLAdminConst.h")
+   #import "PLAdminConst.h"
+#endif
+
+
+#if __has_include(<POSLinkAdmin/PLExtraChargeItem.h>)
+   #import <POSLinkAdmin/PLExtraChargeItem.h>
+#elif __has_include("PLExtraChargeItem.h")
+   #import "PLExtraChargeItem.h"
+#endif
+
+
+#if __has_include(<POSLinkAdmin/PLAutoRental.h>)
+   #import <POSLinkAdmin/PLAutoRental.h>
+#elif __has_include("PLAutoRental.h")
+   #import "PLAutoRental.h"
+#endif
+
+
 
 @interface PLAutoRental : NSObject
 /**
  Car-Rental Agreement/Invoice Number issued by the rental agency.
 
- Attribute:ans...25 
+ Attribute : ans...25 
  */
 @property (readwrite, nonatomic, copy)NSString *agreementNumber;
 /**
  Total rental rate amount per day. Format $$$$$$CC.
 
- Attribute:n...8 
+ Attribute : n...8 
  */
 @property (readwrite, nonatomic, copy)NSString *dailyRate;
 /**
  Rental period in days.
 
- Attribute:n...4 
+ Attribute : n...4 
  */
 @property (readwrite, nonatomic, copy)NSString *rentalDuration;
 /**
  Car-Rental Insurance Amount. Format $$$$$$CC.
 
- Attribute:n...8 
+ Attribute : n...8 
  */
 @property (readwrite, nonatomic, copy)NSString *insuranceAmount;
 /**
  Maximum miles allocated for rental without charge. Total mileage for rental period.
 
- Attribute:n...8 
+ Attribute : n...8 
  */
 @property (readwrite, nonatomic, copy)NSString *milesAllocated;
 /**
  Amount per mile. Format $$$$$$CC
 
- Attribute:n...8 
+ Attribute : n...8 
  */
 @property (readwrite, nonatomic, copy)NSString *mileRate;
 /**
  Name of the renter or name from the driver license.
 
- Attribute:ans...20 
+ Attribute : ans...20 
  */
 @property (readwrite, nonatomic, copy)NSString *name;
 /**
  The number on the driver license.
 
- Attribute:ans...20 
+ Attribute : ans...20 
  */
 @property (readwrite, nonatomic, copy)NSString *driverLicenseNumber;
 /**
- Program type for this transaction. 
+ Program type for this transaction.
+
+ Attribute : n1 
  */
 @property (readwrite, nonatomic, assign)enum RentalProgramType rentalProgramType;
 /**
  The name or ID of the location where the vehicle was picked up.
 
- Attribute:ans...40 
+ Attribute : ans...40 
  */
 @property (readwrite, nonatomic, copy)NSString *pickupLocationName;
 /**
  City where rental period started.
 
- Attribute:ans...25 
+ Attribute : ans...25 
  */
 @property (readwrite, nonatomic, copy)NSString *pickupCity;
 /**
  State where rental period started.
 
- Attribute:an...3 
+ Attribute : an...3 
  */
 @property (readwrite, nonatomic, copy)NSString *pickupState;
 /**
  Country where rental period started.
 
- Attribute:an...3 
+ Attribute : an...3 
  */
 @property (readwrite, nonatomic, copy)NSString *pickupCountryCode;
 /**
  Start of rental period timestamp. Format YYYYMMDDhhmmss.
 
- Attribute:n...14 
+ Attribute : n...14 
  */
 @property (readwrite, nonatomic, copy)NSString *pickupDatetime;
 /**
  The name or ID of the location to where the car is returned.
 
- Attribute:ans...40 
+ Attribute : ans...40 
  */
 @property (readwrite, nonatomic, copy)NSString *returnLocation;
 /**
  City where the rental car is returned.
 
- Attribute:ans...25 
+ Attribute : ans...25 
  */
 @property (readwrite, nonatomic, copy)NSString *returnCity;
 /**
  State where the rental car was returned.
 
- Attribute:an...3 
+ Attribute : an...3 
  */
 @property (readwrite, nonatomic, copy)NSString *returnState;
 /**
  Country where the rental car is returned.
 
- Attribute:an...2 
+ Attribute : an...2 
  */
 @property (readwrite, nonatomic, copy)NSString *returnCountryCode;
 /**
  Date and time when the rental car should be returned. Format YYYYMMDDhhmmss.
 
- Attribute:n...14 
+ Attribute : n...14 
  */
 @property (readwrite, nonatomic, copy)NSString *returnDatetime;
 /**
  Rental car total odometer reading at the time of return.
 
- Attribute:n...8 
+ Attribute : n...8 
  */
 @property (readwrite, nonatomic, copy)NSString *totalMiles;
 /**
  The customer tax ID.
 
- Attribute:ans...6 
+ Attribute : ans...6 
  */
 @property (readwrite, nonatomic, copy)NSString *customerTaxId;
 /**
@@ -154,7 +180,7 @@
 /**
  Car-Rental special services amount. Format $$$$$$CC.
 
- Attribute:n...8 
+ Attribute : n...8 
  */
 @property (readwrite, nonatomic, copy)NSString *extraChargesAmount;
 

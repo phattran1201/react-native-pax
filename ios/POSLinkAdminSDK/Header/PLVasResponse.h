@@ -14,22 +14,38 @@
 
 #import <Foundation/Foundation.h>
 
-#import "PLAdminConst.h"
-#import "PLVasResponse.h"
+#if __has_include(<POSLinkAdmin/PLAdminConst.h>)
+   #import <POSLinkAdmin/PLAdminConst.h>
+#elif __has_include("PLAdminConst.h")
+   #import "PLAdminConst.h"
+#endif
+
+
+#if __has_include(<POSLinkAdmin/PLVasResponse.h>)
+   #import <POSLinkAdmin/PLVasResponse.h>
+#elif __has_include("PLVasResponse.h")
+   #import "PLVasResponse.h"
+#endif
+
+
 
 @interface PLVasResponse : NSObject
 /**
- VAS response code. 
+ VAS response code.
+
+ Attribute : n3 
  */
 @property (readwrite, nonatomic, assign)enum VasResponseCode vasCode;
 /**
- Tokens returned from card. 
+ Tokens should be returned here.
+
+ Attribute : var 
  */
 @property (readwrite, nonatomic, copy)NSArray<NSString *> *vasData;
 /**
  Google Smart Tap response data in format of NEDF, the message will be encoded with Base64.
 
- Attribute:ans...1024 
+ Attribute : ans...1024 
  */
 @property (readwrite, nonatomic, copy)NSString *ndefData;
 

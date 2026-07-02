@@ -13,41 +13,65 @@
  */
 
 #import <Foundation/Foundation.h>
-#import "PLResponse.h"
+#if __has_include(<POSLinkAdmin/PLResponse.h>)
+   #import <POSLinkAdmin/PLResponse.h>
+#elif __has_include("PLResponse.h")
+   #import "PLResponse.h"
+#endif
 
-#import "PLAdminConst.h"
-#import "PLHardwareConfigurationBitmap.h"
-#import "PLInitResponse.h"
+
+
+#if __has_include(<POSLinkAdmin/PLAdminConst.h>)
+   #import <POSLinkAdmin/PLAdminConst.h>
+#elif __has_include("PLAdminConst.h")
+   #import "PLAdminConst.h"
+#endif
+
+
+#if __has_include(<POSLinkAdmin/PLHardwareConfigurationBitmap.h>)
+   #import <POSLinkAdmin/PLHardwareConfigurationBitmap.h>
+#elif __has_include("PLHardwareConfigurationBitmap.h")
+   #import "PLHardwareConfigurationBitmap.h"
+#endif
+
+
+#if __has_include(<POSLinkAdmin/PLInitResponse.h>)
+   #import <POSLinkAdmin/PLInitResponse.h>
+#elif __has_include("PLInitResponse.h")
+   #import "PLInitResponse.h"
+#endif
+
+
 
 @interface PLInitResponse : PLResponse
 /**
  The serial number of the device.
 
- Attribute:ans...32 
+ Attribute : ans...32 
  */
 @property (readwrite, nonatomic, copy)NSString *sn;
 /**
  Model Name.
 
- Attribute:ans...32 
+ Attribute : ans...32 
  */
 @property (readwrite, nonatomic, copy)NSString *modelName;
 /**
  OS Version.
 
- Attribute:ans...32 
+ Attribute : ans...32 
  */
 @property (readwrite, nonatomic, copy)NSString *osVersion;
 /**
  MAC address for LAN module in text.
 
- Attribute:ans12 
+ Attribute : ans12 
  */
 @property (readwrite, nonatomic, copy)NSString *macAddress;
 /**
  Number of lines per screen for ShowMessage command.
 
- Attribute:n...2 
+ Attribute : n...2 
  */
 @property (readwrite, nonatomic, copy)NSString *linesPerScreen;
 /**
@@ -59,29 +83,31 @@
 
 2: Changeable value for terminal models with Vector Font value since the size is depending on the text, so terminal is always taking "W" in capital as the sample text and calculate the numbers.
 
- Attribute:n...2 
+ Attribute : n...2 
  */
 @property (readwrite, nonatomic, copy)NSString *charsPerLine;
 /**
  Application name.
 
- Attribute:ans...64 
+ Attribute : ans...64 
  */
 @property (readwrite, nonatomic, copy)NSString *appName;
 /**
  Application version.
 
- Attribute:ans...64 
+ Attribute : ans...64 
  */
 @property (readwrite, nonatomic, copy)NSString *appVersion;
 /**
- WIFI mac address for wifi modules in text.
+ Wi-Fi MAC address for the Wi-Fi module in text.
 
- Attribute:ans12 
+ Attribute : ans12 
  */
 @property (readwrite, nonatomic, copy)NSString *wifiMac;
 /**
- Indicates whether terminal use a touchscreen. 
+ Indicates whether the terminal uses a touchscreen or not.
+
+ Attribute : an1 
  */
 @property (readwrite, nonatomic, assign)enum TouchscreenStatus touchscreen;
 /**
@@ -89,13 +115,13 @@
  */
 @property (readwrite, nonatomic, strong)PLHardwareConfigurationBitmap *hardwareConfigurationBitmap;
 /**
- Whether the application is activated. If value is Empty, not support. 
+ Indicates whether the application is activated or not. If value is Empty, it is not supported. 
  */
 @property (readwrite, nonatomic, assign)enum AppActivated appActivated;
 /**
  The application license expiration time. MMDDYYYY format.
 
- Attribute:n...8 
+ Attribute : n...8 
  */
 @property (readwrite, nonatomic, copy)NSString *licenseExpiry;
 /**

@@ -187,7 +187,7 @@ class PaxPosLinkModule(
                     if (terminal == null) {
                         Log.d("Failed Init", "getTerminal null — $settingInfo")
                         if (settled.compareAndSet(false, true)) {
-                            promise.reject("CONNECT_FAILED", "getTerminal trả về null. $settingInfo")
+                            promise.reject("CONNECT_FAILED", "Could not connect to terminal. Check connection settings.")
                         }
                         return@Thread
                     }
@@ -200,14 +200,21 @@ class PaxPosLinkModule(
                     if (resp != null && serialNumber.isNotEmpty()) {
                         Log.d("Success Init", "Create terminal success")
                         if (settled.compareAndSet(false, true)) {
+                            val modelName = resp.modelName().orEmpty()
                             val info =
                                 PaxTerminalInfoModel(
                                     serialNumber = serialNumber,
-                                    modelName = resp.modelName().orEmpty(),
+                                    modelName = modelName,
                                     appName = resp.appName().orEmpty(),
                                 ).toWritableMap()
+                            val message =
+                                if (modelName.isNotEmpty()) {
+                                    "Connected to terminal successfully (SN: $serialNumber, model: $modelName)"
+                                } else {
+                                    "Connected to terminal successfully (SN: $serialNumber)"
+                                }
                             val map = Arguments.createMap()
-                            map.putString("message", "Create terminal success! $settingInfo")
+                            map.putString("message", message)
                             map.putBoolean("status", true)
                             map.putMap("serialNumber", info)
                             promise.resolve(map)
@@ -220,9 +227,9 @@ class PaxPosLinkModule(
                         if (settled.compareAndSet(false, true)) {
                             promise.reject(
                                 "CONNECT_FAILED",
-                                "Terminal không phản hồi lệnh init (code=$code" +
-                                    (if (msg.isNotEmpty()) ", msg=$msg" else "") +
-                                    "). Kiểm tra IP/port và terminal đã bật chế độ Semi-Integration chưa. $settingInfo",
+                                "Terminal did not respond to init (code=$code" +
+                                    (if (msg.isNotEmpty()) ", msg=$msg" else "")  + " $settingInfo" +
+                                    ") ",
                             )
                         }
                     }
@@ -240,11 +247,11 @@ class PaxPosLinkModule(
             } catch (_: InterruptedException) {
             }
             if (settled.compareAndSet(false, true)) {
-                val reason = if (worker.isAlive) "terminal không phản hồi" else "kết nối kết thúc bất thường (không có phản hồi)"
-                Log.d("Failed Init", "Connect timeout/chết bất thường sau ${watchdogMs}ms — $settingInfo")
+                val reason = if (worker.isAlive) "terminal not responding" else "connection ended unexpectedly (no response)"
+                Log.d("Failed Init", "Connect timeout/aborted after ${watchdogMs}ms — $settingInfo")
                 promise.reject(
                     "CONNECT_TIMEOUT",
-                    "Kết nối quá thời gian (${watchdogMs}ms), $reason. $settingInfo",
+                    "Connection timed out (${watchdogMs}ms): $reason.",
                 )
             }
         }.start()

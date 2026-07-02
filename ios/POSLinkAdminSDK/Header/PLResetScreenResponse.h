@@ -9,38 +9,34 @@
  * ============================================================================
  */
 /**
- CheckTotalData
+ Reset Screen Response
  */
 
 #import <Foundation/Foundation.h>
-#import "PLSemiConst.h"
-#import "PLAdminConst.h"
-#import "PLCheckTotals.h"
+#if __has_include(<POSLinkAdmin/PLResponse.h>)
+   #import <POSLinkAdmin/PLResponse.h>
+#elif __has_include("PLResponse.h")
+   #import "PLResponse.h"
+#endif
 
-@interface PLCheckTotals : NSObject
-/**
- SaleCount
 
- Attribute:n...4 
- */
-@property (readwrite, nonatomic, copy)NSString *saleCount;
-/**
- SaleAmount
 
- Attribute:n...9 
- */
-@property (readwrite, nonatomic, copy)NSString *saleAmount;
-/**
- AdjustCount
+#if __has_include(<POSLinkAdmin/PLAdminConst.h>)
+   #import <POSLinkAdmin/PLAdminConst.h>
+#elif __has_include("PLAdminConst.h")
+   #import "PLAdminConst.h"
+#endif
 
- Attribute:n...4 
- */
-@property (readwrite, nonatomic, copy)NSString *adjustCount;
-/**
- AdjustAmount
 
- Attribute:n...9 
- */
-@property (readwrite, nonatomic, copy)NSString *adjustAmount;
+#if __has_include(<POSLinkAdmin/PLResetScreenResponse.h>)
+   #import <POSLinkAdmin/PLResetScreenResponse.h>
+#elif __has_include("PLResetScreenResponse.h")
+   #import "PLResetScreenResponse.h"
+#endif
+
+
+
+@interface PLResetScreenResponse : PLResponse
+
 
 @end

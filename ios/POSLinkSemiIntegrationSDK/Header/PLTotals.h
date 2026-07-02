@@ -13,16 +13,69 @@
  */
 
 #import <Foundation/Foundation.h>
-#import "PLSemiConst.h"
-#import "PLAdminConst.h"
-#import "PLCheckTotals.h"
-#import "PLCashTotals.h"
-#import "PLLoyaltyTotals.h"
-#import "PLGiftTotals.h"
-#import "PLEbtTotals.h"
-#import "PLDebitTotals.h"
-#import "PLCreditTotals.h"
-#import "PLTotals.h"
+#if __has_include(<POSLinkAdmin/PLSemiConst.h>)
+   #import <POSLinkAdmin/PLSemiConst.h>
+#elif __has_include("PLSemiConst.h")
+   #import "PLSemiConst.h"
+#endif
+
+
+#if __has_include(<POSLinkAdmin/PLAdminConst.h>)
+   #import <POSLinkAdmin/PLAdminConst.h>
+#elif __has_include("PLAdminConst.h")
+   #import "PLAdminConst.h"
+#endif
+
+
+#if __has_include(<POSLinkAdmin/PLCashTotals.h>)
+   #import <POSLinkAdmin/PLCashTotals.h>
+#elif __has_include("PLCashTotals.h")
+   #import "PLCashTotals.h"
+#endif
+
+
+#if __has_include(<POSLinkAdmin/PLLoyaltyTotals.h>)
+   #import <POSLinkAdmin/PLLoyaltyTotals.h>
+#elif __has_include("PLLoyaltyTotals.h")
+   #import "PLLoyaltyTotals.h"
+#endif
+
+
+#if __has_include(<POSLinkAdmin/PLGiftTotals.h>)
+   #import <POSLinkAdmin/PLGiftTotals.h>
+#elif __has_include("PLGiftTotals.h")
+   #import "PLGiftTotals.h"
+#endif
+
+
+#if __has_include(<POSLinkAdmin/PLEbtTotals.h>)
+   #import <POSLinkAdmin/PLEbtTotals.h>
+#elif __has_include("PLEbtTotals.h")
+   #import "PLEbtTotals.h"
+#endif
+
+
+#if __has_include(<POSLinkAdmin/PLDebitTotals.h>)
+   #import <POSLinkAdmin/PLDebitTotals.h>
+#elif __has_include("PLDebitTotals.h")
+   #import "PLDebitTotals.h"
+#endif
+
+
+#if __has_include(<POSLinkAdmin/PLCreditTotals.h>)
+   #import <POSLinkAdmin/PLCreditTotals.h>
+#elif __has_include("PLCreditTotals.h")
+   #import "PLCreditTotals.h"
+#endif
+
+
+#if __has_include(<POSLinkAdmin/PLTotals.h>)
+   #import <POSLinkAdmin/PLTotals.h>
+#elif __has_include("PLTotals.h")
+   #import "PLTotals.h"
+#endif
+
+
 
 @interface PLTotals : NSObject
 /**
@@ -49,9 +102,5 @@
  Cash Totals 
  */
 @property (readwrite, nonatomic, strong)PLCashTotals *cashTotals;
-/**
- Check Totals 
- */
-@property (readwrite, nonatomic, strong)PLCheckTotals *checkTotals;
 
 @end
