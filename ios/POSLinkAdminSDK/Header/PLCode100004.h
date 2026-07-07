@@ -14,20 +14,32 @@
 
 #import <Foundation/Foundation.h>
 
-#import "PLAdminConst.h"
-#import "PLCode100004.h"
+#if __has_include(<POSLinkAdmin/PLAdminConst.h>)
+   #import <POSLinkAdmin/PLAdminConst.h>
+#elif __has_include("PLAdminConst.h")
+   #import "PLAdminConst.h"
+#endif
+
+
+#if __has_include(<POSLinkAdmin/PLCode100004.h>)
+   #import <POSLinkAdmin/PLCode100004.h>
+#elif __has_include("PLCode100004.h")
+   #import "PLCode100004.h"
+#endif
+
+
 
 @interface PLCode100004 : NSObject
 /**
- Host unsupported the transaction 
+ The transaction type is not supported by the Host. 
  */
 @property (readwrite, nonatomic, copy)NSString *unsupportTransaction;
 /**
- Original transaction type not support 
+ The Original Transaction Type is not supported. 
  */
 @property (readwrite, nonatomic, copy)NSString *unsupportOriginalTransactionType;
 /**
- Transaction type not support 
+ The transaction type is not supported. 
  */
 @property (readwrite, nonatomic, copy)NSString *unsupportTransactionType;
 

@@ -13,29 +13,41 @@
  */
 
 #import <Foundation/Foundation.h>
-#import "PLSemiConst.h"
-#import "PLAdminConst.h"
-#import "PLTraceRequest.h"
+#if __has_include(<POSLinkAdmin/PLSemiConst.h>)
+   #import <POSLinkAdmin/PLSemiConst.h>
+#elif __has_include("PLSemiConst.h")
+   #import "PLSemiConst.h"
+#endif
+
+
+#if __has_include(<POSLinkAdmin/PLAdminConst.h>)
+   #import <POSLinkAdmin/PLAdminConst.h>
+#elif __has_include("PLAdminConst.h")
+   #import "PLAdminConst.h"
+#endif
+
+
+#if __has_include(<POSLinkAdmin/PLTraceRequest.h>)
+   #import <POSLinkAdmin/PLTraceRequest.h>
+#elif __has_include("PLTraceRequest.h")
+   #import "PLTraceRequest.h"
+#endif
+
+
 
 @interface PLTraceRequest : NSObject
 /**
- The ECR reference number which is an unique code in ECR side.
+ The ECR reference number which is a unique code in ECR side.
 
- Attribute:ans...16 
+ Attribute : ans...32 
  */
 @property (readwrite, nonatomic, copy)NSString *ecrReferenceNumber;
 /**
  The ECR invoice number.
 
- Attribute:ans...35 
+ Attribute : ans...50 
  */
 @property (readwrite, nonatomic, copy)NSString *invoiceNumber;
-/**
- The host authorization code, the transaction type is "Forced", this field is NULL, terminal will prompt dialog to enter it.
-
- Attribute:ans...32 
- */
-@property (readwrite, nonatomic, copy)NSString *authorizationCode;
 /**
  The transaction record number in the terminal, required for follow up transactions after Sale/ Authorization/ Return..., i.e. Void/PostAuthorization, terminal will prompt user to enter this if this field is NULL.
 
@@ -45,38 +57,46 @@
 
 9000 < Index <= 9999, failed data base for SAF.
 
- Attribute:ans...32 
+ Attribute : n...4 
  */
 @property (readwrite, nonatomic, copy)NSString *originalReferenceNumber;
 /**
  The date time, YYYYMMDDhhmmss, if this field is NULL, terminal will use local time.
 
- Attribute:n14 
+ Attribute : n14 
  */
 @property (readwrite, nonatomic, copy)NSString *timeStamp;
 /**
- ECR transaction ID, unique code in ECR side. Please check POSLink-Reference-Host Specific Remarks for details about field attributes.
-
- Attribute:ans...64 
- */
-@property (readwrite, nonatomic, copy)NSString *ecrTransactionId;
-/**
  Original ECR reference number from POS system.
 
- Attribute:ans...16 
+ Attribute : ans...32 
  */
 @property (readwrite, nonatomic, copy)NSString *originalEcrReferenceNumber;
 /**
- Original trace number which is returned in response host information.
+ Original Transaction Date in YYYYMMDD format.
 
- Attribute:ans...64 
+Conditional for some hosts for subsequent transactions after Sale, i.e. Return…
+
+If the Host requires this field, the current date on the terminal will be sent.
+
+ Attribute : n8 
  */
-@property (readwrite, nonatomic, copy)NSString *originalTraceNumber;
+@property (readwrite, nonatomic, copy)NSString *originalTransactionDate;
 /**
- Transaction Identifier of the previous or original transaction. It's used for Credential/Card on File (CoF) transactions.
+ Original Transaction Time in HHMMSS format.
 
- Attribute:ans...16 
+Conditional for some hosts for subsequent transactions after Sale, i.e. Return…
+
+If the Host requires this field, the current date on the terminal will be sent.
+
+ Attribute : n6 
  */
-@property (readwrite, nonatomic, copy)NSString *originalTransactionIdentifier;
+@property (readwrite, nonatomic, copy)NSString *originalTransactionTime;
+/**
+ A unique ID for each transaction. Can be used for all transaction API, Local Detail Report and DeleteTransaction.
+
+ Attribute : ans...64 
+ */
+@property (readwrite, nonatomic, copy)NSString *globalUid;
 
 @end

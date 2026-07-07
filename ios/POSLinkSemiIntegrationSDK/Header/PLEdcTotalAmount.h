@@ -13,52 +13,64 @@
  */
 
 #import <Foundation/Foundation.h>
-#import "PLSemiConst.h"
-#import "PLAdminConst.h"
-#import "PLEdcTotalAmount.h"
+#if __has_include(<POSLinkAdmin/PLSemiConst.h>)
+   #import <POSLinkAdmin/PLSemiConst.h>
+#elif __has_include("PLSemiConst.h")
+   #import "PLSemiConst.h"
+#endif
+
+
+#if __has_include(<POSLinkAdmin/PLAdminConst.h>)
+   #import <POSLinkAdmin/PLAdminConst.h>
+#elif __has_include("PLAdminConst.h")
+   #import "PLAdminConst.h"
+#endif
+
+
+#if __has_include(<POSLinkAdmin/PLEdcTotalAmount.h>)
+   #import <POSLinkAdmin/PLEdcTotalAmount.h>
+#elif __has_include("PLEdcTotalAmount.h")
+   #import "PLEdcTotalAmount.h"
+#endif
+
+
 
 @interface PLEdcTotalAmount : NSObject
 /**
  CreditAmount
 
- Attribute:n...9 
+ Attribute : n...9 
  */
 @property (readwrite, nonatomic, copy)NSString *creditAmount;
 /**
  DebitAmount
 
- Attribute:n...9 
+ Attribute : n...9 
  */
 @property (readwrite, nonatomic, copy)NSString *debitAmount;
 /**
  EbtAmount
 
- Attribute:n...9 
+ Attribute : n...9 
  */
 @property (readwrite, nonatomic, copy)NSString *ebtAmount;
 /**
  GiftAmount
 
- Attribute:n...9 
+ Attribute : n...9 
  */
 @property (readwrite, nonatomic, copy)NSString *giftAmount;
 /**
  LoyaltyAmount
 
- Attribute:n...9 
+ Attribute : n...9 
  */
 @property (readwrite, nonatomic, copy)NSString *loyaltyAmount;
 /**
  CashAmount
 
- Attribute:n...9 
+ Attribute : n...9 
  */
 @property (readwrite, nonatomic, copy)NSString *cashAmount;
-/**
- CheckAmount
-
- Attribute:n...9 
- */
-@property (readwrite, nonatomic, copy)NSString *checkAmount;
 
 @end

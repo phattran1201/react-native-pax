@@ -13,16 +13,34 @@
  */
 
 #import <Foundation/Foundation.h>
-#import "PLResponse.h"
+#if __has_include(<POSLinkAdmin/PLResponse.h>)
+   #import <POSLinkAdmin/PLResponse.h>
+#elif __has_include("PLResponse.h")
+   #import "PLResponse.h"
+#endif
 
-#import "PLAdminConst.h"
-#import "PLPayloadResponse.h"
+
+
+#if __has_include(<POSLinkAdmin/PLAdminConst.h>)
+   #import <POSLinkAdmin/PLAdminConst.h>
+#elif __has_include("PLAdminConst.h")
+   #import "PLAdminConst.h"
+#endif
+
+
+#if __has_include(<POSLinkAdmin/PLPayloadResponse.h>)
+   #import <POSLinkAdmin/PLPayloadResponse.h>
+#elif __has_include("PLPayloadResponse.h")
+   #import "PLPayloadResponse.h"
+#endif
+
+
 
 @interface PLPayloadResponse : PLResponse
 /**
  The response packet returned by the terminal. This is returned by the terminal in base64 format.
 
- Attribute:ans...32 
+ Attribute : ans...32 
  */
 @property (readwrite, nonatomic, copy)NSString *payload;
 

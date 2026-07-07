@@ -7,6 +7,59 @@ export interface PaxInitModel {
   status: boolean;
 }
 
+/**
+ * Các kiểu kết nối tới terminal PAX mà SDK hỗ trợ (mirror theo demo POSLink).
+ * - TCP / SSL / HTTP / HTTPS : kết nối mạng (cần `ip`, `port`).
+ * - UART                     : cổng serial (cần `serialPort`, `baudRate`).
+ * - USB                      : qua cổng USB của thiết bị (tuỳ chọn `deviceName`).
+ * - AIDL                     : giao tiếp với BroadPOS trên cùng thiết bị.
+ * - BLUETOOTH                : kết nối Bluetooth (cần `macAddr`).
+ */
+export type PaxConnType =
+  | 'TCP'
+  | 'SSL'
+  | 'HTTP'
+  | 'HTTPS'
+  | 'UART'
+  | 'USB'
+  | 'AIDL'
+  | 'BLUETOOTH';
+
+export interface PaxUsbDevice {
+  deviceName: string;
+  productName: string;
+  vendorId: number;
+  productId: number;
+}
+
+/** Thiết bị Bluetooth phát hiện được khi quét (dùng cho `type: 'BLUETOOTH'`). */
+export interface PaxBtDevice {
+  /** Tên thiết bị (có thể rỗng). */
+  name: string;
+  /** Địa chỉ MAC — truyền vào `initPOSLinkConn({ type: 'BLUETOOTH', macAddr })`. */
+  mac: string;
+  /** Cường độ tín hiệu (dBm). */
+  rssi: number;
+}
+
+export interface PaxConnConfig {
+  type: PaxConnType;
+  /** TCP/SSL/HTTP/HTTPS: IP của terminal. */
+  ip?: string;
+  /** TCP/SSL/HTTP/HTTPS: cổng (mặc định 10009). */
+  port?: string;
+  /** UART: cổng serial, ví dụ "COM1". */
+  serialPort?: string;
+  /** UART: tốc độ baud, ví dụ "9600". */
+  baudRate?: string;
+  /** USB: tên thiết bị (tuỳ chọn). */
+  deviceName?: string;
+  /** BLUETOOTH: địa chỉ MAC của terminal. */
+  macAddr?: string;
+  /** Timeout giao tiếp tính bằng ms (mặc định 60000). */
+  timeout?: number;
+}
+
 export interface PaxRequestModel {
   id?: string;
   amount?: number;
@@ -48,11 +101,30 @@ export interface PaxBatchInformationResponseModel {
   data?: PaxHistoryData;
 }
 
+/**
+ * Shape RAW trả về trực tiếp từ native module.
+ * Không dùng trực tiếp ở UI — hãy dùng PaxResult (xem pax-error.ts) đã chuẩn hoá.
+ */
 export interface PaxResponseModel {
   status?: boolean;
   data?: any; // WritableMap equivalent, adjust as needed
   message?: string;
   isPaymentSuccess?: boolean;
+  // --- raw codes (native báo cáo trung thực, JS tự phân loại) ---
+  /** ExecutionCode tầng SDK: "OK" | "ERROR" */
+  execCode?: string;
+  /** message tầng SDK/giao tiếp */
+  execMessage?: string;
+  /** mã phản hồi POSLink (tầng terminal) */
+  responseCode?: string;
+  /** message tầng terminal */
+  responseMessage?: string;
+  /** mã phản hồi host/ngân hàng */
+  hostResponseCode?: string;
+  /** message tầng host */
+  hostResponseMessage?: string;
+  /** mã issuer (lý do decline) */
+  issuerResponseCode?: string;
   id?: string;
   transactionId?: string;
   transactionNo?: string;

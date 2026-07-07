@@ -10,26 +10,166 @@
  */
 
 #import <Foundation/Foundation.h>
-#import "PLExecutionResult.h"
-#import "PLBaseTerminal.h"
-#import "PLShowMessageCenterRequest.h"
-#import "PLInputTextRequest.h"
-#import "PLClearMessageRequest.h"
-#import "PLShowItemRequest.h"
-#import "PLShowMessageRequest.h"
-#import "PLShowDialogRequest.h"
-#import "PLShowTextBoxRequest.h"
-#import "PLShowDialogFormRequest.h"
-#import "PLRemoveCardRequest.h"
-#import "PLShowTextBoxResponse.h"
-#import "PLShowItemResponse.h"
-#import "PLShowMessageResponse.h"
-#import "PLShowDialogResponse.h"
-#import "PLShowDialogFormResponse.h"
-#import "PLRemoveCardResponse.h"
-#import "PLInputTextResponse.h"
-#import "PLClearMessageResponse.h"
-#import "PLShowMessageCenterResponse.h"
+#if __has_include(<POSLinkAdmin/PLExecutionResult.h>)
+   #import <POSLinkAdmin/PLExecutionResult.h>
+#elif __has_include("PLExecutionResult.h")
+   #import "PLExecutionResult.h"
+#endif
+
+
+
+#if __has_include(<POSLinkAdmin/PLBaseTerminal.h>)
+   #import <POSLinkAdmin/PLBaseTerminal.h>
+#elif __has_include("PLBaseTerminal.h")
+   #import "PLBaseTerminal.h"
+#endif
+
+
+
+#if __has_include(<POSLinkAdmin/PLShowMessageCenterRequest.h>)
+   #import <POSLinkAdmin/PLShowMessageCenterRequest.h>
+#elif __has_include("PLShowMessageCenterRequest.h")
+   #import "PLShowMessageCenterRequest.h"
+#endif
+
+
+
+#if __has_include(<POSLinkAdmin/PLInputTextRequest.h>)
+   #import <POSLinkAdmin/PLInputTextRequest.h>
+#elif __has_include("PLInputTextRequest.h")
+   #import "PLInputTextRequest.h"
+#endif
+
+
+
+#if __has_include(<POSLinkAdmin/PLClearMessageRequest.h>)
+   #import <POSLinkAdmin/PLClearMessageRequest.h>
+#elif __has_include("PLClearMessageRequest.h")
+   #import "PLClearMessageRequest.h"
+#endif
+
+
+
+#if __has_include(<POSLinkAdmin/PLShowItemRequest.h>)
+   #import <POSLinkAdmin/PLShowItemRequest.h>
+#elif __has_include("PLShowItemRequest.h")
+   #import "PLShowItemRequest.h"
+#endif
+
+
+
+#if __has_include(<POSLinkAdmin/PLShowMessageRequest.h>)
+   #import <POSLinkAdmin/PLShowMessageRequest.h>
+#elif __has_include("PLShowMessageRequest.h")
+   #import "PLShowMessageRequest.h"
+#endif
+
+
+
+#if __has_include(<POSLinkAdmin/PLShowDialogRequest.h>)
+   #import <POSLinkAdmin/PLShowDialogRequest.h>
+#elif __has_include("PLShowDialogRequest.h")
+   #import "PLShowDialogRequest.h"
+#endif
+
+
+
+#if __has_include(<POSLinkAdmin/PLShowTextBoxRequest.h>)
+   #import <POSLinkAdmin/PLShowTextBoxRequest.h>
+#elif __has_include("PLShowTextBoxRequest.h")
+   #import "PLShowTextBoxRequest.h"
+#endif
+
+
+
+#if __has_include(<POSLinkAdmin/PLShowDialogFormRequest.h>)
+   #import <POSLinkAdmin/PLShowDialogFormRequest.h>
+#elif __has_include("PLShowDialogFormRequest.h")
+   #import "PLShowDialogFormRequest.h"
+#endif
+
+
+
+#if __has_include(<POSLinkAdmin/PLRemoveCardRequest.h>)
+   #import <POSLinkAdmin/PLRemoveCardRequest.h>
+#elif __has_include("PLRemoveCardRequest.h")
+   #import "PLRemoveCardRequest.h"
+#endif
+
+
+
+#if __has_include(<POSLinkAdmin/PLShowTextBoxResponse.h>)
+   #import <POSLinkAdmin/PLShowTextBoxResponse.h>
+#elif __has_include("PLShowTextBoxResponse.h")
+   #import "PLShowTextBoxResponse.h"
+#endif
+
+
+
+#if __has_include(<POSLinkAdmin/PLShowItemResponse.h>)
+   #import <POSLinkAdmin/PLShowItemResponse.h>
+#elif __has_include("PLShowItemResponse.h")
+   #import "PLShowItemResponse.h"
+#endif
+
+
+
+#if __has_include(<POSLinkAdmin/PLShowMessageResponse.h>)
+   #import <POSLinkAdmin/PLShowMessageResponse.h>
+#elif __has_include("PLShowMessageResponse.h")
+   #import "PLShowMessageResponse.h"
+#endif
+
+
+
+#if __has_include(<POSLinkAdmin/PLShowDialogResponse.h>)
+   #import <POSLinkAdmin/PLShowDialogResponse.h>
+#elif __has_include("PLShowDialogResponse.h")
+   #import "PLShowDialogResponse.h"
+#endif
+
+
+
+#if __has_include(<POSLinkAdmin/PLShowDialogFormResponse.h>)
+   #import <POSLinkAdmin/PLShowDialogFormResponse.h>
+#elif __has_include("PLShowDialogFormResponse.h")
+   #import "PLShowDialogFormResponse.h"
+#endif
+
+
+
+#if __has_include(<POSLinkAdmin/PLRemoveCardResponse.h>)
+   #import <POSLinkAdmin/PLRemoveCardResponse.h>
+#elif __has_include("PLRemoveCardResponse.h")
+   #import "PLRemoveCardResponse.h"
+#endif
+
+
+
+#if __has_include(<POSLinkAdmin/PLInputTextResponse.h>)
+   #import <POSLinkAdmin/PLInputTextResponse.h>
+#elif __has_include("PLInputTextResponse.h")
+   #import "PLInputTextResponse.h"
+#endif
+
+
+
+#if __has_include(<POSLinkAdmin/PLClearMessageResponse.h>)
+   #import <POSLinkAdmin/PLClearMessageResponse.h>
+#elif __has_include("PLClearMessageResponse.h")
+   #import "PLClearMessageResponse.h"
+#endif
+
+
+
+#if __has_include(<POSLinkAdmin/PLShowMessageCenterResponse.h>)
+   #import <POSLinkAdmin/PLShowMessageCenterResponse.h>
+#elif __has_include("PLShowMessageCenterResponse.h")
+   #import "PLShowMessageCenterResponse.h"
+#endif
+
+
+
 
 NS_ASSUME_NONNULL_BEGIN
 

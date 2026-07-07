@@ -9,13 +9,31 @@
  * ============================================================================
  */
 /**
- In this bitmap, 1 means available, 0 means not available.
+ An 8-digit bitmap. Set a digit to '1' to allow that digit's corresponding entry mode for the current transaction or set to '0' to disable that entry mode. Bit order is leftmost-first.
  */
 
 #import <Foundation/Foundation.h>
-#import "PLSemiConst.h"
-#import "PLAdminConst.h"
-#import "PLEntryModeBitmap.h"
+#if __has_include(<POSLinkAdmin/PLSemiConst.h>)
+   #import <POSLinkAdmin/PLSemiConst.h>
+#elif __has_include("PLSemiConst.h")
+   #import "PLSemiConst.h"
+#endif
+
+
+#if __has_include(<POSLinkAdmin/PLAdminConst.h>)
+   #import <POSLinkAdmin/PLAdminConst.h>
+#elif __has_include("PLAdminConst.h")
+   #import "PLAdminConst.h"
+#endif
+
+
+#if __has_include(<POSLinkAdmin/PLEntryModeBitmap.h>)
+   #import <POSLinkAdmin/PLEntryModeBitmap.h>
+#elif __has_include("PLEntryModeBitmap.h")
+   #import "PLEntryModeBitmap.h"
+#endif
+
+
 
 @interface PLEntryModeBitmap : NSObject
 /**
@@ -23,7 +41,9 @@
 
 false: not available.
 
-true: available. 
+true: available.
+
+ Attribute : n1 
  */
 @property (readwrite, nonatomic, assign)BOOL manual;
 /**
@@ -31,7 +51,9 @@ true: available.
 
 false: not available.
 
-true: available. 
+true: available.
+
+ Attribute : n1 
  */
 @property (readwrite, nonatomic, assign)BOOL swipe;
 /**
@@ -39,7 +61,9 @@ true: available.
 
 false: not available.
 
-true: available. 
+true: available.
+
+ Attribute : n1 
  */
 @property (readwrite, nonatomic, assign)BOOL chip;
 /**
@@ -47,7 +71,9 @@ true: available.
 
 false: not available.
 
-true: available. 
+true: available.
+
+ Attribute : n1 
  */
 @property (readwrite, nonatomic, assign)BOOL contactless;
 /**
@@ -55,16 +81,10 @@ true: available.
 
 false: not available.
 
-true: available. 
+true: available.
+
+ Attribute : n1 
  */
 @property (readwrite, nonatomic, assign)BOOL scan;
-/**
- Check Reader.
-
-false: not available.
-
-true: available. 
- */
-@property (readwrite, nonatomic, assign)BOOL checkReader;
 
 @end

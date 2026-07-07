@@ -13,10 +13,28 @@
  */
 
 #import <Foundation/Foundation.h>
-#import "PLRequest.h"
+#if __has_include(<POSLinkAdmin/PLRequest.h>)
+   #import <POSLinkAdmin/PLRequest.h>
+#elif __has_include("PLRequest.h")
+   #import "PLRequest.h"
+#endif
 
-#import "PLAdminConst.h"
-#import "PLClearMessageRequest.h"
+
+
+#if __has_include(<POSLinkAdmin/PLAdminConst.h>)
+   #import <POSLinkAdmin/PLAdminConst.h>
+#elif __has_include("PLAdminConst.h")
+   #import "PLAdminConst.h"
+#endif
+
+
+#if __has_include(<POSLinkAdmin/PLClearMessageRequest.h>)
+   #import <POSLinkAdmin/PLClearMessageRequest.h>
+#elif __has_include("PLClearMessageRequest.h")
+   #import "PLClearMessageRequest.h"
+#endif
+
+
 
 @interface PLClearMessageRequest : PLRequest
 

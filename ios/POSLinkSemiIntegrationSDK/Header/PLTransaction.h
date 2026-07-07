@@ -10,22 +10,150 @@
  */
 
 #import <Foundation/Foundation.h>
-#import "PLExecutionResult.h"
-#import "PLBaseTerminal.h"
-#import "PLDoLoyaltyRequest.h"
-#import "PLDoEbtRequest.h"
-#import "PLDoDebitRequest.h"
-#import "PLDoCashRequest.h"
-#import "PLDoCheckRequest.h"
-#import "PLDoCreditRequest.h"
-#import "PLDoGiftRequest.h"
-#import "PLDoCashResponse.h"
-#import "PLDoEbtResponse.h"
-#import "PLDoLoyaltyResponse.h"
-#import "PLDoDebitResponse.h"
-#import "PLDoCheckResponse.h"
-#import "PLDoCreditResponse.h"
-#import "PLDoGiftResponse.h"
+#if __has_include(<POSLinkAdmin/PLExecutionResult.h>)
+   #import <POSLinkAdmin/PLExecutionResult.h>
+#elif __has_include("PLExecutionResult.h")
+   #import "PLExecutionResult.h"
+#endif
+
+
+
+#if __has_include(<POSLinkAdmin/PLBaseTerminal.h>)
+   #import <POSLinkAdmin/PLBaseTerminal.h>
+#elif __has_include("PLBaseTerminal.h")
+   #import "PLBaseTerminal.h"
+#endif
+
+
+
+#if __has_include(<POSLinkAdmin/PLDoLoyaltyRequest.h>)
+   #import <POSLinkAdmin/PLDoLoyaltyRequest.h>
+#elif __has_include("PLDoLoyaltyRequest.h")
+   #import "PLDoLoyaltyRequest.h"
+#endif
+
+
+
+#if __has_include(<POSLinkAdmin/PLDoEbtRequest.h>)
+   #import <POSLinkAdmin/PLDoEbtRequest.h>
+#elif __has_include("PLDoEbtRequest.h")
+   #import "PLDoEbtRequest.h"
+#endif
+
+
+
+#if __has_include(<POSLinkAdmin/PLDoDebitRequest.h>)
+   #import <POSLinkAdmin/PLDoDebitRequest.h>
+#elif __has_include("PLDoDebitRequest.h")
+   #import "PLDoDebitRequest.h"
+#endif
+
+
+
+#if __has_include(<POSLinkAdmin/PLDoCashRequest.h>)
+   #import <POSLinkAdmin/PLDoCashRequest.h>
+#elif __has_include("PLDoCashRequest.h")
+   #import "PLDoCashRequest.h"
+#endif
+
+
+
+#if __has_include(<POSLinkAdmin/PLGetCardInformationRequest.h>)
+   #import <POSLinkAdmin/PLGetCardInformationRequest.h>
+#elif __has_include("PLGetCardInformationRequest.h")
+   #import "PLGetCardInformationRequest.h"
+#endif
+
+
+
+#if __has_include(<POSLinkAdmin/PLDoQrPaymentRequest.h>)
+   #import <POSLinkAdmin/PLDoQrPaymentRequest.h>
+#elif __has_include("PLDoQrPaymentRequest.h")
+   #import "PLDoQrPaymentRequest.h"
+#endif
+
+
+
+#if __has_include(<POSLinkAdmin/PLDoCreditRequest.h>)
+   #import <POSLinkAdmin/PLDoCreditRequest.h>
+#elif __has_include("PLDoCreditRequest.h")
+   #import "PLDoCreditRequest.h"
+#endif
+
+
+
+#if __has_include(<POSLinkAdmin/PLDoGiftRequest.h>)
+   #import <POSLinkAdmin/PLDoGiftRequest.h>
+#elif __has_include("PLDoGiftRequest.h")
+   #import "PLDoGiftRequest.h"
+#endif
+
+
+
+#if __has_include(<POSLinkAdmin/PLDoQrPaymentResponse.h>)
+   #import <POSLinkAdmin/PLDoQrPaymentResponse.h>
+#elif __has_include("PLDoQrPaymentResponse.h")
+   #import "PLDoQrPaymentResponse.h"
+#endif
+
+
+
+#if __has_include(<POSLinkAdmin/PLGetCardInformationResponse.h>)
+   #import <POSLinkAdmin/PLGetCardInformationResponse.h>
+#elif __has_include("PLGetCardInformationResponse.h")
+   #import "PLGetCardInformationResponse.h"
+#endif
+
+
+
+#if __has_include(<POSLinkAdmin/PLDoCashResponse.h>)
+   #import <POSLinkAdmin/PLDoCashResponse.h>
+#elif __has_include("PLDoCashResponse.h")
+   #import "PLDoCashResponse.h"
+#endif
+
+
+
+#if __has_include(<POSLinkAdmin/PLDoEbtResponse.h>)
+   #import <POSLinkAdmin/PLDoEbtResponse.h>
+#elif __has_include("PLDoEbtResponse.h")
+   #import "PLDoEbtResponse.h"
+#endif
+
+
+
+#if __has_include(<POSLinkAdmin/PLDoLoyaltyResponse.h>)
+   #import <POSLinkAdmin/PLDoLoyaltyResponse.h>
+#elif __has_include("PLDoLoyaltyResponse.h")
+   #import "PLDoLoyaltyResponse.h"
+#endif
+
+
+
+#if __has_include(<POSLinkAdmin/PLDoDebitResponse.h>)
+   #import <POSLinkAdmin/PLDoDebitResponse.h>
+#elif __has_include("PLDoDebitResponse.h")
+   #import "PLDoDebitResponse.h"
+#endif
+
+
+
+#if __has_include(<POSLinkAdmin/PLDoCreditResponse.h>)
+   #import <POSLinkAdmin/PLDoCreditResponse.h>
+#elif __has_include("PLDoCreditResponse.h")
+   #import "PLDoCreditResponse.h"
+#endif
+
+
+
+#if __has_include(<POSLinkAdmin/PLDoGiftResponse.h>)
+   #import <POSLinkAdmin/PLDoGiftResponse.h>
+#elif __has_include("PLDoGiftResponse.h")
+   #import "PLDoGiftResponse.h"
+#endif
+
+
+
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -71,12 +199,20 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)doCashWithRequest:(PLDoCashRequest *)request completion:(void(^)(PLDoCashResponse *response,PLExecutionResult *result))completion;
 
 /**
- * This command is used to execute the check payment method transactions. It uses the single transaction flow.
+ * Get card information request.
  *
  * @param request Request data.
  * @param completion Callback of response data.
 */
-- (void)doCheckWithRequest:(PLDoCheckRequest *)request completion:(void(^)(PLDoCheckResponse *response,PLExecutionResult *result))completion;
+- (void)getCardInformationWithRequest:(PLGetCardInformationRequest *)request completion:(void(^)(PLGetCardInformationResponse *response,PLExecutionResult *result))completion;
+
+/**
+ * Do QR payment request.
+ *
+ * @param request Request data.
+ * @param completion Callback of response data.
+*/
+- (void)doQrPaymentWithRequest:(PLDoQrPaymentRequest *)request completion:(void(^)(PLDoQrPaymentResponse *response,PLExecutionResult *result))completion;
 
 /**
  * This command is used to execute the credit payment transactions when Auto EDC mode is disabled and will use the credit transaction flow. When Auto EDC is enabled, this command will be executed as do payment without specifying the EDC type, the EDC will be processed based on the card type.

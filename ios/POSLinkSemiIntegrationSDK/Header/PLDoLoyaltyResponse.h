@@ -13,32 +13,138 @@
  */
 
 #import <Foundation/Foundation.h>
-#import "PLResponse.h"
-#import "PLSemiConst.h"
-#import "PLAdminConst.h"
-#import "PLHostCredentialResponse.h"
-#import "PLTorResponse.h"
-#import "PLVasResponse.h"
-#import "PLFleetCardResponse.h"
-#import "PLPaymentEmvTag.h"
-#import "PLMultiMerchant.h"
-#import "PLCardInformation.h"
-#import "PLEwicDetail.h"
-#import "PLEwicBalance.h"
-#import "PLAdditionalResponseData.h"
-#import "PLPaymentTransactionInformation.h"
-#import "PLRestaurant.h"
-#import "PLTraceResponse.h"
-#import "PLAccountResponse.h"
-#import "PLAmountResponse.h"
-#import "PLHostResponse.h"
-#import "PLDoLoyaltyResponse.h"
+#if __has_include(<POSLinkAdmin/PLResponse.h>)
+   #import <POSLinkAdmin/PLResponse.h>
+#elif __has_include("PLResponse.h")
+   #import "PLResponse.h"
+#endif
+
+
+#if __has_include(<POSLinkAdmin/PLSemiConst.h>)
+   #import <POSLinkAdmin/PLSemiConst.h>
+#elif __has_include("PLSemiConst.h")
+   #import "PLSemiConst.h"
+#endif
+
+
+#if __has_include(<POSLinkAdmin/PLAdminConst.h>)
+   #import <POSLinkAdmin/PLAdminConst.h>
+#elif __has_include("PLAdminConst.h")
+   #import "PLAdminConst.h"
+#endif
+
+
+#if __has_include(<POSLinkAdmin/PLTransactionBehaviorResponse.h>)
+   #import <POSLinkAdmin/PLTransactionBehaviorResponse.h>
+#elif __has_include("PLTransactionBehaviorResponse.h")
+   #import "PLTransactionBehaviorResponse.h"
+#endif
+
+
+#if __has_include(<POSLinkAdmin/PLHostTraceResponse.h>)
+   #import <POSLinkAdmin/PLHostTraceResponse.h>
+#elif __has_include("PLHostTraceResponse.h")
+   #import "PLHostTraceResponse.h"
+#endif
+
+
+#if __has_include(<POSLinkAdmin/PLHostCredentialResponse.h>)
+   #import <POSLinkAdmin/PLHostCredentialResponse.h>
+#elif __has_include("PLHostCredentialResponse.h")
+   #import "PLHostCredentialResponse.h"
+#endif
+
+
+#if __has_include(<POSLinkAdmin/PLTorResponse.h>)
+   #import <POSLinkAdmin/PLTorResponse.h>
+#elif __has_include("PLTorResponse.h")
+   #import "PLTorResponse.h"
+#endif
+
+
+#if __has_include(<POSLinkAdmin/PLSignatureResponse.h>)
+   #import <POSLinkAdmin/PLSignatureResponse.h>
+#elif __has_include("PLSignatureResponse.h")
+   #import "PLSignatureResponse.h"
+#endif
+
+
+#if __has_include(<POSLinkAdmin/PLMultiMerchant.h>)
+   #import <POSLinkAdmin/PLMultiMerchant.h>
+#elif __has_include("PLMultiMerchant.h")
+   #import "PLMultiMerchant.h"
+#endif
+
+
+#if __has_include(<POSLinkAdmin/PLCardInformation.h>)
+   #import <POSLinkAdmin/PLCardInformation.h>
+#elif __has_include("PLCardInformation.h")
+   #import "PLCardInformation.h"
+#endif
+
+
+#if __has_include(<POSLinkAdmin/PLPaymentTransactionInformation.h>)
+   #import <POSLinkAdmin/PLPaymentTransactionInformation.h>
+#elif __has_include("PLPaymentTransactionInformation.h")
+   #import "PLPaymentTransactionInformation.h"
+#endif
+
+
+#if __has_include(<POSLinkAdmin/PLRestaurant.h>)
+   #import <POSLinkAdmin/PLRestaurant.h>
+#elif __has_include("PLRestaurant.h")
+   #import "PLRestaurant.h"
+#endif
+
+
+#if __has_include(<POSLinkAdmin/PLTraceResponse.h>)
+   #import <POSLinkAdmin/PLTraceResponse.h>
+#elif __has_include("PLTraceResponse.h")
+   #import "PLTraceResponse.h"
+#endif
+
+
+#if __has_include(<POSLinkAdmin/PLAccountResponse.h>)
+   #import <POSLinkAdmin/PLAccountResponse.h>
+#elif __has_include("PLAccountResponse.h")
+   #import "PLAccountResponse.h"
+#endif
+
+
+#if __has_include(<POSLinkAdmin/PLAmountResponse.h>)
+   #import <POSLinkAdmin/PLAmountResponse.h>
+#elif __has_include("PLAmountResponse.h")
+   #import "PLAmountResponse.h"
+#endif
+
+
+#if __has_include(<POSLinkAdmin/PLAdditionalResponseData.h>)
+   #import <POSLinkAdmin/PLAdditionalResponseData.h>
+#elif __has_include("PLAdditionalResponseData.h")
+   #import "PLAdditionalResponseData.h"
+#endif
+
+
+#if __has_include(<POSLinkAdmin/PLHostInformationResponse.h>)
+   #import <POSLinkAdmin/PLHostInformationResponse.h>
+#elif __has_include("PLHostInformationResponse.h")
+   #import "PLHostInformationResponse.h"
+#endif
+
+
+#if __has_include(<POSLinkAdmin/PLDoLoyaltyResponse.h>)
+   #import <POSLinkAdmin/PLDoLoyaltyResponse.h>
+#elif __has_include("PLDoLoyaltyResponse.h")
+   #import "PLDoLoyaltyResponse.h"
+#endif
+
+
 
 @interface PLDoLoyaltyResponse : PLResponse
 /**
  Host information. 
  */
-@property (readwrite, nonatomic, strong)PLHostResponse *hostInformation;
+@property (readwrite, nonatomic, strong)PLHostInformationResponse *hostInformation;
 /**
  Transaction type. 
  */
@@ -60,29 +166,23 @@
  */
 @property (readwrite, nonatomic, strong)PLRestaurant *restaurant;
 /**
- Transaction information. 
+ Transaction information.
+ @deprecated Since V2.01.00. 
  */
-@property (readwrite, nonatomic, strong)PLPaymentTransactionInformation *paymentTransactionInformation;
+@property (readwrite, nonatomic, strong)PLPaymentTransactionInformation *paymentTransactionInformation __attribute__((deprecated("Deprecated since V2.01.00")));
 /**
- Card information. 
+ Card information.
+ @deprecated Since V2.01.00. See AccountResponse. 
  */
-@property (readwrite, nonatomic, strong)PLCardInformation *cardInformation;
+@property (readwrite, nonatomic, strong)PLCardInformation *cardInformation __attribute__((deprecated("Deprecated since V2.01.00. See AccountResponse")));
 /**
  Multi merchant information. 
  */
 @property (readwrite, nonatomic, strong)PLMultiMerchant *multiMerchant;
 /**
- EMV Tag information. 
+ Signature response information. 
  */
-@property (readwrite, nonatomic, strong)PLPaymentEmvTag *paymentEmvTag;
-/**
- Fleet card information. 
- */
-@property (readwrite, nonatomic, strong)PLFleetCardResponse *fleetCard;
-/**
- VAS information. 
- */
-@property (readwrite, nonatomic, strong)PLVasResponse *vasInformation;
+@property (readwrite, nonatomic, strong)PLSignatureResponse *signatureInformation;
 /**
  TOR information. 
  */
@@ -91,6 +191,14 @@
  Response Host Credential Information. 
  */
 @property (readwrite, nonatomic, strong)PLHostCredentialResponse *hostCredentialInformation;
+/**
+ Host Trace information. 
+ */
+@property (readwrite, nonatomic, strong)PLHostTraceResponse *hostTraceInformation;
+/**
+ Transaction Behavior. 
+ */
+@property (readwrite, nonatomic, strong)PLTransactionBehaviorResponse *transactionBehavior;
 
 
 @end

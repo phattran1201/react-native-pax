@@ -13,33 +13,51 @@
  */
 
 #import <Foundation/Foundation.h>
-#import "PLSemiConst.h"
-#import "PLAdminConst.h"
-#import "PLCashTotals.h"
+#if __has_include(<POSLinkAdmin/PLSemiConst.h>)
+   #import <POSLinkAdmin/PLSemiConst.h>
+#elif __has_include("PLSemiConst.h")
+   #import "PLSemiConst.h"
+#endif
+
+
+#if __has_include(<POSLinkAdmin/PLAdminConst.h>)
+   #import <POSLinkAdmin/PLAdminConst.h>
+#elif __has_include("PLAdminConst.h")
+   #import "PLAdminConst.h"
+#endif
+
+
+#if __has_include(<POSLinkAdmin/PLCashTotals.h>)
+   #import <POSLinkAdmin/PLCashTotals.h>
+#elif __has_include("PLCashTotals.h")
+   #import "PLCashTotals.h"
+#endif
+
+
 
 @interface PLCashTotals : NSObject
 /**
  SaleCount
 
- Attribute:n...4 
+ Attribute : n...4 
  */
 @property (readwrite, nonatomic, copy)NSString *saleCount;
 /**
  SaleAmount
 
- Attribute:n...9 
+ Attribute : n...9 
  */
 @property (readwrite, nonatomic, copy)NSString *saleAmount;
 /**
  ReturnCount
 
- Attribute:n...4 
+ Attribute : n...4 
  */
 @property (readwrite, nonatomic, copy)NSString *returnCount;
 /**
  ReturnAmount
 
- Attribute:n...9 
+ Attribute : n...9 
  */
 @property (readwrite, nonatomic, copy)NSString *returnAmount;
 

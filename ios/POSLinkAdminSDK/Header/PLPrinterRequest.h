@@ -13,22 +13,40 @@
  */
 
 #import <Foundation/Foundation.h>
-#import "PLRequest.h"
+#if __has_include(<POSLinkAdmin/PLRequest.h>)
+   #import <POSLinkAdmin/PLRequest.h>
+#elif __has_include("PLRequest.h")
+   #import "PLRequest.h"
+#endif
 
-#import "PLAdminConst.h"
-#import "PLPrinterRequest.h"
+
+
+#if __has_include(<POSLinkAdmin/PLAdminConst.h>)
+   #import <POSLinkAdmin/PLAdminConst.h>
+#elif __has_include("PLAdminConst.h")
+   #import "PLAdminConst.h"
+#endif
+
+
+#if __has_include(<POSLinkAdmin/PLPrinterRequest.h>)
+   #import <POSLinkAdmin/PLPrinterRequest.h>
+#elif __has_include("PLPrinterRequest.h")
+   #import "PLPrinterRequest.h"
+#endif
+
+
 
 @interface PLPrinterRequest : PLRequest
 /**
- How many receipts want to print. Default is 1.
+ The number of receipt copies to print. The value must be between 1 and 9. The default value is 1.
 
- Attribute:n1 
+ Attribute : n1 
  */
 @property (readwrite, nonatomic, copy)NSString *printCopy;
 /**
- Variable length up to 4000.Refer to the section of PrintData for how to format the print data.The ASCII characters which from 0x40 to 0x7F can be printable.
+ Variable length up to 4000. Refer to the section of PrintData for how to format the print data. The ASCII characters ranging from 0x40 to 0x7F can be printed.
 
- Attribute:ans...4000 
+ Attribute : ans...4000 
  */
 @property (readwrite, nonatomic, copy)NSString *printData;
 

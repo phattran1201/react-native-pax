@@ -14,14 +14,26 @@
 
 #import <Foundation/Foundation.h>
 
-#import "PLAdminConst.h"
-#import "PLSdButton.h"
+#if __has_include(<POSLinkAdmin/PLAdminConst.h>)
+   #import <POSLinkAdmin/PLAdminConst.h>
+#elif __has_include("PLAdminConst.h")
+   #import "PLAdminConst.h"
+#endif
+
+
+#if __has_include(<POSLinkAdmin/PLSdButton.h>)
+   #import <POSLinkAdmin/PLSdButton.h>
+#elif __has_include("PLSdButton.h")
+   #import "PLSdButton.h"
+#endif
+
+
 
 @interface PLSdButton : NSObject
 /**
  The name of button on terminal
 
- Attribute:var 
+ Attribute : var 
  */
 @property (readwrite, nonatomic, copy)NSString *name;
 

@@ -13,9 +13,27 @@
  */
 
 #import <Foundation/Foundation.h>
-#import "PLSemiConst.h"
-#import "PLAdminConst.h"
-#import "PLCardTypeBitmap.h"
+#if __has_include(<POSLinkAdmin/PLSemiConst.h>)
+   #import <POSLinkAdmin/PLSemiConst.h>
+#elif __has_include("PLSemiConst.h")
+   #import "PLSemiConst.h"
+#endif
+
+
+#if __has_include(<POSLinkAdmin/PLAdminConst.h>)
+   #import <POSLinkAdmin/PLAdminConst.h>
+#elif __has_include("PLAdminConst.h")
+   #import "PLAdminConst.h"
+#endif
+
+
+#if __has_include(<POSLinkAdmin/PLCardTypeBitmap.h>)
+   #import <POSLinkAdmin/PLCardTypeBitmap.h>
+#elif __has_include("PLCardTypeBitmap.h")
+   #import "PLCardTypeBitmap.h"
+#endif
+
+
 
 @interface PLCardTypeBitmap : NSObject
 /**
@@ -23,7 +41,9 @@
 
 false: not accepted.
 
-true: accepted. 
+true: accepted.
+
+ Attribute : n1 
  */
 @property (readwrite, nonatomic, assign)BOOL visa;
 /**
@@ -31,7 +51,9 @@ true: accepted.
 
 false: not accepted.
 
-true: accepted. 
+true: accepted.
+
+ Attribute : n1 
  */
 @property (readwrite, nonatomic, assign)BOOL masterCard;
 /**
@@ -39,7 +61,9 @@ true: accepted.
 
 false: not accepted.
 
-true: accepted. 
+true: accepted.
+
+ Attribute : n1 
  */
 @property (readwrite, nonatomic, assign)BOOL amex;
 /**
@@ -47,7 +71,9 @@ true: accepted.
 
 false: not accepted.
 
-true: accepted. 
+true: accepted.
+
+ Attribute : n1 
  */
 @property (readwrite, nonatomic, assign)BOOL discover;
 /**
@@ -55,7 +81,9 @@ true: accepted.
 
 false: not accepted.
 
-true: accepted. 
+true: accepted.
+
+ Attribute : n1 
  */
 @property (readwrite, nonatomic, assign)BOOL dinerClub;
 /**
@@ -63,7 +91,9 @@ true: accepted.
 
 false: not accepted.
 
-true: accepted. 
+true: accepted.
+
+ Attribute : n1 
  */
 @property (readwrite, nonatomic, assign)BOOL enRoute;
 /**
@@ -71,7 +101,9 @@ true: accepted.
 
 false: not accepted.
 
-true: accepted. 
+true: accepted.
+
+ Attribute : n1 
  */
 @property (readwrite, nonatomic, assign)BOOL jcb;
 /**
@@ -79,7 +111,9 @@ true: accepted.
 
 false: not accepted.
 
-true: accepted. 
+true: accepted.
+
+ Attribute : n1 
  */
 @property (readwrite, nonatomic, assign)BOOL revolutionCard;
 /**
@@ -87,7 +121,9 @@ true: accepted.
 
 false: not accepted.
 
-true: accepted. 
+true: accepted.
+
+ Attribute : n1 
  */
 @property (readwrite, nonatomic, assign)BOOL visaFleet;
 /**
@@ -95,7 +131,9 @@ true: accepted.
 
 false: not accepted.
 
-true: accepted. 
+true: accepted.
+
+ Attribute : n1 
  */
 @property (readwrite, nonatomic, assign)BOOL masterCardFleet;
 /**
@@ -103,7 +141,9 @@ true: accepted.
 
 false: not accepted.
 
-true: accepted. 
+true: accepted.
+
+ Attribute : n1 
  */
 @property (readwrite, nonatomic, assign)BOOL fleetOne;
 /**
@@ -111,7 +151,9 @@ true: accepted.
 
 false: not accepted.
 
-true: accepted. 
+true: accepted.
+
+ Attribute : n1 
  */
 @property (readwrite, nonatomic, assign)BOOL fleetwide;
 /**
@@ -119,7 +161,9 @@ true: accepted.
 
 false: not accepted.
 
-true: accepted. 
+true: accepted.
+
+ Attribute : n1 
  */
 @property (readwrite, nonatomic, assign)BOOL fuelman;
 /**
@@ -127,7 +171,9 @@ true: accepted.
 
 false: not accepted.
 
-true: accepted. 
+true: accepted.
+
+ Attribute : n1 
  */
 @property (readwrite, nonatomic, assign)BOOL gascard;
 /**
@@ -135,7 +181,9 @@ true: accepted.
 
 false: not accepted.
 
-true: accepted. 
+true: accepted.
+
+ Attribute : n1 
  */
 @property (readwrite, nonatomic, assign)BOOL voyager;
 /**
@@ -143,7 +191,9 @@ true: accepted.
 
 false: not accepted.
 
-true: accepted. 
+true: accepted.
+
+ Attribute : n1 
  */
 @property (readwrite, nonatomic, assign)BOOL wrightExpress;
 /**
@@ -151,7 +201,9 @@ true: accepted.
 
 false: not accepted.
 
-true: accepted. 
+true: accepted.
+
+ Attribute : n1 
  */
 @property (readwrite, nonatomic, assign)BOOL interac;
 /**
@@ -159,7 +211,9 @@ true: accepted.
 
 false: not accepted.
 
-true: accepted. 
+true: accepted.
+
+ Attribute : n1 
  */
 @property (readwrite, nonatomic, assign)BOOL cup;
 /**
@@ -167,7 +221,9 @@ true: accepted.
 
 false: not accepted.
 
-true: accepted. 
+true: accepted.
+
+ Attribute : n1 
  */
 @property (readwrite, nonatomic, assign)BOOL maestro;
 /**
@@ -175,7 +231,9 @@ true: accepted.
 
 false: not accepted.
 
-true: accepted. 
+true: accepted.
+
+ Attribute : n1 
  */
 @property (readwrite, nonatomic, assign)BOOL sinclair;
 /**
@@ -183,7 +241,9 @@ true: accepted.
 
 false: not accepted.
 
-true: accepted. 
+true: accepted.
+
+ Attribute : n1 
  */
 @property (readwrite, nonatomic, assign)BOOL giftOrLoyalty;
 /**
@@ -191,7 +251,9 @@ true: accepted.
 
 false: not accepted.
 
-true: accepted. 
+true: accepted.
+
+ Attribute : n1 
  */
 @property (readwrite, nonatomic, assign)BOOL other;
 

@@ -14,17 +14,104 @@
 
 #import <Foundation/Foundation.h>
 
-#import "PLAdminConst.h"
-#import "PLCode100101.h"
-#import "PLCode100033.h"
-#import "PLCode100023.h"
-#import "PLCode100021.h"
-#import "PLCode100020.h"
-#import "PLCode100014.h"
-#import "PLCode100010.h"
-#import "PLCode100004.h"
-#import "PLCode100003.h"
-#import "PLResponseCode.h"
+#if __has_include(<POSLinkAdmin/PLAdminConst.h>)
+   #import <POSLinkAdmin/PLAdminConst.h>
+#elif __has_include("PLAdminConst.h")
+   #import "PLAdminConst.h"
+#endif
+
+
+#if __has_include(<POSLinkAdmin/PLCode104000.h>)
+   #import <POSLinkAdmin/PLCode104000.h>
+#elif __has_include("PLCode104000.h")
+   #import "PLCode104000.h"
+#endif
+
+
+#if __has_include(<POSLinkAdmin/PLCode100101.h>)
+   #import <POSLinkAdmin/PLCode100101.h>
+#elif __has_include("PLCode100101.h")
+   #import "PLCode100101.h"
+#endif
+
+
+#if __has_include(<POSLinkAdmin/PLCode100033.h>)
+   #import <POSLinkAdmin/PLCode100033.h>
+#elif __has_include("PLCode100033.h")
+   #import "PLCode100033.h"
+#endif
+
+
+#if __has_include(<POSLinkAdmin/PLCode100023.h>)
+   #import <POSLinkAdmin/PLCode100023.h>
+#elif __has_include("PLCode100023.h")
+   #import "PLCode100023.h"
+#endif
+
+
+#if __has_include(<POSLinkAdmin/PLCode100021.h>)
+   #import <POSLinkAdmin/PLCode100021.h>
+#elif __has_include("PLCode100021.h")
+   #import "PLCode100021.h"
+#endif
+
+
+#if __has_include(<POSLinkAdmin/PLCode100020.h>)
+   #import <POSLinkAdmin/PLCode100020.h>
+#elif __has_include("PLCode100020.h")
+   #import "PLCode100020.h"
+#endif
+
+
+#if __has_include(<POSLinkAdmin/PLCode100014.h>)
+   #import <POSLinkAdmin/PLCode100014.h>
+#elif __has_include("PLCode100014.h")
+   #import "PLCode100014.h"
+#endif
+
+
+#if __has_include(<POSLinkAdmin/PLCode100010.h>)
+   #import <POSLinkAdmin/PLCode100010.h>
+#elif __has_include("PLCode100010.h")
+   #import "PLCode100010.h"
+#endif
+
+
+#if __has_include(<POSLinkAdmin/PLCode100004.h>)
+   #import <POSLinkAdmin/PLCode100004.h>
+#elif __has_include("PLCode100004.h")
+   #import "PLCode100004.h"
+#endif
+
+
+#if __has_include(<POSLinkAdmin/PLCode100003.h>)
+   #import <POSLinkAdmin/PLCode100003.h>
+#elif __has_include("PLCode100003.h")
+   #import "PLCode100003.h"
+#endif
+
+
+#if __has_include(<POSLinkAdmin/PLCode100002.h>)
+   #import <POSLinkAdmin/PLCode100002.h>
+#elif __has_include("PLCode100002.h")
+   #import "PLCode100002.h"
+#endif
+
+
+#if __has_include(<POSLinkAdmin/PLCode100001.h>)
+   #import <POSLinkAdmin/PLCode100001.h>
+#elif __has_include("PLCode100001.h")
+   #import "PLCode100001.h"
+#endif
+
+
+#if __has_include(<POSLinkAdmin/PLResponseCode.h>)
+   #import <POSLinkAdmin/PLResponseCode.h>
+#elif __has_include("PLResponseCode.h")
+   #import "PLResponseCode.h"
+#endif
+
+
 
 @interface PLResponseCode : NSObject
 /**
@@ -76,13 +163,13 @@ Transactions will approve offline under the following conditions.
  */
 @property (readwrite, nonatomic, copy)NSString *safFailedPleaseSettle;
 /**
- Timeout. 
+ Error code 100001. 
  */
-@property (readwrite, nonatomic, copy)NSString *timeout;
+@property (readwrite, nonatomic, strong)PLCode100001 *code100001;
 /**
- User aborted. 
+ Error code 100002. 
  */
-@property (readwrite, nonatomic, copy)NSString *aborted;
+@property (readwrite, nonatomic, strong)PLCode100002 *code100002;
 /**
  Error code 100003. 
  */
@@ -100,11 +187,15 @@ Transactions will approve offline under the following conditions.
  */
 @property (readwrite, nonatomic, copy)NSString *batchFailed;
 /**
+ Returned when the terminal is unable to parse the incoming host response. The terminal will automatically send timeout reversal (TOR). 
+ */
+@property (readwrite, nonatomic, copy)NSString *invalidResponseMessage;
+/**
  Send message to host error. 
  */
 @property (readwrite, nonatomic, copy)NSString *sendError;
 /**
- Receive message error. 
+ Response is not returned from the host after a request has been sent to the host. 
  */
 @property (readwrite, nonatomic, copy)NSString *receiveError;
 /**
@@ -112,7 +203,7 @@ Transactions will approve offline under the following conditions.
  */
 @property (readwrite, nonatomic, strong)PLCode100010 *code100010;
 /**
- The application has declined the transaction locally due to it being a duplicate transaction. Fields that are returned will be the transaction data from the original transaction. If the terminal returns this error code, the operator should confirm if this is a new transaction. The ECR can resend the pack with "Dup Override Flag" set. 
+ Transaction declined locally as a duplicate Response fields are sourced from the original transaction's data. The ECR can resend with Dup Override Flag enabled to override the local duplicate check. 
  */
 @property (readwrite, nonatomic, copy)NSString *dupTransaction;
 /**
@@ -168,7 +259,19 @@ Transactions will approve offline under the following conditions.
  */
 @property (readwrite, nonatomic, copy)NSString *noHostApp;
 /**
- Please do settlement. 
+ One or more local transaction record databases are full. However, the user may still run transactions of the following types:
+
+  - Post-Auth
+
+  - Incremental Auth
+
+  - Void
+
+  - Tip Adjustment
+
+  - Return by Reference Number
+
+Please settle or clear existing transaction records before attempting new transactions. 
  */
 @property (readwrite, nonatomic, copy)NSString *pleaseSettle;
 /**
@@ -196,7 +299,7 @@ Transactions will approve offline under the following conditions.
  */
 @property (readwrite, nonatomic, strong)PLCode100033 *code100033;
 /**
- Insufficient found user decline. 
+ Insufficient fund user decline. 
  */
 @property (readwrite, nonatomic, copy)NSString *insufficientFundUserDecline;
 /**
@@ -224,13 +327,13 @@ Transactions will approve offline under the following conditions.
  */
 @property (readwrite, nonatomic, copy)NSString *pedInjectionError;
 /**
- The specified MAC key type dismatch the specified algorithm. 
+ The specified MAC key type mismatches the specified algorithm. 
  */
-@property (readwrite, nonatomic, copy)NSString *macKeyTypeDismatch;
+@property (readwrite, nonatomic, copy)NSString *macKeyTypeMismatch;
 /**
- The encryption key type dismatch the specified algorithm. 
+ The encryption key type mismatches the specified algorithm. 
  */
-@property (readwrite, nonatomic, copy)NSString *encryptionKeyTypeDismatch;
+@property (readwrite, nonatomic, copy)NSString *encryptionKeyTypeMismatch;
 /**
  PED parameter error. 
  */
@@ -244,7 +347,65 @@ Transactions will approve offline under the following conditions.
  */
 @property (readwrite, nonatomic, copy)NSString *pedUnknownError;
 /**
- Terminal stringernal error. 
+ Terminal detected WIC card while it's not for WIC. 
+ */
+@property (readwrite, nonatomic, copy)NSString *wicCardDetected;
+/**
+ Service is busy. 
+ */
+@property (readwrite, nonatomic, copy)NSString *serviceBusy;
+/**
+ Card not accepted. 
+ */
+@property (readwrite, nonatomic, copy)NSString *notAccepted;
+/**
+ User didn't agree the EULA. 
+ */
+@property (readwrite, nonatomic, copy)NSString *eulaDisagreed;
+/**
+ The creation of the bar code file fails. 
+ */
+@property (readwrite, nonatomic, copy)NSString *createBarcodeError;
+/**
+ Scanner scan error. 
+ */
+@property (readwrite, nonatomic, copy)NSString *scannerScanError;
+/**
+ The connected card reader device is currently being updated and cannot be used.
+
+This may occur while updating the device's files, OS, or during automatic Remote Key Injection (RKI).
+
+Please wait a few minutes and try the transaction again. 
+ */
+@property (readwrite, nonatomic, copy)NSString *cardReaderIsBusy;
+/**
+ The connected card reader device has failed to update. The device may not be used.
+
+Please open the application to retry the update. 
+ */
+@property (readwrite, nonatomic, copy)NSString *cardReaderUpdateFailed;
+/**
+ Source key level lower than destination. 
+ */
+@property (readwrite, nonatomic, copy)NSString *sourceKeyLevelLowerThanDestination;
+/**
+ BroadPOS is downloading parameters from cloud server. 
+ */
+@property (readwrite, nonatomic, copy)NSString *downloadingParameters;
+/**
+ BroadPOS is processing reversal message. 
+ */
+@property (readwrite, nonatomic, copy)NSString *processingReversal;
+/**
+ BroadPOS is processing advice message. 
+ */
+@property (readwrite, nonatomic, copy)NSString *processingAdvice;
+/**
+ Tap card while Contactless in Offline is disabled, Terminal is offline under SAF Modes Stay offline or offline until batch, and Fallback Insert is disabled. 
+ */
+@property (readwrite, nonatomic, copy)NSString *noContactlessOnOffline;
+/**
+ Terminal internal error. 
  */
 @property (readwrite, nonatomic, copy)NSString *terminalError;
 /**
@@ -271,6 +432,10 @@ Transactions will approve offline under the following conditions.
  Google Smart Tap OK, but not perform payment. 
  */
 @property (readwrite, nonatomic, copy)NSString *vasOkPaymentNotPerformed;
+/**
+ Number of key files in key file mapping must be equal to the number of VAS MID's entered. 
+ */
+@property (readwrite, nonatomic, copy)NSString *vasKeyFileMappingError;
 /**
  Interface chip does not exist or abnormal. 
  */
@@ -360,6 +525,12 @@ Transactions will approve offline under the following conditions.
  */
 @property (readwrite, nonatomic, copy)NSString *rpcBusy;
 /**
+ The application has failed to successfully initialize the connected card reader.
+
+Please check the connection to the card reader device and try the transaction again. 
+ */
+@property (readwrite, nonatomic, copy)NSString *cardReaderInitializationFailed;
+/**
  Tip form response an error index. 
  */
 @property (readwrite, nonatomic, copy)NSString *customUiTipIndexError;
@@ -404,7 +575,7 @@ Transactions will approve offline under the following conditions.
  */
 @property (readwrite, nonatomic, copy)NSString *customUiSurchargeFeeIndexError;
 /**
- Card present confirm ui entry action must return boolean. 
+ The "Card present confirm" UI entry action must return a boolean value. 
  */
 @property (readwrite, nonatomic, copy)NSString *customUiCardPresentConfirmError;
 /**
@@ -448,8 +619,38 @@ Transactions will approve offline under the following conditions.
  */
 @property (readwrite, nonatomic, copy)NSString *customUiPartialApprovalConfirmError;
 /**
- The host has declined the transaction due to it being a duplicate transaction. When this error is thrown, the transaction response will include the original transaction data from the host such as Host Account, Host Card Type, and Approved Amount, if the host returns it. 
+ Contactless EMV card or device could not be read or was removed too quickly. 
+ */
+@property (readwrite, nonatomic, copy)NSString *tapReadFailed;
+/**
+ Contact EMV card or device could not be read or was removed too quickly. 
+ */
+@property (readwrite, nonatomic, copy)NSString *chipReadFailed;
+/**
+ The user has entered a fleet card which restricts a product which the cardholder requested for purchase. Please check the Restricted Product Data field for disallowed products, remove the restricted products, and try again. 
+ */
+@property (readwrite, nonatomic, copy)NSString *purchaseRestricted;
+/**
+ The user has entered a fuel-only fleet card for a transaction containing non-fuel products. This may occur when the supplied Fuel Amount is less than the supplied Transaction Amount or when BroadPOS received non-fuel product data.
+
+Please retry the transaction with fuel only or using a different fleet card. 
+ */
+@property (readwrite, nonatomic, copy)NSString *fuelOnly;
+/**
+ The user has entered a fleet card permitting only fuel and maintenance-related purchases for a transaction containing disallowed products. Please check the Restricted Product Data field for disallowed products, remove the restricted products, and try again. 
+ */
+@property (readwrite, nonatomic, copy)NSString *fuelAndMaintenanceOnly;
+/**
+ The entered fleet card requires cardholder fleet data which the BroadPOS application does not currently support. This may result from incorrect card configuration by the issuer or an updated fleet card incompatible with the current version of BroadPOS. Please update your BroadPOS application or try a different card. 
+ */
+@property (readwrite, nonatomic, copy)NSString *unsupportedFleetDataRequired;
+/**
+ Transaction declined by host as a duplicate. Response fields are sourced from the original transaction's data. 
  */
 @property (readwrite, nonatomic, copy)NSString *hostDeclineDuplicateTransaction;
+/**
+ Error code 104000. 
+ */
+@property (readwrite, nonatomic, strong)PLCode104000 *code104000;
 
 @end

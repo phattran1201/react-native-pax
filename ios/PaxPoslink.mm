@@ -12,7 +12,7 @@
 #import "PLAmountResponse.h"
 #import "PLTraceRequest.h"
 #import "PLTraceResponse.h"
-#import "PLTransactionBehavior.h"
+#import "PLTransactionBehaviorRequest.h"
 #import "PLAccountResponse.h"
 #import "PLBatchCloseRequest.h"
 #import "PLBatchCloseResponse.h"
@@ -20,9 +20,14 @@
 #import "PLHistoryReportResponse.h"
 #import "PLLocalDetailReportRequest.h"
 #import "PLLocalDetailReportResponse.h"
+#import "PLLocalTotalReportRequest.h"
+#import "PLLocalTotalReportResponse.h"
+#import "PLTotals.h"
+#import "PLCreditTotals.h"
+#import "PLDebitTotals.h"
 #import "PLPaymentTransactionInformation.h"
 #import "PLPaymentEmvTag.h"
-#import "PLHostResponse.h"
+#import "PLHostInformationResponse.h"
 #import "PLTotalCount.h"
 #import "PLTotalAmount.h"
 #import "PLEdcTotalCount.h"
@@ -39,12 +44,103 @@
 #import "PLInitResponse.h"
 #import "PLExecutionResult.h"
 
+// Bluetooth scan (Admin SDK) + CoreBluetooth để đọc trạng thái bật/tắt của adapter.
+#import "MposBluetoothScan.h"
+#import <CoreBluetooth/CoreBluetooth.h>
+
 static PLSemiTerminal *_terminal = nil;
 static NSDictionary *_lastSnInfo = nil;
+
+// Trạng thái quét Bluetooth (mô hình poll giống Android: quét nền, gom vào dict theo
+// address để dedupe; UI poll getBluetoothDeviceList rồi gọi stopBluetoothSearch khi đóng).
+static NSMutableDictionary<NSString *, NSDictionary *> *_btDevices = nil;
+static NSLock *_btLock = nil;
+static BOOL _btScanning = NO;
+
+#pragma mark - Bluetooth adapter state helper
+
+@interface PaxBtStateHelper : NSObject <CBCentralManagerDelegate>
+@property (nonatomic, strong) CBCentralManager *central;
+@property (nonatomic, strong) NSMutableArray<void (^)(BOOL)> *pending;
+@property (nonatomic, strong) NSLock *lock;
++ (instancetype)shared;
+- (void)resolveEnabled:(void (^)(BOOL enabled))cb;
+@end
+
+@implementation PaxBtStateHelper
+
++ (instancetype)shared {
+    static PaxBtStateHelper *instance = nil;
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        instance = [[PaxBtStateHelper alloc] init];
+    });
+    return instance;
+}
+
+- (instancetype)init {
+    self = [super init];
+    if (self) {
+        _pending = [NSMutableArray new];
+        _lock = [NSLock new];
+        // Tạo trên main queue để delegate fire ổn định.
+        dispatch_async(dispatch_get_main_queue(), ^{
+            self.central = [[CBCentralManager alloc] initWithDelegate:self queue:dispatch_get_main_queue()];
+        });
+    }
+    return self;
+}
+
+- (BOOL)isPoweredOn {
+    return self.central != nil && self.central.state == CBManagerStatePoweredOn;
+}
+
+- (void)resolveEnabled:(void (^)(BOOL))cb {
+    if (cb == nil) return;
+    dispatch_async(dispatch_get_main_queue(), ^{
+        // State đã xác định → trả lời ngay.
+        if (self.central != nil && self.central.state != CBManagerStateUnknown) {
+            cb([self isPoweredOn]);
+            return;
+        }
+        // Chưa xác định → xếp hàng chờ delegate, kèm timeout an toàn 4s tránh treo.
+        [self.lock lock];
+        [self.pending addObject:[cb copy]];
+        [self.lock unlock];
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(4.0 * NSEC_PER_SEC)),
+                       dispatch_get_main_queue(), ^{
+            [self flushWith:[self isPoweredOn]];
+        });
+    });
+}
+
+- (void)flushWith:(BOOL)enabled {
+    [self.lock lock];
+    NSArray<void (^)(BOOL)> *cbs = [self.pending copy];
+    [self.pending removeAllObjects];
+    [self.lock unlock];
+    for (void (^cb)(BOOL) in cbs) {
+        cb(enabled);
+    }
+}
+
+- (void)centralManagerDidUpdateState:(CBCentralManager *)central {
+    [self flushWith:(central.state == CBManagerStatePoweredOn)];
+}
+
+@end
 
 @implementation PaxPoslink
 
 RCT_EXPORT_MODULE(PaxPoslink)
+
++ (void)initialize
+{
+    if (self == [PaxPoslink class]) {
+        _btDevices = [NSMutableDictionary new];
+        _btLock = [NSLock new];
+    }
+}
 
 + (BOOL)requiresMainQueueSetup
 {
@@ -59,22 +155,109 @@ RCT_EXPORT_MODULE(PaxPoslink)
             resolve:(RCTPromiseResolveBlock)resolve
              reject:(RCTPromiseRejectBlock)reject
 {
+    PLCommunicationSetting *comm = [[PLCommunicationSetting alloc] init];
+    comm.communicationType = CommunicationTypeTCP;
+    comm.destIP = ip ?: @"";
+    comm.destPort = (port && port.length > 0) ? port : @"10009";
+    comm.timeout = timeout ? [NSString stringWithFormat:@"%d", timeout.intValue] : @"60000";
+
+    NSString *info = [NSString stringWithFormat:@"type=TCP, ip=%@, port=%@, timeout=%@",
+                      comm.destIP, comm.destPort, comm.timeout];
+    [self connectWithCommSetting:comm info:info resolve:resolve reject:reject];
+}
+
+#pragma mark - initPOSLinkConn (mọi kiểu giao tiếp iOS hỗ trợ)
+
+/**
+ * Kết nối tới terminal theo kiểu giao tiếp trong config (mirror Android initPOSLinkConn).
+ *
+ * iOS SDK chỉ hỗ trợ: TCP, SSL, HTTP, HTTPS, BLUETOOTH.
+ * Các kiểu chỉ có trên Android (UART, USB, AIDL) sẽ bị reject UNSUPPORTED_CONN_TYPE.
+ *  - TCP/SSL/HTTP/HTTPS : cần ip, port (mặc định 10009).
+ *  - BLUETOOTH          : cần macAddr (UUID/MAC lấy từ startBluetoothSearch).
+ */
+- (void)performInitConnWithConfig:(NSDictionary *)config
+                          resolve:(RCTPromiseResolveBlock)resolve
+                           reject:(RCTPromiseRejectBlock)reject
+{
+    NSString *type = [([config[@"type"] isKindOfClass:[NSString class]] ? config[@"type"] : @"TCP") uppercaseString];
+    NSNumber *timeoutNum = [config[@"timeout"] isKindOfClass:[NSNumber class]] ? config[@"timeout"] : nil;
+    NSString *timeout = timeoutNum ? [NSString stringWithFormat:@"%d", timeoutNum.intValue] : @"60000";
+    NSString *ip = [config[@"ip"] isKindOfClass:[NSString class]] ? config[@"ip"] : @"";
+    NSString *port = ([config[@"port"] isKindOfClass:[NSString class]] && [config[@"port"] length] > 0)
+        ? config[@"port"] : @"10009";
+
+    PLCommunicationSetting *comm = [[PLCommunicationSetting alloc] init];
+    comm.timeout = timeout;
+    NSString *info;
+
+    if ([type isEqualToString:@"TCP"]) {
+        comm.communicationType = CommunicationTypeTCP;
+        comm.destIP = ip; comm.destPort = port;
+        info = [NSString stringWithFormat:@"type=TCP, ip=%@, port=%@, timeout=%@", ip, port, timeout];
+    } else if ([type isEqualToString:@"SSL"]) {
+        comm.communicationType = CommunicationTypeSSL;
+        comm.destIP = ip; comm.destPort = port;
+        info = [NSString stringWithFormat:@"type=SSL, ip=%@, port=%@, timeout=%@", ip, port, timeout];
+    } else if ([type isEqualToString:@"HTTP"]) {
+        comm.communicationType = CommunicationTypeHTTP;
+        comm.destIP = ip; comm.destPort = port;
+        info = [NSString stringWithFormat:@"type=HTTP, ip=%@, port=%@, timeout=%@", ip, port, timeout];
+    } else if ([type isEqualToString:@"HTTPS"]) {
+        comm.communicationType = CommunicationTypeHTTPS;
+        comm.destIP = ip; comm.destPort = port;
+        info = [NSString stringWithFormat:@"type=HTTPS, ip=%@, port=%@, timeout=%@", ip, port, timeout];
+    } else if ([type isEqualToString:@"BLUETOOTH"] || [type isEqualToString:@"BLE"]) {
+        NSString *macAddr = [config[@"macAddr"] isKindOfClass:[NSString class]] ? config[@"macAddr"] : @"";
+        comm.communicationType = CommunicationTypeBLUETOOTH;
+        comm.bluetoothAddr = macAddr;
+        info = [NSString stringWithFormat:@"type=BLUETOOTH, macAddr=%@, timeout=%@", macAddr, timeout];
+    } else {
+        // UART / USB / AIDL: không khả dụng trên iOS.
+        reject(@"UNSUPPORTED_CONN_TYPE",
+               [NSString stringWithFormat:@"Connection type '%@' is not supported on iOS (only TCP/SSL/HTTP/HTTPS/BLUETOOTH).", type],
+               nil);
+        return;
+    }
+
+    [self connectWithCommSetting:comm info:info resolve:resolve reject:reject];
+}
+
+#ifdef RCT_NEW_ARCH_ENABLED
+- (void)initPOSLinkConn:(JS::NativePaxPoslink::SpecInitPOSLinkConnConfig &)config
+                resolve:(RCTPromiseResolveBlock)resolve
+                 reject:(RCTPromiseRejectBlock)reject
+{
+    @try {
+        NSMutableDictionary *cfg = [NSMutableDictionary new];
+        cfg[@"type"] = config.type() ?: @"TCP";
+        if (config.ip() != nil) cfg[@"ip"] = config.ip();
+        if (config.port() != nil) cfg[@"port"] = config.port();
+        if (config.serialPort() != nil) cfg[@"serialPort"] = config.serialPort();
+        if (config.baudRate() != nil) cfg[@"baudRate"] = config.baudRate();
+        if (config.deviceName() != nil) cfg[@"deviceName"] = config.deviceName();
+        if (config.macAddr() != nil) cfg[@"macAddr"] = config.macAddr();
+        if (config.timeout().has_value()) cfg[@"timeout"] = @(config.timeout().value());
+        [self performInitConnWithConfig:cfg resolve:resolve reject:reject];
+    } @catch (NSException *e) {
+        reject(@"INIT_ERROR", e.reason ?: @"Init connection error", nil);
+    }
+}
+#endif
+
+/** Luồng kết nối chung: getTerminal → init() round-trip → resolve thông tin terminal. */
+- (void)connectWithCommSetting:(PLCommunicationSetting *)comm
+                          info:(NSString *)info
+                       resolve:(RCTPromiseResolveBlock)resolve
+                        reject:(RCTPromiseRejectBlock)reject
+{
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
         @try {
-            PLCommunicationSetting *comm = [[PLCommunicationSetting alloc] init];
-            comm.communicationType = CommunicationTypeTCP;
-            comm.destIP = ip;
-            comm.destPort = (port && port.length > 0) ? port : @"10009";
-            comm.timeout = timeout ? [NSString stringWithFormat:@"%d", timeout.intValue] : @"60000";
-
-            NSString *tcpInfo = [NSString stringWithFormat:@"ip=%@, port=%@, timeout=%@",
-                                 ip, comm.destPort, comm.timeout];
-
             PLSemiTerminal *terminal = [[POSLinkSemi getInstance]
                                         getTerminalWithCommunicationSetting:comm];
             if (terminal == nil) {
-                reject(@"INIT_ERROR",
-                       [NSString stringWithFormat:@"Create terminal failed! %@", tcpInfo],
+                reject(@"CONNECT_FAILED",
+                       @"Could not connect to terminal. Check connection settings.",
                        nil);
                 return;
             }
@@ -84,29 +267,159 @@ RCT_EXPORT_MODULE(PaxPoslink)
             [[terminal getManage] initWithRequest:initReq
                                        completion:^(PLInitResponse *rsp, PLExecutionResult *result) {
                 if (rsp == nil || rsp.sn.length == 0) {
-                    reject(@"INIT_ERROR",
-                           [NSString stringWithFormat:@"Create terminal failed! %@", tcpInfo],
+                    // Lộ lý do thật giống Android: code + msg từ terminal/SDK, thay vì che bằng câu generic.
+                    NSString *code = (rsp.responseCode.length > 0) ? rsp.responseCode : @"NO_RESPONSE";
+                    NSString *msg = (rsp.responseMessage.length > 0)
+                        ? rsp.responseMessage
+                        : (result.responseMessage ?: @"");
+                    NSString *detail = (msg.length > 0)
+                        ? [NSString stringWithFormat:@"(code=%@, msg=%@)", code, msg]
+                        : [NSString stringWithFormat:@"(code=%@)", code];
+                    reject(@"CONNECT_FAILED",
+                           [NSString stringWithFormat:@"Terminal did not respond to init %@. Check IP/port and Semi-Integration mode.", detail],
                            nil);
                     return;
                 }
+                NSString *sn = rsp.sn ?: @"";
+                NSString *model = rsp.modelName ?: @"";
                 NSDictionary *snInfo = @{
-                    @"serialNumber": rsp.sn ?: @"",
-                    @"modelName": rsp.modelName ?: @"",
+                    @"serialNumber": sn,
+                    @"modelName": model,
                     @"appName": rsp.appName ?: @""
                 };
                 _lastSnInfo = snInfo;
+                // Message dễ đọc kèm SN/model terminal vừa kết nối (thay cho chuỗi debug type/ip/port).
+                NSString *message = (model.length > 0)
+                    ? [NSString stringWithFormat:@"Connected to terminal successfully (SN: %@, model: %@)", sn, model]
+                    : [NSString stringWithFormat:@"Connected to terminal successfully (SN: %@)", sn];
                 NSMutableDictionary *map = [NSMutableDictionary new];
                 [map setObject:@YES forKey:@"status"];
-                [map setObject:[NSString stringWithFormat:@"Create terminal success! %@", tcpInfo]
-                        forKey:@"message"];
+                [map setObject:message forKey:@"message"];
                 [map setObject:@YES forKey:@"isPaymentSuccess"];
                 [map setObject:snInfo forKey:@"serialNumber"];
                 resolve(map);
             }];
         } @catch (NSException *e) {
-            reject(@"INIT_ERROR", e.reason ?: @"Unknown error", nil);
+            reject(@"INIT_ERROR", [NSString stringWithFormat:@"%@ (%@)", e.reason ?: @"Unknown error", info], nil);
         }
     });
+}
+
+#pragma mark - USB / Serial / Baud (không khả dụng trên iOS — trả rỗng để parity với Android)
+
+/** iOS không có USB host API như Android → luôn resolve false (không có thiết bị/không cần quyền). */
+- (void)requestUsbPermission:(RCTPromiseResolveBlock)resolve
+                      reject:(RCTPromiseRejectBlock)reject
+{
+    resolve(@NO);
+}
+
+/** iOS không liệt kê thiết bị USB → trả mảng rỗng. */
+- (void)listUsbDevices:(RCTPromiseResolveBlock)resolve
+                reject:(RCTPromiseRejectBlock)reject
+{
+    resolve(@[]);
+}
+
+/** iOS không hỗ trợ UART → không có baud rate. */
+- (void)getSupportedBaudRates:(RCTPromiseResolveBlock)resolve
+                       reject:(RCTPromiseRejectBlock)reject
+{
+    resolve(@[]);
+}
+
+/** iOS không có cổng serial → trả mảng rỗng. */
+- (void)listSerialPorts:(RCTPromiseResolveBlock)resolve
+                 reject:(RCTPromiseRejectBlock)reject
+{
+    resolve(@[]);
+}
+
+#pragma mark - Bluetooth
+
+/** Kiểm tra Bluetooth đã bật chưa (CoreBluetooth poweredOn). */
+- (void)checkBluetoothEnable:(RCTPromiseResolveBlock)resolve
+                      reject:(RCTPromiseRejectBlock)reject
+{
+    [[PaxBtStateHelper shared] resolveEnabled:^(BOOL enabled) {
+        resolve(@(enabled));
+    }];
+}
+
+/**
+ * Bắt đầu quét Bluetooth (MposBluetoothScan — giống demo POSLinkPluginBtSearch).
+ * Kết quả gom vào dict nội bộ (dedupe theo address); UI poll getBluetoothDeviceList.
+ * @param useBle YES bật cập nhật RSSI (chỉ áp dụng BLE).
+ * @param timeout thời lượng quét (ms, đồng bộ với Android). iOS dùng giây nên đổi ms→s,
+ *        tối thiểu 1s; <=0 dùng mặc định 60s.
+ */
+- (void)startBluetoothSearch:(BOOL)useBle
+                     timeout:(double)timeout
+                     resolve:(RCTPromiseResolveBlock)resolve
+                      reject:(RCTPromiseRejectBlock)reject
+{
+    @try {
+        [_btLock lock];
+        [_btDevices removeAllObjects];
+        _btScanning = YES;
+        [_btLock unlock];
+
+        NSInteger scanSeconds = timeout > 0 ? MAX(1, (NSInteger)(timeout / 1000.0)) : 60;
+
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [[MposBluetoothScan sharedInstance] startWithTimeout:scanSeconds
+                                                   didDiscovered:^(BtDevice *device) {
+                if (device == nil || device.address.length == 0) return;
+                NSDictionary *entry = @{
+                    @"name": device.name ?: @"",
+                    @"mac": device.address ?: @"",
+                    @"rssi": @(device.RSSI)
+                };
+                [_btLock lock];
+                _btDevices[device.address] = entry;
+                [_btLock unlock];
+            } didFinished:^{
+                [_btLock lock];
+                _btScanning = NO;
+                [_btLock unlock];
+            } needUpdateRSSI:useBle];
+        });
+        resolve(@YES);
+    } @catch (NSException *e) {
+        reject(@"BT_SEARCH_ERROR", e.reason ?: @"Bluetooth search error", nil);
+    }
+}
+
+/** Dừng quét Bluetooth và xoá list nội bộ. */
+- (void)stopBluetoothSearch:(RCTPromiseResolveBlock)resolve
+                     reject:(RCTPromiseRejectBlock)reject
+{
+    @try {
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [[MposBluetoothScan sharedInstance] stop];
+        });
+        [_btLock lock];
+        [_btDevices removeAllObjects];
+        _btScanning = NO;
+        [_btLock unlock];
+        resolve(@YES);
+    } @catch (NSException *e) {
+        reject(@"BT_STOP_ERROR", e.reason ?: @"Bluetooth stop error", nil);
+    }
+}
+
+/** Trả list thiết bị Bluetooth đã phát hiện: [{ name, mac, rssi }]. */
+- (void)getBluetoothDeviceList:(RCTPromiseResolveBlock)resolve
+                        reject:(RCTPromiseRejectBlock)reject
+{
+    @try {
+        [_btLock lock];
+        NSArray *list = [_btDevices allValues];
+        [_btLock unlock];
+        resolve(list ?: @[]);
+    } @catch (NSException *e) {
+        reject(@"BT_LIST_ERROR", e.reason ?: @"Bluetooth list error", nil);
+    }
 }
 
 #pragma mark - payment
@@ -260,6 +573,11 @@ RCT_EXPORT_MODULE(PaxPoslink)
                         forKey:@"message"];
             }
             if (_lastSnInfo) [map setObject:_lastSnInfo forKey:@"sn"];
+            [self applyRawCodes:map
+                         result:result
+                   responseCode:rsp.responseCode
+                responseMessage:rsp.responseMessage
+                           host:rsp.hostInformation];
             resolve(map);
         }];
     } @catch (NSException *e) {
@@ -277,19 +595,48 @@ RCT_EXPORT_MODULE(PaxPoslink)
         return;
     }
     @try {
+        PLReport *report = [_terminal getReport];
         PLHistoryReportRequest *req = [[PLHistoryReportRequest alloc] init];
-        [[_terminal getReport] historyReportWithRequest:req
-                                            completion:^(PLHistoryReportResponse *rsp, PLExecutionResult *result) {
-            NSMutableDictionary *map = [NSMutableDictionary new];
-            if (result.isSuccessful) {
-                [map setObject:@YES forKey:@"status"];
-                [map setObject:rsp.responseMessage ?: @"Success" forKey:@"message"];
-                [map setObject:[self buildHistoryReportMap:rsp] forKey:@"data"];
-            } else {
-                [map setObject:@NO forKey:@"status"];
-                [map setObject:result.responseMessage ?: @"Get batch information error" forKey:@"message"];
+        [report historyReportWithRequest:req
+                              completion:^(PLHistoryReportResponse *histRsp, PLExecutionResult *histResult) {
+            if (!histResult.isSuccessful) {
+                reject(@"GET_BATCH_INFORMATION_FAILED",
+                       histResult.responseMessage ?: @"Failed to get batch info", nil);
+                return;
             }
-            resolve(map);
+            // Mirror Android getBatchInformation: bổ sung ecrReferenceNumber/totalRecord (localDetailReport)
+            // và totalAmount (localTotalReport). iOS gọi bất đồng bộ nên phải lồng completion tuần tự.
+            PLLocalDetailReportRequest *detailReq = [[PLLocalDetailReportRequest alloc] init];
+            detailReq.edcType = EdcTypeAll;
+            [report localDetailReportWithRequest:detailReq
+                                      completion:^(PLLocalDetailReportResponse *detailRsp, PLExecutionResult *detailResult) {
+                NSInteger ecrRef = 0, totalRecord = 0;
+                if (detailResult.isSuccessful) {
+                    ecrRef = [detailRsp.traceInformation.ecrReferenceNumber integerValue];
+                    totalRecord = [detailRsp.totalRecord integerValue];
+                }
+                PLLocalTotalReportRequest *totalReq = [[PLLocalTotalReportRequest alloc] init];
+                totalReq.edcType = EdcTypeAll;
+                [report localTotalReportWithRequest:totalReq
+                                         completion:^(PLLocalTotalReportResponse *totalRsp, PLExecutionResult *totalResult) {
+                    NSInteger totalAmount = 0;
+                    if (totalResult.isSuccessful && totalRsp.totals) {
+                        PLCreditTotals *c = totalRsp.totals.creditTotals;
+                        PLDebitTotals *d = totalRsp.totals.debitTotals;
+                        NSInteger creditNet = [c.saleAmount integerValue] - [c.returnAmount integerValue];
+                        NSInteger debitNet  = [d.saleAmount integerValue] - [d.returnAmount integerValue];
+                        totalAmount = creditNet + debitNet;
+                    }
+                    NSMutableDictionary *map = [NSMutableDictionary new];
+                    [map setObject:@YES forKey:@"status"];
+                    [map setObject:@(ecrRef) forKey:@"ecrReferenceNumber"];
+                    [map setObject:@(totalRecord) forKey:@"totalRecord"];
+                    [map setObject:@(totalAmount) forKey:@"totalAmount"];
+                    [map setObject:histRsp.responseMessage ?: @"Success" forKey:@"message"];
+                    [map setObject:[self buildHistoryReportMap:histRsp] forKey:@"data"];
+                    resolve(map);
+                }];
+            }];
         }];
     } @catch (NSException *e) {
         reject(@"GET_BATCH_INFORMATION_ERROR", e.reason ?: @"Get batch information error", nil);
@@ -333,8 +680,6 @@ RCT_EXPORT_MODULE(PaxPoslink)
         if (_terminal != nil) {
             NSError *error;
             [_terminal cancelWithError:&error];
-            [[POSLinkSemi getInstance] removeTerminal:_terminal];
-            _terminal = nil;
         }
         resolve(@"Cancel transaction requested");
     } @catch (NSException *e) {
@@ -407,6 +752,72 @@ RCT_REMAP_METHOD(cancelTransaction,
 {
     [self cancelTransaction:resolve reject:reject];
 }
+
+RCT_REMAP_METHOD(initPOSLinkConn,
+                 initPOSLinkConnWithConfig:(NSDictionary *)config
+                 resolve:(RCTPromiseResolveBlock)resolve
+                 reject:(RCTPromiseRejectBlock)reject)
+{
+    [self performInitConnWithConfig:config resolve:resolve reject:reject];
+}
+
+RCT_REMAP_METHOD(requestUsbPermission,
+                 requestUsbPermissionWithResolve:(RCTPromiseResolveBlock)resolve
+                 reject:(RCTPromiseRejectBlock)reject)
+{
+    [self requestUsbPermission:resolve reject:reject];
+}
+
+RCT_REMAP_METHOD(listUsbDevices,
+                 listUsbDevicesWithResolve:(RCTPromiseResolveBlock)resolve
+                 reject:(RCTPromiseRejectBlock)reject)
+{
+    [self listUsbDevices:resolve reject:reject];
+}
+
+RCT_REMAP_METHOD(getSupportedBaudRates,
+                 getSupportedBaudRatesWithResolve:(RCTPromiseResolveBlock)resolve
+                 reject:(RCTPromiseRejectBlock)reject)
+{
+    [self getSupportedBaudRates:resolve reject:reject];
+}
+
+RCT_REMAP_METHOD(listSerialPorts,
+                 listSerialPortsWithResolve:(RCTPromiseResolveBlock)resolve
+                 reject:(RCTPromiseRejectBlock)reject)
+{
+    [self listSerialPorts:resolve reject:reject];
+}
+
+RCT_REMAP_METHOD(checkBluetoothEnable,
+                 checkBluetoothEnableWithResolve:(RCTPromiseResolveBlock)resolve
+                 reject:(RCTPromiseRejectBlock)reject)
+{
+    [self checkBluetoothEnable:resolve reject:reject];
+}
+
+RCT_REMAP_METHOD(startBluetoothSearch,
+                 startBluetoothSearchWithUseBle:(BOOL)useBle
+                 timeout:(double)timeout
+                 resolve:(RCTPromiseResolveBlock)resolve
+                 reject:(RCTPromiseRejectBlock)reject)
+{
+    [self startBluetoothSearch:useBle timeout:timeout resolve:resolve reject:reject];
+}
+
+RCT_REMAP_METHOD(stopBluetoothSearch,
+                 stopBluetoothSearchWithResolve:(RCTPromiseResolveBlock)resolve
+                 reject:(RCTPromiseRejectBlock)reject)
+{
+    [self stopBluetoothSearch:resolve reject:reject];
+}
+
+RCT_REMAP_METHOD(getBluetoothDeviceList,
+                 getBluetoothDeviceListWithResolve:(RCTPromiseResolveBlock)resolve
+                 reject:(RCTPromiseRejectBlock)reject)
+{
+    [self getBluetoothDeviceList:resolve reject:reject];
+}
 #endif
 
 - (PLDoCreditRequest *)buildCreditRequest:(NSDictionary *)data
@@ -444,7 +855,7 @@ RCT_REMAP_METHOD(cancelTransaction,
     }
     req.traceInformation = traceReq;
 
-    PLTransactionBehavior *behavior = [[PLTransactionBehavior alloc] init];
+    PLTransactionBehaviorRequest *behavior = [[PLTransactionBehaviorRequest alloc] init];
     behavior.receiptPrintFlag = ReceiptPrintFlagNoReceipt;
     behavior.forceDuplicate = @"1";
     BOOL hasTip = (tipNum != nil && tipNum.intValue > 0);
@@ -453,16 +864,33 @@ RCT_REMAP_METHOD(cancelTransaction,
     } else {
         behavior.tipRequestFlag = TipRequestFlagNotNeedEnterTipOnTerminal;
     }
+    behavior.continuousScreen = ContinuousScreenNotSet;
     req.transactionBehavior = behavior;
-    req.continuousScreen = ContinuousScreenNotSet;
 
     return req;
+}
+
+- (void)applyRawCodes:(NSMutableDictionary *)map
+               result:(PLExecutionResult *)result
+         responseCode:(NSString *)responseCode
+      responseMessage:(NSString *)responseMessage
+                 host:(PLHostInformationResponse *)host
+{
+    [map setObject:(result.isSuccessful ? @"OK" : @"ERROR") forKey:@"execCode"];
+    [map setObject:result.responseMessage ?: @"" forKey:@"execMessage"];
+    [map setObject:responseCode ?: @"" forKey:@"responseCode"];
+    [map setObject:responseMessage ?: @"" forKey:@"responseMessage"];
+    [map setObject:host.hostResponseCode ?: @"" forKey:@"hostResponseCode"];
+    [map setObject:host.hostResponseMessage ?: @"" forKey:@"hostResponseMessage"];
+    [map setObject:host.issuerResponseCode ?: @"" forKey:@"issuerResponseCode"];
 }
 
 - (NSDictionary *)buildTransactionResponse:(PLDoCreditResponse *)rsp
                                     result:(PLExecutionResult *)result
                                       data:(NSDictionary *)data
 {
+    NSString *reqId = data[@"transactionId"] ?: data[@"id"] ?: @"";
+    NSString *reqEcr = data[@"ecrRefNum"] ?: @"";
     NSMutableDictionary *map = [NSMutableDictionary new];
     if (result.isSuccessful) {
         NSNumber *amountNum = data[@"amount"];
@@ -475,21 +903,30 @@ RCT_REMAP_METHOD(cancelTransaction,
         [map setObject:rsp.paymentEmvTag.appLabel ?: @"" forKey:@"cardType"];
         [map setObject:rsp.traceInformation.referenceNumber ?: @"" forKey:@"refNum"];
         [map setObject:rsp.traceInformation.ecrReferenceNumber ?: @"" forKey:@"ecrRefNum"];
-        [map setObject:rsp.paymentTransactionInformation.globalUid ?: @"" forKey:@"transactionId"];
+        [map setObject:rsp.traceInformation.globalUid ?: @"" forKey:@"transactionId"];
         [map setObject:rsp.traceInformation.timeStamp ?: @"" forKey:@"transactionDateTime"];
         [map setObject:[self entryMethodFromRsp:rsp] forKey:@"entryMethod"];
         [map setObject:amountNum ? [NSString stringWithFormat:@"%d", amountNum.intValue] : @"0"
                 forKey:@"amount"];
         [map setObject:rsp.amountInformation.tipAmount ?: @"" forKey:@"tipAmount"];
         [map setObject:rsp.amountInformation.merchantFee ?: @"" forKey:@"surcharge"];
+        [map setObject:reqId forKey:@"id"];
         if (_lastSnInfo) [map setObject:_lastSnInfo forKey:@"sn"];
     } else {
         [map setObject:@NO forKey:@"status"];
         [map setObject:@NO forKey:@"isPaymentSuccess"];
-        [map setObject:rsp.responseMessage ?: result.responseMessage ?: @"Transaction failed"
+        [map setObject:rsp.responseMessage ?: rsp.hostInformation.hostResponseMessage ?: result.responseMessage ?: @"Transaction failed"
                 forKey:@"message"];
         [map setObject:[NSNull null] forKey:@"data"];
+        [map setObject:reqEcr forKey:@"ecrRefNum"];
+        [map setObject:reqId forKey:@"id"];
+        if (_lastSnInfo) [map setObject:_lastSnInfo forKey:@"sn"];
     }
+    [self applyRawCodes:map
+                 result:result
+           responseCode:rsp.responseCode
+        responseMessage:rsp.responseMessage
+                   host:rsp.hostInformation];
     return map;
 }
 
@@ -501,7 +938,7 @@ RCT_REMAP_METHOD(cancelTransaction,
     [map setObject:rsp.responseCode ?: @"" forKey:@"responseCode"];
     [map setObject:rsp.responseMessage ?: @"" forKey:@"responseMessage"];
     [map setObject:[self entryMethodFromRsp:rsp] forKey:@"entryMethod"];
-    [map setObject:rsp.paymentTransactionInformation.globalUid ?: @"" forKey:@"transactionId"];
+    [map setObject:rsp.traceInformation.globalUid ?: @"" forKey:@"transactionId"];
 
     PLAccountResponse *acc = rsp.accountInformation;
     [map setObject:@{
@@ -515,7 +952,7 @@ RCT_REMAP_METHOD(cancelTransaction,
         @"referenceNumber": trace.referenceNumber ?: @"",
         @"ecrReferenceNumber": trace.ecrReferenceNumber ?: @"",
         @"timeStamp": trace.timeStamp ?: @"",
-        @"authorizationCode": trace.authorizationResponse ?: @""
+        @"authorizationCode": rsp.hostInformation.authorizationCode ?: @""
     } forKey:@"traceInformation"];
 
     PLAmountResponse *amt = rsp.amountInformation;
@@ -550,15 +987,13 @@ RCT_REMAP_METHOD(cancelTransaction,
     [map setObject:rsp.safFailedTotal ?: @"" forKey:@"safFailedTotal"];
 
     if (rsp.hostInformation) {
-        PLHostResponse *h = rsp.hostInformation;
+        PLHostInformationResponse *h = rsp.hostInformation;
         [map setObject:@{
             @"hostResponseCode": h.hostResponseCode ?: @"",
             @"hostResponseMessage": h.hostResponseMessage ?: @"",
             @"authorizationCode": h.authorizationCode ?: @"",
             @"hostReferenceNumber": h.hostReferenceNumber ?: @"",
-            @"traceNumber": h.traceNumber ?: @"",
             @"batchNumber": h.batchNumber ?: @"",
-            @"transactionIdentifier": h.transactionIdentifier ?: @"",
             @"gatewayTransactionId": h.gatewayTransactionId ?: @"",
             @"hostDetailedMessage": h.hostDetailedMessage ?: @"",
             @"transactionIntegrityClass": h.transactionIntegrityClass ?: @"",
@@ -576,8 +1011,7 @@ RCT_REMAP_METHOD(cancelTransaction,
             @"ebtCount": c.ebtCount ?: @"",
             @"giftCount": c.giftCount ?: @"",
             @"loyaltyCount": c.loyaltyCount ?: @"",
-            @"cashCount": c.cashCount ?: @"",
-            @"checkCount": c.checkCount ?: @""
+            @"cashCount": c.cashCount ?: @""
         } forKey:@"totalCount"];
     }
 
@@ -589,8 +1023,7 @@ RCT_REMAP_METHOD(cancelTransaction,
             @"ebtAmount": a.ebtAmount ?: @"",
             @"giftAmount": a.giftAmount ?: @"",
             @"loyaltyAmount": a.loyaltyAmount ?: @"",
-            @"cashAmount": a.cashAmount ?: @"",
-            @"checkAmount": a.checkAmount ?: @""
+            @"cashAmount": a.cashAmount ?: @""
         } forKey:@"totalAmount"];
     }
 
@@ -630,8 +1063,7 @@ RCT_REMAP_METHOD(cancelTransaction,
             @"ebtCount": c.ebtCount ?: @"",
             @"giftCount": c.giftCount ?: @"",
             @"loyaltyCount": c.loyaltyCount ?: @"",
-            @"cashCount": c.cashCount ?: @"",
-            @"checkCount": c.checkCount ?: @""
+            @"cashCount": c.cashCount ?: @""
         } forKey:@"totalCount"];
     }
 
@@ -643,8 +1075,7 @@ RCT_REMAP_METHOD(cancelTransaction,
             @"ebtAmount": a.ebtAmount ?: @"",
             @"giftAmount": a.giftAmount ?: @"",
             @"loyaltyAmount": a.loyaltyAmount ?: @"",
-            @"cashAmount": a.cashAmount ?: @"",
-            @"checkAmount": a.checkAmount ?: @""
+            @"cashAmount": a.cashAmount ?: @""
         } forKey:@"totalAmount"];
     }
 

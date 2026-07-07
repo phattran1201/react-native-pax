@@ -13,14 +13,40 @@
  */
 
 #import <Foundation/Foundation.h>
-#import "PLRequest.h"
-#import "PLSemiConst.h"
-#import "PLAdminConst.h"
-#import "PLSafUploadRequest.h"
+#if __has_include(<POSLinkAdmin/PLRequest.h>)
+   #import <POSLinkAdmin/PLRequest.h>
+#elif __has_include("PLRequest.h")
+   #import "PLRequest.h"
+#endif
+
+
+#if __has_include(<POSLinkAdmin/PLSemiConst.h>)
+   #import <POSLinkAdmin/PLSemiConst.h>
+#elif __has_include("PLSemiConst.h")
+   #import "PLSemiConst.h"
+#endif
+
+
+#if __has_include(<POSLinkAdmin/PLAdminConst.h>)
+   #import <POSLinkAdmin/PLAdminConst.h>
+#elif __has_include("PLAdminConst.h")
+   #import "PLAdminConst.h"
+#endif
+
+
+#if __has_include(<POSLinkAdmin/PLSafUploadRequest.h>)
+   #import <POSLinkAdmin/PLSafUploadRequest.h>
+#elif __has_include("PLSafUploadRequest.h")
+   #import "PLSafUploadRequest.h"
+#endif
+
+
 
 @interface PLSafUploadRequest : PLRequest
 /**
- Store and forward upload type indicator. 
+ Store and forward upload type indicator.
+
+ Attribute : n1 
  */
 @property (readwrite, nonatomic, assign)enum SafIndicator safIndicator;
 

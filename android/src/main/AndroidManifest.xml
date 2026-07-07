@@ -1,3 +1,28 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android">
 
+    <!-- TCP / SSL / HTTP / HTTPS -->
+    <uses-permission android:name="android.permission.INTERNET" />
+
+    <!-- USB connection (kết nối qua cổng USB của thiết bị) -->
+    <uses-feature
+        android:name="android.hardware.usb.host"
+        android:required="false" />
+
+    <!-- AIDL: bắt buộc khi targetSdkVersion >= 30 để giao tiếp với BroadPOS,
+         nếu thiếu thẻ <queries> này POSLink sẽ không kết nối được qua AIDL. -->
+    <queries>
+        <intent>
+            <action android:name="com.pax.us.std.poslink.aidl" />
+        </intent>
+    </queries>
+
+    <!-- BLUETOOTH (chỉ cần nếu app dùng type: 'BLUETOOTH'): các quyền dưới đây là
+         dangerous-level nên KHÔNG khai sẵn trong thư viện. App tiêu thụ tự thêm vào
+         AndroidManifest của app nếu cần kết nối Bluetooth:
+         <uses-permission android:name="android.permission.BLUETOOTH" />
+         <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />
+         <uses-permission android:name="android.permission.BLUETOOTH_SCAN" />
+         <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+         <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" /> -->
+
 </manifest>

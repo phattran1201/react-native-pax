@@ -102,10 +102,6 @@
 		9B55781C2FB7256B00566D68 /* PLReprintRequest.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PLReprintRequest.h; sourceTree = "<group>"; };
 		9B55781D2FB7256B00566D68 /* PLReprintResponse.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PLReprintResponse.h; sourceTree = "<group>"; };
 		9B55781E2FB7256B00566D68 /* PLRequest.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PLRequest.h; sourceTree = "<group>"; };
-		9B55781F2FB7256B00566D68 /* PLResetMsrRequest.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PLResetMsrRequest.h; sourceTree = "<group>"; };
-		9B5578202FB7256B00566D68 /* PLResetMsrResponse.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PLResetMsrResponse.h; sourceTree = "<group>"; };
-		9B5578212FB7256B00566D68 /* PLResetRequest.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PLResetRequest.h; sourceTree = "<group>"; };
-		9B5578222FB7256B00566D68 /* PLResetResponse.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PLResetResponse.h; sourceTree = "<group>"; };
 		9B5578232FB7256B00566D68 /* PLResponse.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PLResponse.h; sourceTree = "<group>"; };
 		9B5578242FB7256B00566D68 /* PLResponseCode.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PLResponseCode.h; sourceTree = "<group>"; };
 		9B5578252FB7256B00566D68 /* PLSdButton.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PLSdButton.h; sourceTree = "<group>"; };
@@ -164,9 +160,6 @@
 		9B55785C2FB7256B00566D68 /* PLCashierRequest.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PLCashierRequest.h; sourceTree = "<group>"; };
 		9B55785D2FB7256B00566D68 /* PLCashierResponse.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PLCashierResponse.h; sourceTree = "<group>"; };
 		9B55785E2FB7256B00566D68 /* PLCashTotals.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PLCashTotals.h; sourceTree = "<group>"; };
-		9B55785F2FB7256B00566D68 /* PLCheckRequest.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PLCheckRequest.h; sourceTree = "<group>"; };
-		9B5578602FB7256B00566D68 /* PLCheckResponse.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PLCheckResponse.h; sourceTree = "<group>"; };
-		9B5578612FB7256B00566D68 /* PLCheckTotals.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PLCheckTotals.h; sourceTree = "<group>"; };
 		9B5578622FB7256B00566D68 /* PLCommercialRequest.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PLCommercialRequest.h; sourceTree = "<group>"; };
 		9B5578632FB7256B00566D68 /* PLCommercialResponse.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PLCommercialResponse.h; sourceTree = "<group>"; };
 		9B5578642FB7256B00566D68 /* PLCreditTotals.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PLCreditTotals.h; sourceTree = "<group>"; };
@@ -177,8 +170,6 @@
 		9B5578692FB7256B00566D68 /* PLDeleteTransactionResponse.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PLDeleteTransactionResponse.h; sourceTree = "<group>"; };
 		9B55786A2FB7256B00566D68 /* PLDoCashRequest.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PLDoCashRequest.h; sourceTree = "<group>"; };
 		9B55786B2FB7256B00566D68 /* PLDoCashResponse.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PLDoCashResponse.h; sourceTree = "<group>"; };
-		9B55786C2FB7256B00566D68 /* PLDoCheckRequest.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PLDoCheckRequest.h; sourceTree = "<group>"; };
-		9B55786D2FB7256B00566D68 /* PLDoCheckResponse.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PLDoCheckResponse.h; sourceTree = "<group>"; };
 		9B55786E2FB7256B00566D68 /* PLDoCreditRequest.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PLDoCreditRequest.h; sourceTree = "<group>"; };
 		9B55786F2FB7256B00566D68 /* PLDoCreditResponse.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PLDoCreditResponse.h; sourceTree = "<group>"; };
 		9B5578702FB7256B00566D68 /* PLDoDebitRequest.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PLDoDebitRequest.h; sourceTree = "<group>"; };
@@ -207,14 +198,11 @@
 		9B5578872FB7256B00566D68 /* PLGiftTotals.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PLGiftTotals.h; sourceTree = "<group>"; };
 		9B5578882FB7256B00566D68 /* PLHistoryReportRequest.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PLHistoryReportRequest.h; sourceTree = "<group>"; };
 		9B5578892FB7256B00566D68 /* PLHistoryReportResponse.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PLHistoryReportResponse.h; sourceTree = "<group>"; };
-		9B55788A2FB7256B00566D68 /* PLHostCredential.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PLHostCredential.h; sourceTree = "<group>"; };
 		9B55788B2FB7256B00566D68 /* PLHostCredentialResponse.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PLHostCredentialResponse.h; sourceTree = "<group>"; };
 		9B55788C2FB7256B00566D68 /* PLHostDetailReportRequest.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PLHostDetailReportRequest.h; sourceTree = "<group>"; };
 		9B55788D2FB7256B00566D68 /* PLHostDetailReportResponse.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PLHostDetailReportResponse.h; sourceTree = "<group>"; };
-		9B55788E2FB7256B00566D68 /* PLHostGateway.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PLHostGateway.h; sourceTree = "<group>"; };
 		9B55788F2FB7256B00566D68 /* PLHostReportRequest.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PLHostReportRequest.h; sourceTree = "<group>"; };
 		9B5578902FB7256B00566D68 /* PLHostReportResponse.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PLHostReportResponse.h; sourceTree = "<group>"; };
-		9B5578912FB7256B00566D68 /* PLHostResponse.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PLHostResponse.h; sourceTree = "<group>"; };
 		9B5578922FB7256B00566D68 /* PLLineItemDetail.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PLLineItemDetail.h; sourceTree = "<group>"; };
 		9B5578932FB7256B00566D68 /* PLLocalDetailReportRequest.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PLLocalDetailReportRequest.h; sourceTree = "<group>"; };
 		9B5578942FB7256B00566D68 /* PLLocalDetailReportResponse.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PLLocalDetailReportResponse.h; sourceTree = "<group>"; };
@@ -231,8 +219,6 @@
 		9B55789F2FB7256B00566D68 /* PLPaymentEmvTag.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PLPaymentEmvTag.h; sourceTree = "<group>"; };
 		9B5578A02FB7256B00566D68 /* PLPaymentTransactionInformation.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PLPaymentTransactionInformation.h; sourceTree = "<group>"; };
 		9B5578A12FB7256B00566D68 /* PLProgramBitmap.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PLProgramBitmap.h; sourceTree = "<group>"; };
-		9B5578A22FB7256B00566D68 /* PLPurgeBatchRequest.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PLPurgeBatchRequest.h; sourceTree = "<group>"; };
-		9B5578A32FB7256B00566D68 /* PLPurgeBatchResponse.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PLPurgeBatchResponse.h; sourceTree = "<group>"; };
 		9B5578A42FB7256B00566D68 /* PLReport.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PLReport.h; sourceTree = "<group>"; };
 		9B5578A52FB7256B00566D68 /* PLReportEmvTag.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PLReportEmvTag.h; sourceTree = "<group>"; };
 		9B5578A62FB7256B00566D68 /* PLReportTransactionInformation.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PLReportTransactionInformation.h; sourceTree = "<group>"; };
@@ -252,7 +238,6 @@
 		9B5578B42FB7256B00566D68 /* PLTraceRequest.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PLTraceRequest.h; sourceTree = "<group>"; };
 		9B5578B52FB7256B00566D68 /* PLTraceResponse.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PLTraceResponse.h; sourceTree = "<group>"; };
 		9B5578B62FB7256B00566D68 /* PLTransaction.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PLTransaction.h; sourceTree = "<group>"; };
-		9B5578B72FB7256B00566D68 /* PLTransactionBehavior.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PLTransactionBehavior.h; sourceTree = "<group>"; };
 		9B5578B82FB7256B00566D68 /* PLTransactionInformation.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PLTransactionInformation.h; sourceTree = "<group>"; };
 		9B5578B92FB7256B00566D68 /* PLTransactionPromptBitmap.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PLTransactionPromptBitmap.h; sourceTree = "<group>"; };
 		9B5578BA2FB7256B00566D68 /* POSLinkSemi.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = POSLinkSemi.h; sourceTree = "<group>"; };
@@ -379,10 +364,6 @@
 				9B55781C2FB7256B00566D68 /* PLReprintRequest.h */,
 				9B55781D2FB7256B00566D68 /* PLReprintResponse.h */,
 				9B55781E2FB7256B00566D68 /* PLRequest.h */,
-				9B55781F2FB7256B00566D68 /* PLResetMsrRequest.h */,
-				9B5578202FB7256B00566D68 /* PLResetMsrResponse.h */,
-				9B5578212FB7256B00566D68 /* PLResetRequest.h */,
-				9B5578222FB7256B00566D68 /* PLResetResponse.h */,
 				9B5578232FB7256B00566D68 /* PLResponse.h */,
 				9B5578242FB7256B00566D68 /* PLResponseCode.h */,
 				9B5578252FB7256B00566D68 /* PLSdButton.h */,
@@ -456,9 +437,6 @@
 				9B55785C2FB7256B00566D68 /* PLCashierRequest.h */,
 				9B55785D2FB7256B00566D68 /* PLCashierResponse.h */,
 				9B55785E2FB7256B00566D68 /* PLCashTotals.h */,
-				9B55785F2FB7256B00566D68 /* PLCheckRequest.h */,
-				9B5578602FB7256B00566D68 /* PLCheckResponse.h */,
-				9B5578612FB7256B00566D68 /* PLCheckTotals.h */,
 				9B5578622FB7256B00566D68 /* PLCommercialRequest.h */,
 				9B5578632FB7256B00566D68 /* PLCommercialResponse.h */,
 				9B5578642FB7256B00566D68 /* PLCreditTotals.h */,
@@ -469,8 +447,6 @@
 				9B5578692FB7256B00566D68 /* PLDeleteTransactionResponse.h */,
 				9B55786A2FB7256B00566D68 /* PLDoCashRequest.h */,
 				9B55786B2FB7256B00566D68 /* PLDoCashResponse.h */,
-				9B55786C2FB7256B00566D68 /* PLDoCheckRequest.h */,
-				9B55786D2FB7256B00566D68 /* PLDoCheckResponse.h */,
 				9B55786E2FB7256B00566D68 /* PLDoCreditRequest.h */,
 				9B55786F2FB7256B00566D68 /* PLDoCreditResponse.h */,
 				9B5578702FB7256B00566D68 /* PLDoDebitRequest.h */,
@@ -499,14 +475,11 @@
 				9B5578872FB7256B00566D68 /* PLGiftTotals.h */,
 				9B5578882FB7256B00566D68 /* PLHistoryReportRequest.h */,
 				9B5578892FB7256B00566D68 /* PLHistoryReportResponse.h */,
-				9B55788A2FB7256B00566D68 /* PLHostCredential.h */,
 				9B55788B2FB7256B00566D68 /* PLHostCredentialResponse.h */,
 				9B55788C2FB7256B00566D68 /* PLHostDetailReportRequest.h */,
 				9B55788D2FB7256B00566D68 /* PLHostDetailReportResponse.h */,
-				9B55788E2FB7256B00566D68 /* PLHostGateway.h */,
 				9B55788F2FB7256B00566D68 /* PLHostReportRequest.h */,
 				9B5578902FB7256B00566D68 /* PLHostReportResponse.h */,
-				9B5578912FB7256B00566D68 /* PLHostResponse.h */,
 				9B5578922FB7256B00566D68 /* PLLineItemDetail.h */,
 				9B5578932FB7256B00566D68 /* PLLocalDetailReportRequest.h */,
 				9B5578942FB7256B00566D68 /* PLLocalDetailReportResponse.h */,
@@ -523,8 +496,6 @@
 				9B55789F2FB7256B00566D68 /* PLPaymentEmvTag.h */,
 				9B5578A02FB7256B00566D68 /* PLPaymentTransactionInformation.h */,
 				9B5578A12FB7256B00566D68 /* PLProgramBitmap.h */,
-				9B5578A22FB7256B00566D68 /* PLPurgeBatchRequest.h */,
-				9B5578A32FB7256B00566D68 /* PLPurgeBatchResponse.h */,
 				9B5578A42FB7256B00566D68 /* PLReport.h */,
 				9B5578A52FB7256B00566D68 /* PLReportEmvTag.h */,
 				9B5578A62FB7256B00566D68 /* PLReportTransactionInformation.h */,
@@ -544,7 +515,6 @@
 				9B5578B42FB7256B00566D68 /* PLTraceRequest.h */,
 				9B5578B52FB7256B00566D68 /* PLTraceResponse.h */,
 				9B5578B62FB7256B00566D68 /* PLTransaction.h */,
-				9B5578B72FB7256B00566D68 /* PLTransactionBehavior.h */,
 				9B5578B82FB7256B00566D68 /* PLTransactionInformation.h */,
 				9B5578B92FB7256B00566D68 /* PLTransactionPromptBitmap.h */,
 				9B5578BA2FB7256B00566D68 /* POSLinkSemi.h */,

@@ -13,9 +13,27 @@
  */
 
 #import <Foundation/Foundation.h>
-#import "PLSemiConst.h"
-#import "PLAdminConst.h"
-#import "PLTransactionInformation.h"
+#if __has_include(<POSLinkAdmin/PLSemiConst.h>)
+   #import <POSLinkAdmin/PLSemiConst.h>
+#elif __has_include("PLSemiConst.h")
+   #import "PLSemiConst.h"
+#endif
+
+
+#if __has_include(<POSLinkAdmin/PLAdminConst.h>)
+   #import <POSLinkAdmin/PLAdminConst.h>
+#elif __has_include("PLAdminConst.h")
+   #import "PLAdminConst.h"
+#endif
+
+
+#if __has_include(<POSLinkAdmin/PLTransactionInformation.h>)
+   #import <POSLinkAdmin/PLTransactionInformation.h>
+#elif __has_include("PLTransactionInformation.h")
+   #import "PLTransactionInformation.h"
+#endif
+
+
 
 @interface PLTransactionInformation : NSObject
 

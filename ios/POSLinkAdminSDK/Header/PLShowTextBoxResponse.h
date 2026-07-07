@@ -13,32 +13,52 @@
  */
 
 #import <Foundation/Foundation.h>
-#import "PLResponse.h"
+#if __has_include(<POSLinkAdmin/PLResponse.h>)
+   #import <POSLinkAdmin/PLResponse.h>
+#elif __has_include("PLResponse.h")
+   #import "PLResponse.h"
+#endif
 
-#import "PLAdminConst.h"
-#import "PLShowTextBoxResponse.h"
+
+
+#if __has_include(<POSLinkAdmin/PLAdminConst.h>)
+   #import <POSLinkAdmin/PLAdminConst.h>
+#elif __has_include("PLAdminConst.h")
+   #import "PLAdminConst.h"
+#endif
+
+
+#if __has_include(<POSLinkAdmin/PLShowTextBoxResponse.h>)
+   #import <POSLinkAdmin/PLShowTextBoxResponse.h>
+#elif __has_include("PLShowTextBoxResponse.h")
+   #import "PLShowTextBoxResponse.h"
+#endif
+
+
 
 @interface PLShowTextBoxResponse : PLResponse
 /**
- The button number of selection.
+ The number of the selected button.
 
- Attribute:n1 
+ Attribute : n1 
  */
 @property (readwrite, nonatomic, copy)NSString *buttonNumber;
 /**
- Signature status. 
+ Signature status.
+
+ Attribute : n1 
  */
 @property (readwrite, nonatomic, assign)enum SignatureStatus signStatus;
 /**
  Signature data.
 
- Attribute:var 
+ Attribute : var 
  */
 @property (readwrite, nonatomic, copy)NSString *signatureData;
 /**
  Text input by customer. For currency input, 10000 will be returned if the customer input $100.00 on device.
 
- Attribute:ans...32 
+ Attribute : ans...32 
  */
 @property (readwrite, nonatomic, copy)NSString *text;
 

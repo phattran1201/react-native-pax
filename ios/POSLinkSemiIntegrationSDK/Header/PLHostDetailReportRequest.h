@@ -13,10 +13,34 @@
  */
 
 #import <Foundation/Foundation.h>
-#import "PLRequest.h"
-#import "PLSemiConst.h"
-#import "PLAdminConst.h"
-#import "PLHostDetailReportRequest.h"
+#if __has_include(<POSLinkAdmin/PLRequest.h>)
+   #import <POSLinkAdmin/PLRequest.h>
+#elif __has_include("PLRequest.h")
+   #import "PLRequest.h"
+#endif
+
+
+#if __has_include(<POSLinkAdmin/PLSemiConst.h>)
+   #import <POSLinkAdmin/PLSemiConst.h>
+#elif __has_include("PLSemiConst.h")
+   #import "PLSemiConst.h"
+#endif
+
+
+#if __has_include(<POSLinkAdmin/PLAdminConst.h>)
+   #import <POSLinkAdmin/PLAdminConst.h>
+#elif __has_include("PLAdminConst.h")
+   #import "PLAdminConst.h"
+#endif
+
+
+#if __has_include(<POSLinkAdmin/PLHostDetailReportRequest.h>)
+   #import <POSLinkAdmin/PLHostDetailReportRequest.h>
+#elif __has_include("PLHostDetailReportRequest.h")
+   #import "PLHostDetailReportRequest.h"
+#endif
+
+
 
 @interface PLHostDetailReportRequest : PLRequest
 /**
@@ -34,19 +58,19 @@
 /**
  Retrieve the transaction record with the matching authorization number.
 
- Attribute:ans...32 
+ Attribute : ans...32 
  */
 @property (readwrite, nonatomic, copy)NSString *authorizationCode;
 /**
  ECR transaction ID, unique code in ECR side.
 
- Attribute:ans...64 
+ Attribute : ans...64 
  */
 @property (readwrite, nonatomic, copy)NSString *ecrTransactionId;
 /**
  Host reference number (Transaction UID). This field is host dependent; it can be used to run Void/Return transactions.
 
- Attribute:ans...32 
+ Attribute : ans...32 
  */
 @property (readwrite, nonatomic, copy)NSString *hostReferenceNumber;
 

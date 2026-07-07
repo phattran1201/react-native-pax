@@ -13,9 +13,27 @@
  */
 
 #import <Foundation/Foundation.h>
-#import "PLSemiConst.h"
-#import "PLAdminConst.h"
-#import "PLTraceResponse.h"
+#if __has_include(<POSLinkAdmin/PLSemiConst.h>)
+   #import <POSLinkAdmin/PLSemiConst.h>
+#elif __has_include("PLSemiConst.h")
+   #import "PLSemiConst.h"
+#endif
+
+
+#if __has_include(<POSLinkAdmin/PLAdminConst.h>)
+   #import <POSLinkAdmin/PLAdminConst.h>
+#elif __has_include("PLAdminConst.h")
+   #import "PLAdminConst.h"
+#endif
+
+
+#if __has_include(<POSLinkAdmin/PLTraceResponse.h>)
+   #import <POSLinkAdmin/PLTraceResponse.h>
+#elif __has_include("PLTraceResponse.h")
+   #import "PLTraceResponse.h"
+#endif
+
+
 
 @interface PLTraceResponse : NSObject
 /**
@@ -27,52 +45,44 @@
 
 9000 < Index <= 9999, failed data base for SAF.
 
- Attribute:n...4 
+ Attribute : n...4 
  */
 @property (readwrite, nonatomic, copy)NSString *referenceNumber;
 /**
  The ECR reference number, echo back.
 
- Attribute:an...16 
+ Attribute : ans...32 
  */
 @property (readwrite, nonatomic, copy)NSString *ecrReferenceNumber;
 /**
  The date time, YYYYMMDDhhmmss.
 
- Attribute:n14 
+ Attribute : n14 
  */
 @property (readwrite, nonatomic, copy)NSString *timeStamp;
 /**
  POS system invoice/tracking number.
 
- Attribute:ans...35 
+ Attribute : ans...50 
  */
 @property (readwrite, nonatomic, copy)NSString *invoiceNumber;
 /**
- Original Payment Service 2000.
+ The serial number of the device.
 
-Data returned as part of the original authorization response from the issuer, used in follow up transactions (token/card-on-file, reversals, incremental). Format varies by card scheme.
-
- Attribute:an...22 
+ Attribute : ans...32 
  */
-@property (readwrite, nonatomic, copy)NSString *paymentService2000;
+@property (readwrite, nonatomic, copy)NSString *sn;
 /**
- Original authorization data used in follow up transactions.
+ Transaction settlement date, the format is YYYYMMDD.
 
- Attribute:an...66 
+ Attribute : n8 
  */
-@property (readwrite, nonatomic, copy)NSString *authorizationResponse;
+@property (readwrite, nonatomic, copy)NSString *settlementDate;
 /**
- ECR transaction ID, unique code in ECR side. Please check POSLink-Reference-Host Specific Remarks for details about field attributes. This field is returned by the host.
+ A unique ID for each transaction.
 
- Attribute:ans...64 
+ Attribute : ans...64 
  */
-@property (readwrite, nonatomic, copy)NSString *ecrTransactionId;
-/**
- Returned by the host, the date and time the transaction occurred in YYYYMMDDHHMMSS format.
-
- Attribute:n...14 
- */
-@property (readwrite, nonatomic, copy)NSString *hostTimeStamp;
+@property (readwrite, nonatomic, copy)NSString *globalUid;
 
 @end

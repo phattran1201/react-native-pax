@@ -13,10 +13,28 @@
  */
 
 #import <Foundation/Foundation.h>
-#import "PLRequest.h"
+#if __has_include(<POSLinkAdmin/PLRequest.h>)
+   #import <POSLinkAdmin/PLRequest.h>
+#elif __has_include("PLRequest.h")
+   #import "PLRequest.h"
+#endif
 
-#import "PLAdminConst.h"
-#import "PLReprintRequest.h"
+
+
+#if __has_include(<POSLinkAdmin/PLAdminConst.h>)
+   #import <POSLinkAdmin/PLAdminConst.h>
+#elif __has_include("PLAdminConst.h")
+   #import "PLAdminConst.h"
+#endif
+
+
+#if __has_include(<POSLinkAdmin/PLReprintRequest.h>)
+   #import <POSLinkAdmin/PLReprintRequest.h>
+#elif __has_include("PLReprintRequest.h")
+   #import "PLReprintRequest.h"
+#endif
+
+
 
 @interface PLReprintRequest : PLRequest
 /**
@@ -24,7 +42,7 @@
 
 1: print.
 
- Attribute:n1 
+ Attribute : n1 
  */
 @property (readwrite, nonatomic, copy)NSString *printLastReceipt;
 /**
@@ -40,23 +58,25 @@
 
 9000 < Index <= 9999, failed data base for SAF.
 
- Attribute:n...4 
+ Attribute : n...4 
  */
 @property (readwrite, nonatomic, copy)NSString *originalReferenceNumber;
 /**
  Retrieve the transaction record with the matching authorization number.
 
- Attribute:ans...32 
+ Attribute : ans...32 
  */
 @property (readwrite, nonatomic, copy)NSString *authorizationCode;
 /**
  Retrieve the transaction record with the ECR reference number.
 
- Attribute:ans...16 
+ Attribute : ans...32 
  */
 @property (readwrite, nonatomic, copy)NSString *ecrReferenceNumber;
 /**
- Receipt printing for current command. The default value is BothCopy. 
+ Receipt printing for current command. The default value is BothCopy.
+
+ Attribute : n1 
  */
 @property (readwrite, nonatomic, assign)enum ReceiptPrintFlag receiptPrintFlag;
 

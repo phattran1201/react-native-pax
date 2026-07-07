@@ -14,8 +14,20 @@
 
 #import <Foundation/Foundation.h>
 
-#import "PLAdminConst.h"
-#import "PLCode100010.h"
+#if __has_include(<POSLinkAdmin/PLAdminConst.h>)
+   #import <POSLinkAdmin/PLAdminConst.h>
+#elif __has_include("PLAdminConst.h")
+   #import "PLAdminConst.h"
+#endif
+
+
+#if __has_include(<POSLinkAdmin/PLCode100010.h>)
+   #import <POSLinkAdmin/PLCode100010.h>
+#elif __has_include("PLCode100010.h")
+   #import "PLCode100010.h"
+#endif
+
+
 
 @interface PLCode100010 : NSObject
 /**

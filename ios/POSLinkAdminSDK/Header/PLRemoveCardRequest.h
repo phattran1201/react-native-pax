@@ -13,32 +13,68 @@
  */
 
 #import <Foundation/Foundation.h>
-#import "PLRequest.h"
+#if __has_include(<POSLinkAdmin/PLRequest.h>)
+   #import <POSLinkAdmin/PLRequest.h>
+#elif __has_include("PLRequest.h")
+   #import "PLRequest.h"
+#endif
 
-#import "PLAdminConst.h"
-#import "PLRemoveCardRequest.h"
+
+
+#if __has_include(<POSLinkAdmin/PLAdminConst.h>)
+   #import <POSLinkAdmin/PLAdminConst.h>
+#elif __has_include("PLAdminConst.h")
+   #import "PLAdminConst.h"
+#endif
+
+
+#if __has_include(<POSLinkAdmin/PLRemoveCardRequest.h>)
+   #import <POSLinkAdmin/PLRemoveCardRequest.h>
+#elif __has_include("PLRemoveCardRequest.h")
+   #import "PLRemoveCardRequest.h"
+#endif
+
+
 
 @interface PLRemoveCardRequest : PLRequest
 /**
  Default message is "Please remove card".
 
- Attribute:ans...64 
+ Attribute : ans...64 
  */
 @property (readwrite, nonatomic, copy)NSString *message1;
 /**
  Default message is NULL.
 
- Attribute:ans...64 
+ Attribute : ans...64 
  */
 @property (readwrite, nonatomic, copy)NSString *message2;
 /**
- Continuous screen. 
+ Continuous screen.
+
+ Attribute : n1 
  */
 @property (readwrite, nonatomic, assign)enum ContinuousScreen continuousScreen;
 /**
- Pinpad type. Defalut is "InternalPinpad". "ExternalPinpad" and "ExternalPinpadFirst" is A80 only, if use other device will return param error. 
+ Pinpad type. Default is "InternalPinpad". "ExternalPinpad" and "ExternalPinpadFirst" are for A80 only. If used on another device, it will return param error.
+
+ Attribute : n1 
  */
 @property (readwrite, nonatomic, assign)enum PinpadType pinpadType;
+/**
+ This field indicates which icon will be displayed on screen.
+
+It could be following values:
+
+"Icon_rmc_info": Info. A blue info mark icon will be displayed. (Default)
+
+"Icon_rmc_approve": Approved. A green check mark icon will be displayed.
+
+"Icon_rmc_decline": Decline. A red exclamation mark icon will be displayed.
+
+ Attribute : ans...16 
+ */
+@property (readwrite, nonatomic, copy)NSString *icon;
 
 
 @end

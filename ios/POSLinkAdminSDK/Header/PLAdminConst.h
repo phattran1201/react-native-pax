@@ -9,13 +9,9 @@
  * ============================================================================
  */
 
-#import <Foundation/Foundation.h>
-
-@interface PLAdminConst : NSObject
-
+#ifndef PLAdminConst_h
+#define PLAdminConst_h
 /* Consts*/
-
-
 enum MacKeyType {
     /**
      When the value set to NotSet, it means choosing Tak.
@@ -30,13 +26,21 @@ enum MacKeyType {
      */
     MacKeyTypeDesDukptKey = 3,
     /**
-     AES DUKPT key.
+     AES 128 DUKPT MAC.
      */
     MacKeyTypeAesDukptKey = 4,
     /**
      HMAC.
      */
     MacKeyTypeHmac = 5,
+    /**
+     AES 192 DUKPT MAC.
+     */
+    MacKeyTypeAes192DukptKey = 6,
+    /**
+     AES 256 DUKPT MAC.
+     */
+    MacKeyTypeAes256DukptKey = 7,
 };
 
 enum LineItemAction {
@@ -223,6 +227,17 @@ enum PasswordType {
     PasswordTypeBType = 3,
 };
 
+enum CustomDataEncryptionType {
+    /**
+     The value is not set.
+     */
+    CustomDataEncryptionTypeNotSet = 1,
+    /**
+     DES/TDES(Master Session).
+     */
+    CustomDataEncryptionTypeDesOrTdes = 2,
+};
+
 enum SafMode {
     /**
      The value is not set.
@@ -244,6 +259,21 @@ enum SafMode {
      Offline On Demand/Auto.
      */
     SafModeOfflineOnDemandOrAuto = 5,
+};
+
+enum BatchReportPrintFlag {
+    /**
+     When the value set to NotSet, it means choosing Full.
+     */
+    BatchReportPrintFlagNotSet = 1,
+    /**
+     Print summary.
+     */
+    BatchReportPrintFlagSummary = 2,
+    /**
+     Print full content.
+     */
+    BatchReportPrintFlagFull = 3,
 };
 
 enum StatusReportFlag {
@@ -514,7 +544,7 @@ enum VasResponseCode {
 
 enum AppActivated {
     /**
-     When the value set to NotSet, it means not support.
+     When the value set to NotSet, it means not supported.
      */
     AppActivatedNotSet = 1,
     /**
@@ -819,6 +849,25 @@ enum CheckMode {
     CheckModeDesOrTdesEncryptionAndCheckKcv = 3,
 };
 
+enum SafUploadIndicator {
+    /**
+     When the value set to NotSet, it means choosing NewStoredTransactions.
+     */
+    SafUploadIndicatorNotSet = 1,
+    /**
+     New stored transactions.
+     */
+    SafUploadIndicatorNewStoredTransactions = 2,
+    /**
+     Failed transactions.
+     */
+    SafUploadIndicatorFailedTransactions = 3,
+    /**
+     All (upload/resend Failed + New records)
+     */
+    SafUploadIndicatorAll = 4,
+};
+
 enum LabelProperty {
     /**
      When the value set to NotSet, it means choosing Unchecked.
@@ -848,7 +897,7 @@ enum MacWorkMode {
      */
     MacWorkModeHypercomFastMode = 3,
     /**
-     ANSI X9.19.
+     ANSI X9.19(DES Only).
      */
     MacWorkModeAnsiX919 = 4,
     /**
@@ -859,6 +908,25 @@ enum MacWorkMode {
      SHA256.
      */
     MacWorkModeSha256 = 6,
+};
+
+enum LogTimeRange {
+    /**
+     When the value set to NotSet, it means choosing SevenAlendarDays.
+     */
+    LogTimeRangeNotSet = 1,
+    /**
+     7 calendar days.
+     */
+    LogTimeRangeSevenCalendarDays = 2,
+    /**
+     14 calendar days.
+     */
+    LogTimeRangeFourteenCalendarDays = 3,
+    /**
+     30 calendar days.
+     */
+    LogTimeRangeThirtyCalendarDays = 4,
 };
 
 enum BarcodeType {
@@ -886,13 +954,13 @@ enum SignatureStatus {
      */
     SignatureStatusNotSet = 1,
     /**
-     Not done the signature.
+     Signature not provided.
      */
-    SignatureStatusNotDoneTheSignature = 2,
+    SignatureStatusSignatureNotProvided = 2,
     /**
-     Done the signature.
+     Signature provided.
      */
-    SignatureStatusDoneTheSignature = 3,
+    SignatureStatusSignatureProvided = 3,
 };
 
 enum DeleteSafConfirmation {
@@ -975,9 +1043,13 @@ enum EdcType {
      */
     EdcTypeCash = 8,
     /**
-     Check card
+     QR Code
      */
-    EdcTypeCheck = 9,
+    EdcTypeQrPayment = 9,
+    /**
+     If we can't get EDC type when check card type, terminal will return Other.
+     */
+    EdcTypeOther = 10,
 };
 
 enum VasMode {
@@ -1009,11 +1081,11 @@ enum ProtocolFlag {
      */
     ProtocolFlagNotSet = 1,
     /**
-     Means terminal support VISA1 protocol.
+     Terminal supports VISA1 protocol.
      */
     ProtocolFlagVisa1 = 2,
     /**
-     Means terminal support JSON protocol.
+     Terminal supports JSON protocol.
      */
     ProtocolFlagJson = 3,
 };
@@ -1062,6 +1134,25 @@ enum ExpiryDatePrompt {
      Prompt for manual entry only.
      */
     ExpiryDatePromptPromptForManualEntryOnly = 3,
+};
+
+enum ConfigurePinType {
+    /**
+     When the value set to NotSet, it means choosing AddANewPin.
+     */
+    ConfigurePinTypeNotSet = 1,
+    /**
+     Add a new PIN.
+     */
+    ConfigurePinTypeAddANewPin = 2,
+    /**
+     Reset PIN.
+     */
+    ConfigurePinTypeResetPin = 3,
+    /**
+     Change PIN.
+     */
+    ConfigurePinTypeChangePin = 4,
 };
 
 enum OseToPpse {
@@ -1209,7 +1300,7 @@ enum TransactionType {
      */
     TransactionTypeGetConvertDetail = 32,
     /**
-     Used to transfer the balance get by GetConvertDetail to the new card. So before call this transaction type, the GetConvertDetail must be called first. Typically used for gift cards.
+     Used to transfer the Balance to a new card. The user can obtain the Balance value through the GetConvertDetail transaction. So before calling this transaction type, the GetCovertDetail command must be executed first. This transaction type is typically used for Gift Cards.
      */
     TransactionTypeConvert = 33,
     /**
@@ -1245,7 +1336,7 @@ enum TransactionType {
      */
     TransactionTypeTransfer = 41,
     /**
-     Used to be implemented for dual message host sytem only. After the terminal receives an approved authorization response and the user wants to complete the transaction, they need send a Finalize command to the terminal. Terminal will send out a Finalization Advice message to the host upon receiving the command. Typically used for credit cards.
+     Used to be implemented for dual message host system only. After the terminal receives an approved authorization response and the user wants to complete the transaction, they need send a Finalize command to the terminal. Terminal will send out a Finalization Advice message to the host upon receiving the command. Typically used for credit cards.
      */
     TransactionTypeFinalize = 42,
     /**
@@ -1257,9 +1348,17 @@ enum TransactionType {
      */
     TransactionTypeAccountPayment = 44,
     /**
+     A deposit transaction used specifically for RCS Card(South Africa).
+     */
+    TransactionTypePayment = 45,
+    /**
+     Void payment transaction.
+     */
+    TransactionTypeVoidPayment = 46,
+    /**
      Used for partial authorization reversal, not all the hosts support this feature.
      */
-    TransactionTypeReversal = 45,
+    TransactionTypeReversal = 47,
 };
 
 enum TextPushedMode {
@@ -1358,6 +1457,21 @@ enum ButtonType {
      CheckBox. It allows the user to choose multiple entities of a predefined set of options, and the API is returned upon key press.
      */
     ButtonTypeCheckBox = 3,
+};
+
+enum CustomDataWorkMode {
+    /**
+     When the value set to NotSet, it means choosing DesOrTdesEcb.
+     */
+    CustomDataWorkModeNotSet = 1,
+    /**
+     DES/TDES ECB Encryption.
+     */
+    CustomDataWorkModeDesOrTdesEcb = 2,
+    /**
+     DES/TDES CBC Encryption.
+     */
+    CustomDataWorkModeDesOrTdesCbc = 3,
 };
 
 enum EntryMode {
@@ -1507,6 +1621,33 @@ enum InputType {
     InputTypeSocialSecurity = 9,
 };
 
+enum MacCalculationKeyType {
+    /**
+     When the value set to NotSet, it means choosing Tak.
+     */
+    MacCalculationKeyTypeNotSet = 1,
+    /**
+     TAK.
+     */
+    MacCalculationKeyTypeTak = 2,
+    /**
+     DES DUKPT key.
+     */
+    MacCalculationKeyTypeDesDukptKey = 3,
+    /**
+     AES 128 DUKPT MAC.
+     */
+    MacCalculationKeyTypeAesDukptKey = 4,
+    /**
+     AES 192 DUKPT MAC.
+     */
+    MacCalculationKeyTypeAes192DukptKey = 5,
+    /**
+     AES 256 DUKPT MAC.
+     */
+    MacCalculationKeyTypeAes256DukptKey = 6,
+};
+
 enum SafUploadMode {
     /**
      The value is not set.
@@ -1543,14 +1684,13 @@ enum ContinuousScreen {
      */
     ContinuousScreenNotSet = 1,
     /**
-     Default.
+     The continuous screen flag is disabled by default. The app returns to the idle/home screen after processing a command.
      */
     ContinuousScreenDefault = 2,
     /**
-     Indicate the terminal not go to idle screen but waiting for the next command.
+     The app does not go to the idle/home screen after processing a command. It waits on the previous UI till a next command is received.
      */
     ContinuousScreenNotGoToIdleScreen = 3,
 };
 
-@end
-
+#endif /* PLAdminConst_h */

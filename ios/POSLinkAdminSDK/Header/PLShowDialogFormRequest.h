@@ -13,76 +13,106 @@
  */
 
 #import <Foundation/Foundation.h>
-#import "PLRequest.h"
+#if __has_include(<POSLinkAdmin/PLRequest.h>)
+   #import <POSLinkAdmin/PLRequest.h>
+#elif __has_include("PLRequest.h")
+   #import "PLRequest.h"
+#endif
 
-#import "PLAdminConst.h"
-#import "PLShowDialogFormRequest.h"
+
+
+#if __has_include(<POSLinkAdmin/PLAdminConst.h>)
+   #import <POSLinkAdmin/PLAdminConst.h>
+#elif __has_include("PLAdminConst.h")
+   #import "PLAdminConst.h"
+#endif
+
+
+#if __has_include(<POSLinkAdmin/PLShowDialogFormRequest.h>)
+   #import <POSLinkAdmin/PLShowDialogFormRequest.h>
+#elif __has_include("PLShowDialogFormRequest.h")
+   #import "PLShowDialogFormRequest.h"
+#endif
+
+
 
 @interface PLShowDialogFormRequest : PLRequest
 /**
  Lines of text. (use all available space)
 
- Attribute:ans...64 
+ Attribute : ans...64 
  */
 @property (readwrite, nonatomic, copy)NSString *title;
 /**
  Lines of text, (use all available space)
 
- Attribute:ans...90 
+ Attribute : ans...90 
  */
 @property (readwrite, nonatomic, copy)NSString *label1;
 /**
- Label 1 property value. Relevant only if the ButtonType is "CheckBox". 
+ Label 1 property value. Relevant only if the ButtonType is "CheckBox". The default value is "Unchecked".
+
+ Attribute : n1 
  */
 @property (readwrite, nonatomic, assign)enum LabelProperty label1Property;
 /**
  Lines of text, (use all available space)
 
- Attribute:ans...90 
+ Attribute : ans...90 
  */
 @property (readwrite, nonatomic, copy)NSString *label2;
 /**
- Label 2 property value. Relevant only if the ButtonType is "CheckBox". 
+ Label 2 property value. Relevant only if the ButtonType is "CheckBox". The default value is "Unchecked".
+
+ Attribute : n1 
  */
 @property (readwrite, nonatomic, assign)enum LabelProperty label2Property;
 /**
  Lines of text, (use all available space)
 
- Attribute:ans...90 
+ Attribute : ans...90 
  */
 @property (readwrite, nonatomic, copy)NSString *label3;
 /**
- Label 3 property value. Relevant only if the ButtonType is "CheckBox". 
+ Label 3 property value. Relevant only if the ButtonType is "CheckBox". The default value is "Unchecked".
+
+ Attribute : n1 
  */
 @property (readwrite, nonatomic, assign)enum LabelProperty label3Property;
 /**
  Lines of text, (use all available space)
 
- Attribute:ans...90 
+ Attribute : ans...90 
  */
 @property (readwrite, nonatomic, copy)NSString *label4;
 /**
- Label 4 property value. Relevant only if the ButtonType is "CheckBox". 
+ Label 4 property value. Relevant only if the ButtonType is "CheckBox". The default value is "Unchecked".
+
+ Attribute : n1 
  */
 @property (readwrite, nonatomic, assign)enum LabelProperty label4Property;
 /**
  Button type. Default is "RadioButton".
 
-"CANCEL" - API return abort.
+"CANCEL" - API return aborted.
 
-"CLEAR" will clear the CheckBox selection
+"CLEAR" will clear the CheckBox selection.
 
-"ACCEPT" - API return accept 
+"ACCEPT" - API return accepted.
+
+ Attribute : n1 
  */
 @property (readwrite, nonatomic, assign)enum ButtonType buttonType;
 /**
- Timeout in 100ms for waiting user to confirm.Valid value should be[1, 9999]"" - no timeout, wait till user cancel or confirm.
+ Timeout in 100ms for waiting user to confirm.Valid value should be[1, 9999], "" - no timeout, wait till user cancel or confirm.
 
- Attribute:n...4 
+ Attribute : n...4 
  */
 @property (readwrite, nonatomic, copy)NSString *timeout;
 /**
- Continuous screen. 
+ Continuous screen.
+
+ Attribute : n1 
  */
 @property (readwrite, nonatomic, assign)enum ContinuousScreen continuousScreen;
 

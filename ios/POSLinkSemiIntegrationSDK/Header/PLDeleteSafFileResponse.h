@@ -13,17 +13,47 @@
  */
 
 #import <Foundation/Foundation.h>
-#import "PLResponse.h"
-#import "PLSemiConst.h"
-#import "PLAdminConst.h"
-#import "PLTorResponse.h"
-#import "PLDeleteSafFileResponse.h"
+#if __has_include(<POSLinkAdmin/PLResponse.h>)
+   #import <POSLinkAdmin/PLResponse.h>
+#elif __has_include("PLResponse.h")
+   #import "PLResponse.h"
+#endif
+
+
+#if __has_include(<POSLinkAdmin/PLSemiConst.h>)
+   #import <POSLinkAdmin/PLSemiConst.h>
+#elif __has_include("PLSemiConst.h")
+   #import "PLSemiConst.h"
+#endif
+
+
+#if __has_include(<POSLinkAdmin/PLAdminConst.h>)
+   #import <POSLinkAdmin/PLAdminConst.h>
+#elif __has_include("PLAdminConst.h")
+   #import "PLAdminConst.h"
+#endif
+
+
+#if __has_include(<POSLinkAdmin/PLTorResponse.h>)
+   #import <POSLinkAdmin/PLTorResponse.h>
+#elif __has_include("PLTorResponse.h")
+   #import "PLTorResponse.h"
+#endif
+
+
+#if __has_include(<POSLinkAdmin/PLDeleteSafFileResponse.h>)
+   #import <POSLinkAdmin/PLDeleteSafFileResponse.h>
+#elif __has_include("PLDeleteSafFileResponse.h")
+   #import "PLDeleteSafFileResponse.h"
+#endif
+
+
 
 @interface PLDeleteSafFileResponse : PLResponse
 /**
  Total number of records deleted.
 
- Attribute:ans...32 
+ Attribute : ans...32 
  */
 @property (readwrite, nonatomic, copy)NSString *safDeletedCount;
 /**

@@ -14,8 +14,20 @@
 
 #import <Foundation/Foundation.h>
 
-#import "PLAdminConst.h"
-#import "PLCode100003.h"
+#if __has_include(<POSLinkAdmin/PLAdminConst.h>)
+   #import <POSLinkAdmin/PLAdminConst.h>
+#elif __has_include("PLAdminConst.h")
+   #import "PLAdminConst.h"
+#endif
+
+
+#if __has_include(<POSLinkAdmin/PLCode100003.h>)
+   #import <POSLinkAdmin/PLCode100003.h>
+#elif __has_include("PLCode100003.h")
+   #import "PLCode100003.h"
+#endif
+
+
 
 @interface PLCode100003 : NSObject
 /**
@@ -35,7 +47,9 @@
  */
 @property (readwrite, nonatomic, copy)NSString *semiIntegrationOnly;
 /**
- 1.Length more than limit
+ Amount invalid.
+
+1.Amount exceeds limit.
 
 2.Not number
 
@@ -43,7 +57,9 @@
  */
 @property (readwrite, nonatomic, copy)NSString *amountInvalid;
 /**
- 1.Length more than limit
+ Tip invalid.
+
+1.Length more than limit
 
 2.Not number
 
@@ -51,7 +67,9 @@
  */
 @property (readwrite, nonatomic, copy)NSString *tipInvalid;
 /**
- 1.Length more than limit
+ Cash back invalid.
+
+1.Cash back amount exceeds limit.
 
 2.Not number
 
@@ -59,7 +77,9 @@
  */
 @property (readwrite, nonatomic, copy)NSString *cashBackInvalid;
 /**
- 1.Length more than limit
+ Merchant fee invalid.
+
+1.Length more than limit
 
 2.Not number
 
@@ -67,7 +87,9 @@
  */
 @property (readwrite, nonatomic, copy)NSString *merchantFeeInvalid;
 /**
- 1.Length more than limit
+ Tax amount invalid.
+
+1.Length more than limit
 
 2.Not number
 
@@ -75,7 +97,9 @@
  */
 @property (readwrite, nonatomic, copy)NSString *taxAmountInvalid;
 /**
- 1.Length more or smaller than limit
+ Expiry date invalid.
+
+1.Expiry date length exceeds or is smaller than limit.
 
 2.The month more than 12 or day more than 31
 
@@ -83,7 +107,9 @@
  */
 @property (readwrite, nonatomic, copy)NSString *expDateInvalid;
 /**
- 1.Length more than limit
+ EBT type invalid.
+
+1.EBT type length exceeds limit.
 
 2. Not "F" "C" "V" "E" or "W".
 
@@ -103,7 +129,7 @@
  */
 @property (readwrite, nonatomic, copy)NSString *invoiceInvalid;
 /**
- Length more than limit 
+ Auth code length exceeds limit. 
  */
 @property (readwrite, nonatomic, copy)NSString *authCodeInvalid;
 /**
@@ -111,7 +137,9 @@
  */
 @property (readwrite, nonatomic, copy)NSString *transactionInvalid;
 /**
- 1.Length more than limit
+ Timestamp invalid.
+
+1.Length more than limit
 
 2.Not number 
 
@@ -131,7 +159,7 @@
  */
 @property (readwrite, nonatomic, copy)NSString *poNumberInvalid;
 /**
- The value invalid 
+ Customer Code value is invalid. 
  */
 @property (readwrite, nonatomic, copy)NSString *customerCodeInvalid;
 /**
@@ -143,37 +171,31 @@
  */
 @property (readwrite, nonatomic, copy)NSString *taxExemptIdInvalid;
 /**
- Length more than limit 
+ The MOTO/E-Commerce Mode is not "M" (Mail Order) or "T" (Telephone Order). 
  */
 @property (readwrite, nonatomic, copy)NSString *meModeInvalid;
 /**
- Length more than limit, or MOTO/E-Commerce Type Invalid 
+ [Deprecated]Length more than limit, or MOTO/E-Commerce Type Invalid. 
  */
 @property (readwrite, nonatomic, copy)NSString *meTypeInvalid;
 /**
- Length more than limit 
+ [Deprecated]Length more than limit 
  */
 @property (readwrite, nonatomic, copy)NSString *secureTypeInvalid;
 /**
- Length more than limit 
+ The MOTO Order Number exceeds the maximum specified length. 
  */
 @property (readwrite, nonatomic, copy)NSString *orderNumberInvalid;
 /**
- Length more than limit 
+ [Deprecated]Length more than limit 
  */
 @property (readwrite, nonatomic, copy)NSString *installmentsInvalid;
-/**
- 1. Length more than limit
-
- 2.Please check the current installment value. 
- */
-@property (readwrite, nonatomic, copy)NSString *currentInstInvalid;
 /**
  Length more than limit 
  */
 @property (readwrite, nonatomic, copy)NSString *tableNumberInvalid;
 /**
- Length more than limit 
+ Guest number exceeds limit. 
  */
 @property (readwrite, nonatomic, copy)NSString *guestNumberInvalid;
 /**
@@ -183,17 +205,13 @@
 /**
  Length more than limit 
  */
-@property (readwrite, nonatomic, copy)NSString *checkInvalid;
-/**
- Length more than limit 
- */
 @property (readwrite, nonatomic, copy)NSString *ticketNumberInvalid;
 /**
- MOTO/E-Commerce Transaction Type not allowed. 
+ The MOTO/E-Commerce Transaction Type field is not currently supported. 
  */
 @property (readwrite, nonatomic, copy)NSString *meTypeNotAllowed;
 /**
- E-Commerce Secure Type not allowed. 
+ The E-Commerce Secure Type field is not currently supported. 
  */
 @property (readwrite, nonatomic, copy)NSString *secureTypeNotAllowed;
 /**
@@ -217,7 +235,11 @@
  */
 @property (readwrite, nonatomic, copy)NSString *taxNotAllowed;
 /**
- 1.EDC or trans type not allowed. 2.Tip feature is disabled. 
+ Tip not allowed.
+
+1.EDC or trans type not allowed. 
+
+2.Tip feature is disabled. 
  */
 @property (readwrite, nonatomic, copy)NSString *tipNotAllowed;
 /**
@@ -229,49 +251,17 @@
  */
 @property (readwrite, nonatomic, copy)NSString *transactionNotAllowed;
 /**
- “BALANCE” and “DEACT” not allowed 
+ Amount not allowed for this transaction type. 
  */
 @property (readwrite, nonatomic, copy)NSString *amountNotAllowed;
-/**
- Please check MOTO/E-commerce information 
- */
-@property (readwrite, nonatomic, copy)NSString *installmentsNotNull;
-/**
- Please check MOTO/E-commerce information 
- */
-@property (readwrite, nonatomic, copy)NSString *currentInstNotNull;
-/**
- Please check MOTO/E-commerce information 
- */
-@property (readwrite, nonatomic, copy)NSString *motoArgumentsConflict;
-/**
- Please check “CHECK” information 
- */
-@property (readwrite, nonatomic, copy)NSString *checkTypeInvalid;
-/**
- Please check “CHECK” information 
- */
-@property (readwrite, nonatomic, copy)NSString *idTypeInvalid;
-/**
- Please check “CHECK” information 
- */
-@property (readwrite, nonatomic, copy)NSString *dobInvalid;
-/**
- Please check “CHECK” information 
- */
-@property (readwrite, nonatomic, copy)NSString *dobFormatInvalid;
 /**
  Industry is not "RESTAURANT". 
  */
 @property (readwrite, nonatomic, copy)NSString *tableNumberNotAllowed;
 /**
- Industry is not "RESTAURANT". 
+ Guest number not allowed, industry should be "RESTAURANT". 
  */
 @property (readwrite, nonatomic, copy)NSString *guestNumberNotAllowed;
-/**
- Please check MOTO/E-commerce information 
- */
-@property (readwrite, nonatomic, copy)NSString *motoEcNotAllowed;
 /**
  Only retail support 
  */
@@ -317,7 +307,7 @@
  */
 @property (readwrite, nonatomic, copy)NSString *pleaseSetVar;
 /**
- This variable cannot set. 
+ This variable cannot be set. 
  */
 @property (readwrite, nonatomic, copy)NSString *hostDenied;
 /**
@@ -333,7 +323,7 @@
  */
 @property (readwrite, nonatomic, copy)NSString *addressInvalid;
 /**
- EDC or transaction type does not support CVV. 
+ Unsupported CVV or CVV disabled. 
  */
 @property (readwrite, nonatomic, copy)NSString *cvvNotAllowed;
 /**
@@ -353,13 +343,9 @@
  */
 @property (readwrite, nonatomic, copy)NSString *signNotAllowed;
 /**
- The current transaction amount plus The total amount in terminal is more than 999999999. 
+ The current transaction amount plus the total amount stored in the terminal exceeds $999,999,999. 
  */
 @property (readwrite, nonatomic, copy)NSString *amountTooLarge;
-/**
- The Dup Override Flag length is more 1 byte. 
- */
-@property (readwrite, nonatomic, copy)NSString *invalidOverride;
 /**
  Unsupported purchase order number. 
  */
@@ -377,17 +363,9 @@
  */
 @property (readwrite, nonatomic, copy)NSString *taxReasonNotAllowed;
 /**
- Only CHECK supports ticket number. 
- */
-@property (readwrite, nonatomic, copy)NSString *ticketNumberNotAllowed;
-/**
  The transaction type must exist. 
  */
 @property (readwrite, nonatomic, copy)NSString *transactionTypeNull;
-/**
- Unsupported secure type 
- */
-@property (readwrite, nonatomic, copy)NSString *secureTypeNotSupport;
 /**
  Signature file not found. 
  */
@@ -413,15 +391,11 @@
  */
 @property (readwrite, nonatomic, copy)NSString *clerkIdInvalid;
 /**
- When the trans Type not support MOTO/EC. 
- */
-@property (readwrite, nonatomic, copy)NSString *motoEcInformationNotAllowed;
-/**
  Unsupported override flag 
  */
 @property (readwrite, nonatomic, copy)NSString *overrideNotAllowed;
 /**
- Please check the override flag value 
+ The sent Dup Override Flag is not 1: Enabled. 
  */
 @property (readwrite, nonatomic, copy)NSString *dupCheckInvalid;
 /**
@@ -429,27 +403,15 @@
  */
 @property (readwrite, nonatomic, copy)NSString *routingNumberInvalid;
 /**
- Please check the check number 
- */
-@property (readwrite, nonatomic, copy)NSString *checkNumberInvalid;
-/**
- Please check the check ID 
- */
-@property (readwrite, nonatomic, copy)NSString *checkIdInvalid;
-/**
  Please check the phone number 
  */
 @property (readwrite, nonatomic, copy)NSString *phoneNumberInvalid;
-/**
- Please check the check information. 
- */
-@property (readwrite, nonatomic, copy)NSString *subTransactionTypeInvalid;
 /**
  Please specify EBT type. 
  */
 @property (readwrite, nonatomic, copy)NSString *pleaseSpecifyEbtType;
 /**
- The transaction has been added tip. 
+ The transaction tip has already been added. 
  */
 @property (readwrite, nonatomic, copy)NSString *alreadyAdded;
 /**
@@ -533,7 +495,7 @@
  */
 @property (readwrite, nonatomic, copy)NSString *tipRequestFlagInvalid;
 /**
- Card type is disabled. 
+ [Deprecated]Card type is disabled. Deprecated for cardTypeDisabled. 
  */
 @property (readwrite, nonatomic, copy)NSString *cardTypeDisable;
 /**
@@ -541,7 +503,7 @@
  */
 @property (readwrite, nonatomic, copy)NSString *expDateMissing;
 /**
- Moto/e-commerce mode doesn't support 
+ [Deprecated]Moto/e-commerce mode doesn't support. 
  */
 @property (readwrite, nonatomic, copy)NSString *meModeNotSupport;
 /**
@@ -549,7 +511,7 @@
  */
 @property (readwrite, nonatomic, copy)NSString *accountMismatch;
 /**
- In demo mode it doesn't support. 
+ The command is not supported in demo mode. 
  */
 @property (readwrite, nonatomic, copy)NSString *unsupportInDemo;
 /**
@@ -637,7 +599,7 @@ The following cases trigger this error:
  */
 @property (readwrite, nonatomic, copy)NSString *filterParameterCollision;
 /**
- FSA amount greater than total amount when using FSA card 
+ The FSA amount is greater than the total amount when using an FSA card 
  */
 @property (readwrite, nonatomic, copy)NSString *fsaAmountExceedLimit;
 /**
@@ -653,7 +615,7 @@ The following cases trigger this error:
  */
 @property (readwrite, nonatomic, copy)NSString *passThrudataInvalid;
 /**
- Adjustment not applicable for certain trans.
+ Adjustment not applicable for certain transactions.
 
 1. Partial transactions.
 
@@ -673,29 +635,27 @@ The following cases trigger this error:
  */
 @property (readwrite, nonatomic, copy)NSString *responseLengthExceeded;
 /**
- Miss necessary lodging data for lodging related transactions. 
+ Missing necessary lodging data for lodging related transactions. 
  */
 @property (readwrite, nonatomic, copy)NSString *missingLodgingData;
 /**
- Host MID doesn't set. Please set it in Host Setting Menu. 
+ Host MID is not set. Please set it in Host Setting Menu. 
  */
 @property (readwrite, nonatomic, copy)NSString *hostMidNotSet;
 /**
- Host User name doesn't set. Please set it in Host Setting Menu. 
+ Host User name is not set. Please set it in Host Setting Menu. 
  */
 @property (readwrite, nonatomic, copy)NSString *hostUsernameNotSet;
 /**
- Host User password doesn't set. Please set it in Host Setting Menu. 
+ Host User password is not set. Please set it in Host Setting Menu. 
  */
 @property (readwrite, nonatomic, copy)NSString *hostUserPasswordNotSet;
 /**
- User disabled the transaction 
+ Transaction is disabled in application. 
  */
 @property (readwrite, nonatomic, copy)NSString *transactionDisabled;
 /**
- 1.Length more or smaller than limit
-
-2. The Attribute error. 
+ The account number is invalid or could not be parsed. An account number may be invalid due to being non-numeric or being an illegal length. For credit or debit accounts, the account number may possess an invalid Luhn check digit or an unrecognized BIN. 
  */
 @property (readwrite, nonatomic, copy)NSString *accountInvalid;
 /**
@@ -711,7 +671,7 @@ The following cases trigger this error:
  */
 @property (readwrite, nonatomic, copy)NSString *additionalResponseDataRequestValueInvalid;
 /**
- Adjust by refer number doesn't support 
+ Adjustment by reference number is not supported. 
  */
 @property (readwrite, nonatomic, copy)NSString *adjustByReferenceNotSupported;
 /**
@@ -751,7 +711,7 @@ The following cases trigger this error:
  */
 @property (readwrite, nonatomic, copy)NSString *cityInvalid;
 /**
- This command doesn't support 
+ [Deprecated]Command is not supported. Deprecated for commandNotSupported. 
  */
 @property (readwrite, nonatomic, copy)NSString *commandNotSupport;
 /**
@@ -807,7 +767,7 @@ The following cases trigger this error:
  */
 @property (readwrite, nonatomic, copy)NSString *emailInvalid;
 /**
- Encryption doesn't supported 
+ Encryption is not supported. 
  */
 @property (readwrite, nonatomic, copy)NSString *encryptionNotSupported;
 /**
@@ -827,7 +787,7 @@ The following cases trigger this error:
  */
 @property (readwrite, nonatomic, copy)NSString *fallbackToSwipeNotAllowed;
 /**
- Length more than limit or value is empty 
+ File name exceeds limit or empty. 
  */
 @property (readwrite, nonatomic, copy)NSString *fileNameInvalid;
 /**
@@ -839,15 +799,15 @@ The following cases trigger this error:
  */
 @property (readwrite, nonatomic, copy)NSString *filterParameterCollisionGlobalUid;
 /**
- Length more than limit 
+ First name length exceeds limit. 
  */
 @property (readwrite, nonatomic, copy)NSString *firstNameInvalid;
 /**
- Fleet card bin missiong 
+ [deprecated]The fleet card BIN file is no longer exposed via PAXSTORE TMS. 
  */
 @property (readwrite, nonatomic, copy)NSString *fleetCardBinMissing;
 /**
- Fleet passThruData not allowed 
+ [deprecated]Replaced by 100003 FLEET PRODUCT DATA NOT ALLOWED. PassThru Data is deprecated in POSLink 2. 
  */
 @property (readwrite, nonatomic, copy)NSString *fleetPassThruDataNotAllowed;
 /**
@@ -863,7 +823,7 @@ The following cases trigger this error:
  */
 @property (readwrite, nonatomic, copy)NSString *freightAmountInvalid;
 /**
- FSA not support 
+ FSA is not supported 
  */
 @property (readwrite, nonatomic, copy)NSString *fsaNotSupport;
 /**
@@ -875,15 +835,15 @@ The following cases trigger this error:
  */
 @property (readwrite, nonatomic, copy)NSString *fsaPassThruDataMissing;
 /**
- Fuel amount not allowed 
+ [deprecated]When BroadPOS receives Fuel Amount during a non-fleet transaction, BroadPOS shall ignore the received value. 
  */
 @property (readwrite, nonatomic, copy)NSString *fuelAmountNotAllowed;
 /**
- If fuel amount < Total amount, then swipes a fuel only fleet card, the app should return a error 
+ [deprecated]Replaced by 101501 FUEL ONLY. Error code is now unique to match new, similar responses in the same range, such as 101500 PURCHASE RESTRICTED and 101502 FUEL AND MAINTENANCE ONLY. 
  */
 @property (readwrite, nonatomic, copy)NSString *fuelOnly;
 /**
- Length more than limit 
+ Gateway ID length exceeds limit. 
  */
 @property (readwrite, nonatomic, copy)NSString *gatewayIdInvalid;
 /**
@@ -895,7 +855,7 @@ The following cases trigger this error:
  */
 @property (readwrite, nonatomic, copy)NSString *globalUidInvalid;
 /**
- Google Smart Tap not support 
+ Google Smart Tap is not supported 
  */
 @property (readwrite, nonatomic, copy)NSString *googleSmartTapNotSupported;
 /**
@@ -911,11 +871,11 @@ The following cases trigger this error:
  */
 @property (readwrite, nonatomic, copy)NSString *installError;
 /**
- Installments not allowed 
+ The MOTO/E-Commerce Installments field is not currently supported. 
  */
 @property (readwrite, nonatomic, copy)NSString *installmentsNotAllowed;
 /**
- Card type not support 
+ Card type is not supported 
  */
 @property (readwrite, nonatomic, copy)NSString *invalidCardType;
 /**
@@ -935,7 +895,7 @@ The following cases trigger this error:
  */
 @property (readwrite, nonatomic, copy)NSString *keySlotNotAllowed;
 /**
- Length more than limit 
+ Last name length exceeds limit. 
  */
 @property (readwrite, nonatomic, copy)NSString *lastNameInvalid;
 /**
@@ -943,15 +903,15 @@ The following cases trigger this error:
  */
 @property (readwrite, nonatomic, copy)NSString *lastTransactionInvalid;
 /**
- Check level3 data 
+ Check level 3 data 
  */
 @property (readwrite, nonatomic, copy)NSString *level3DataInvalid;
 /**
- Check level3 data format 
+ Check level 3 data format 
  */
 @property (readwrite, nonatomic, copy)NSString *level3FormatInvalid;
 /**
- Level3 mandatory field missing 
+ Level 3 mandatory field missing 
  */
 @property (readwrite, nonatomic, copy)NSString *level3MandatoryFieldMissing;
 /**
@@ -995,7 +955,7 @@ The following cases trigger this error:
  */
 @property (readwrite, nonatomic, copy)NSString *nationalTaxInvalid;
 /**
- Card type not support 
+ Card type is not supported 
  */
 @property (readwrite, nonatomic, copy)NSString *noCardTypeAvailable;
 /**
@@ -1003,11 +963,7 @@ The following cases trigger this error:
  */
 @property (readwrite, nonatomic, copy)NSString *noData;
 /**
- Not fleet card 
- */
-@property (readwrite, nonatomic, copy)NSString *notFleetCard;
-/**
- Not support scanner 
+ Scanner not supported 
  */
 @property (readwrite, nonatomic, copy)NSString *notSupportScanner;
 /**
@@ -1031,7 +987,7 @@ The following cases trigger this error:
  */
 @property (readwrite, nonatomic, copy)NSString *originalExpiryDateInvalid;
 /**
- Original Expiry Date doesn't support 
+ Original expiration date entry is not supported. 
  */
 @property (readwrite, nonatomic, copy)NSString *originalExpiryDateNotSupported;
 /**
@@ -1043,11 +999,11 @@ The following cases trigger this error:
  */
 @property (readwrite, nonatomic, copy)NSString *originalPanInvalid;
 /**
- Original PAN doesn't support 
+ Original account number entry is not supported. 
  */
 @property (readwrite, nonatomic, copy)NSString *originalPanNotSupported;
 /**
- Original settlement date doesn't support 
+ Original settlement date entry is not supported. 
  */
 @property (readwrite, nonatomic, copy)NSString *originalSettlementDateNotSupported;
 /**
@@ -1059,7 +1015,7 @@ The following cases trigger this error:
  */
 @property (readwrite, nonatomic, copy)NSString *originalTransactionDateInvalid;
 /**
- Original transaction date not support 
+ Original transaction date is not supported 
  */
 @property (readwrite, nonatomic, copy)NSString *originalTransactionDateNotSupported;
 /**
@@ -1103,7 +1059,7 @@ The following cases trigger this error:
  */
 @property (readwrite, nonatomic, copy)NSString *panMismatch;
 /**
- Post auth by refer number doesn't support 
+ Running Post Auth transaction using reference number is not supported. 
  */
 @property (readwrite, nonatomic, copy)NSString *postAuthByReferenceNotSupported;
 /**
@@ -1115,7 +1071,7 @@ The following cases trigger this error:
  */
 @property (readwrite, nonatomic, copy)NSString *returnReasonInvalid;
 /**
- Doesn't support return reason 
+ Return reason entry is not supported. 
  */
 @property (readwrite, nonatomic, copy)NSString *returnReasonNotSupported;
 /**
@@ -1199,7 +1155,7 @@ The following cases trigger this error:
  */
 @property (readwrite, nonatomic, copy)NSString *tokenIsMissing;
 /**
- Token doesn't support 
+ Tokens are not supported for this transaction. 
  */
 @property (readwrite, nonatomic, copy)NSString *tokenNotSupported;
 /**
@@ -1207,7 +1163,7 @@ The following cases trigger this error:
  */
 @property (readwrite, nonatomic, copy)NSString *tokenRequestFlagInvalid;
 /**
- Token SN doesn't support 
+ Token SN entry is not supported for this transaction. 
  */
 @property (readwrite, nonatomic, copy)NSString *tokenSnNotSupported;
 /**
@@ -1219,7 +1175,7 @@ The following cases trigger this error:
  */
 @property (readwrite, nonatomic, copy)NSString *tokenTooLong;
 /**
- Token request doesn't support 
+ Token Request flag is not supported for this transaction. 
  */
 @property (readwrite, nonatomic, copy)NSString *tokenRequestNotSupported;
 /**
@@ -1235,7 +1191,7 @@ The following cases trigger this error:
  */
 @property (readwrite, nonatomic, copy)NSString *transactionFail;
 /**
- TransIT not support 
+ Transit is not supported 
  */
 @property (readwrite, nonatomic, copy)NSString *transitNotSupport;
 /**
@@ -1243,7 +1199,7 @@ The following cases trigger this error:
  */
 @property (readwrite, nonatomic, copy)NSString *uploadSAndFFailed;
 /**
- Upload doesn't support 
+ Upload is not supported 
  */
 @property (readwrite, nonatomic, copy)NSString *uploadUnsupport;
 /**
@@ -1267,7 +1223,7 @@ The following cases trigger this error:
  */
 @property (readwrite, nonatomic, copy)NSString *visaMastercardOnly;
 /**
- Void by refer number doesn't support 
+ Void transaction using Host Reference Number is not supported. 
  */
 @property (readwrite, nonatomic, copy)NSString *voidByReferenceNotSupported;
 /**
@@ -1299,7 +1255,7 @@ The following cases trigger this error:
  */
 @property (readwrite, nonatomic, copy)NSString *buttonTypeInvalid;
 /**
- Not support camera 
+ Camera not supported. 
  */
 @property (readwrite, nonatomic, copy)NSString *cameraNotSupport;
 /**
@@ -1315,7 +1271,7 @@ The following cases trigger this error:
  */
 @property (readwrite, nonatomic, copy)NSString *cardTypeForTokenOnly;
 /**
- Not support this command 
+ Command is not supported. 
  */
 @property (readwrite, nonatomic, copy)NSString *commandNotSupported;
 /**
@@ -1355,7 +1311,7 @@ The following cases trigger this error:
  */
 @property (readwrite, nonatomic, copy)NSString *encryptionForIntPedOnly;
 /**
- Fleet prompt code invalid 
+ The Fleet Prompt Code field is non-numeric or is not the expected length. Please retry using a valid value. 
  */
 @property (readwrite, nonatomic, copy)NSString *fleetPromptCodeInvalid;
 /**
@@ -1371,7 +1327,7 @@ The following cases trigger this error:
  */
 @property (readwrite, nonatomic, copy)NSString *fsaAmountTooLarge;
 /**
- The length of the value more than 3 or equal 0. 
+ The length of the value is more than 3 or equal to 0. 
  */
 @property (readwrite, nonatomic, copy)NSString *itemIndexInvalid;
 /**
@@ -1379,13 +1335,15 @@ The following cases trigger this error:
  */
 @property (readwrite, nonatomic, copy)NSString *itemIndexQuantityInvalid;
 /**
- Key not exist. 
+ Key does not exist. 
  */
 @property (readwrite, nonatomic, copy)NSString *keyNotExist;
 /**
- 1.The length of the value exceeds 3 
+ Length error.
 
- 2.Not integer number 
+1.The length of the value exceeds 3.
+
+2.Not integer number. 
  */
 @property (readwrite, nonatomic, copy)NSString *lengthError;
 /**
@@ -1409,7 +1367,7 @@ The following cases trigger this error:
  */
 @property (readwrite, nonatomic, copy)NSString *noLabel;
 /**
- Out of paper. 
+ [Deprecated]Out of paper. Deprecated for error code 100032 OUT OF PAPER. 
  */
 @property (readwrite, nonatomic, copy)NSString *noPaper;
 /**
@@ -1425,7 +1383,7 @@ The following cases trigger this error:
  */
 @property (readwrite, nonatomic, copy)NSString *operationNotAllowed;
 /**
- Out of paper. 
+ [Deprecated]Out of paper. Deprecated for error code 100032 OUT OF PAPER. 
  */
 @property (readwrite, nonatomic, copy)NSString *outOfPaper;
 /**
@@ -1437,7 +1395,9 @@ The following cases trigger this error:
  */
 @property (readwrite, nonatomic, copy)NSString *pciViolation;
 /**
- 1.The PIN bypass value range of 0~4.
+ PIN bypass invalid.
+
+1.The PIN bypass value range of 0~4.
 
 2.Not integer number. 
  */
@@ -1447,7 +1407,7 @@ The following cases trigger this error:
  */
 @property (readwrite, nonatomic, copy)NSString *pinMinLengthExceedPinMaxLength;
 /**
- Please see your mobile phone. The transaction need to restart. 
+ Please see your mobile phone. The transaction needs to be restarted. 
  */
 @property (readwrite, nonatomic, copy)NSString *pleaseSeePhone;
 /**
@@ -1507,79 +1467,79 @@ The following cases trigger this error:
  */
 @property (readwrite, nonatomic, copy)NSString *unsupportEdc;
 /**
- ODOMETER Invalid 
+ The Odometer field exceeds its maximum specified length. Please retry using a valid value. 
  */
 @property (readwrite, nonatomic, copy)NSString *odometerInvalid;
 /**
- VEHICLENO Invalid 
+ [deprecated]Replaced by 100003 VEHICLENUMBER INVALID. VISA1 field name changed to VEHICLENUMBER. 
  */
 @property (readwrite, nonatomic, copy)NSString *vehicleNoInvalid;
 /**
- JOBNO Invalid 
+ [deprecated]Replaced by 100003 JOBNUMBER INVALID. VISA1 field name changed to JOBNUMBER. 
  */
 @property (readwrite, nonatomic, copy)NSString *jobNoInvalid;
 /**
- DRIVERID Invalid 
+ The Driver ID field exceeds its maximum specified length. Please retry using a valid value. 
  */
 @property (readwrite, nonatomic, copy)NSString *driverIdInvalid;
 /**
- EMPLOYEENO Invalid 
+ [deprecated]Replaced by 100003 EMPLOYEENUMBER INVALID. VISA1 field name changed to EMPLOYEENUMBER. 
  */
 @property (readwrite, nonatomic, copy)NSString *employeeNoInvalid;
 /**
- LICENSENO Invalid 
+ [deprecated]Replaced by 100003 LICENSENUMBER INVALID. VISA1 field name changed to LICENSENUMBER. 
  */
 @property (readwrite, nonatomic, copy)NSString *licenseNoInvalid;
 /**
- JOBID Invalid 
+ The Job ID field exceeds its maximum specified length. Please retry using a valid value. 
  */
 @property (readwrite, nonatomic, copy)NSString *jobidInvalid;
 /**
- DEPARTMENTNO Invalid 
+ [deprecated]Replaced by 100003 DEPARTMENTNUMBER INVALID. VISA1 field name changed to DEPARTMENTNUMBER. 
  */
 @property (readwrite, nonatomic, copy)NSString *departmentNoInvalid;
 /**
- CUSTOMERDATA Invalid 
+ The Customer Data field exceeds its maximum specified length. Please retry using a valid value. 
  */
 @property (readwrite, nonatomic, copy)NSString *customerDataInvalid;
 /**
- USERID Invalid 
+ The User ID field exceeds its maximum specified length. Please retry using a valid value. 
  */
 @property (readwrite, nonatomic, copy)NSString *userIdInvalid;
 /**
- VEHICLEID Invalid 
+ The Vehicle ID field exceeds its maximum specified length. Please retry using a valid value. 
  */
 @property (readwrite, nonatomic, copy)NSString *vehicleIdInvalid;
 /**
- CARD TYPE: Discover NOT SUPPORT LEVEL3
+ CARD TYPE: Discover DOES NOT SUPPORT LEVEL 3
 
-CARD TYPE: Diner Club NOT SUPPORT LEVEL3
+CARD TYPE: Diner Club DOES NOT SUPPORT LEVEL 3
 
-CARD TYPE: enRoute NOT SUPPORT LEVEL3
+CARD TYPE: enRoute DOES NOT SUPPORT LEVEL 3
 
-CARD TYPE: JCB NOT SUPPORT LEVEL3
+CARD TYPE: JCB DOES NOT SUPPORT LEVEL 3
 
-CARD TYPE: RevolutionCard NOT SUPPORT LEVEL3
+CARD TYPE: RevolutionCard DOES NOT SUPPORT LEVEL 3
 
-CARD TYPE: VisaFleet NOT SUPPORT LEVEL3
+CARD TYPE: VisaFleet DOES NOT SUPPORT LEVEL 3
 
-CARD TYPE: MasterCardFleet NOT SUPPORT LEVEL3
+CARD TYPE: MasterCardFleet DOES NOT SUPPORT LEVEL 3
 
-CARD TYPE: FleetOne NOT SUPPORT LEVEL3
+CARD TYPE: FleetOne DOES NOT SUPPORT LEVEL 3
 
-CARD TYPE: Fleetwide NOT SUPPORT LEVEL3
+CARD TYPE: Fleetwide DOES NOT SUPPORT LEVEL 3
 
-CARD TYPE: Fuelman NOT SUPPORT LEVEL3
+CARD TYPE: Fuelman DOES NOT SUPPORT LEVEL 3
 
-CARD TYPE: Gascard NOT SUPPORT LEVEL3
+CARD TYPE: Gascard DOES NOT SUPPORT LEVEL 3
 
-CARD TYPE: Voyager NOT SUPPORT LEVEL3
+CARD TYPE: Voyager DOES NOT SUPPORT LEVEL 3
 
-CARD TYPE: WrightExpress NOT SUPPORT LEVEL3
+CARD TYPE: WrightExpress DOES NOT SUPPORT LEVEL 3
 
-CARD TYPE: Interac NOT SUPPORT LEVEL3
+CARD TYPE: Interac DOES NOT SUPPORT LEVEL 3
 
-CARD TYPE: CUP NOT SUPPORT LEVEL3 
+CARD TYPE: CUP DOES NOT SUPPORT LEVEL 3 
  */
 @property (readwrite, nonatomic, copy)NSString *cardTypeNotSupportLevel3;
 /**
@@ -1643,47 +1603,47 @@ CARD TYPE: CUP NOT SUPPORT LEVEL3
  */
 @property (readwrite, nonatomic, copy)NSString *originalAmountMissing;
 /**
- ODOMETER is missing 
+ The entered fleet card requires the Odometer field set. Please set Odometer and try again. 
  */
 @property (readwrite, nonatomic, copy)NSString *odometerMissing;
 /**
- VEHICLENO is missing 
+ [deprecated]Replaced by 100003 VEHICLENUMBER MISSING. VISA1 field name changed to VEHICLENUMBER. 
  */
 @property (readwrite, nonatomic, copy)NSString *vehicleNoMissing;
 /**
- JOBNO is missing 
+ [deprecated]No fleet card type requires Job Number. 
  */
 @property (readwrite, nonatomic, copy)NSString *jobNoMissing;
 /**
- DRIVERID is missing 
+ The entered fleet card requires the Driver ID field set. Please set Driver ID and try again. 
  */
 @property (readwrite, nonatomic, copy)NSString *driverIdMissing;
 /**
- EMPLOYEENO is missing 
+ [deprecated]Replaced by 100003 EMPLOYEENUMBER MISSING. VISA1 field name changed to EMPLOYEENUMBER. 
  */
 @property (readwrite, nonatomic, copy)NSString *employeeNoMissing;
 /**
- LICENSENO is missing 
+ [deprecated]Replaced by 100003 LICENSENUMBER MISSING. VISA1 field name changed to LICENSENUMBER. 
  */
 @property (readwrite, nonatomic, copy)NSString *licensenoMissing;
 /**
- JOBID is missing 
+ The entered fleet card requires the Job ID field set. Please set Job ID and try again. 
  */
 @property (readwrite, nonatomic, copy)NSString *jobidMissing;
 /**
- DEPARTMENTNO is missing 
+ [deprecated]Replaced by 100003 DEPARTMENTNUMBER MISSING. VISA1 field name changed to DEPARTMENTNUMBER. 
  */
 @property (readwrite, nonatomic, copy)NSString *departmentNoMissing;
 /**
- CUSTOMERDATA is missing 
+ The entered fleet card requires the Customer Data field set. Please set Customer Data and try again. 
  */
 @property (readwrite, nonatomic, copy)NSString *customerDataMissing;
 /**
- USERID is missing 
+ The entered fleet card requires the User ID field set. Please set User ID and try again. 
  */
 @property (readwrite, nonatomic, copy)NSString *userIdMissing;
 /**
- VEHICLEID is missing 
+ The entered fleet card requires the Vehicle ID field set. Please set Vehicle ID and try again. 
  */
 @property (readwrite, nonatomic, copy)NSString *vehicleIdMissing;
 /**
@@ -1743,14 +1703,6 @@ CARD TYPE: CUP NOT SUPPORT LEVEL3
  */
 @property (readwrite, nonatomic, copy)NSString *destinationKeyValueInvalid;
 /**
- Check Mode is invalid 
- */
-@property (readwrite, nonatomic, copy)NSString *checkModeInvalid;
-/**
- Check Buffer is invalid 
- */
-@property (readwrite, nonatomic, copy)NSString *checkBufferInvalid;
-/**
  Input Data is invalid 
  */
 @property (readwrite, nonatomic, copy)NSString *inputDataInvalid;
@@ -1771,11 +1723,11 @@ CARD TYPE: CUP NOT SUPPORT LEVEL3
  */
 @property (readwrite, nonatomic, copy)NSString *encryptionKeySlotInvalid;
 /**
- Length exceeds limit. 
+ Guest name length exceeds limit. 
  */
 @property (readwrite, nonatomic, copy)NSString *guestNameInvalid;
 /**
- Length exceeds limit. 
+ Guest number exceeds limit. 
  */
 @property (readwrite, nonatomic, copy)NSString *guestNumInvalid;
 /**
@@ -1803,7 +1755,7 @@ CARD TYPE: CUP NOT SUPPORT LEVEL3
  */
 @property (readwrite, nonatomic, copy)NSString *contactlessCvmLimitInvalid;
 /**
- Not support this transaction type. 
+ This transaction type is not supported. 
  */
 @property (readwrite, nonatomic, copy)NSString *transactionTypeNotSupported;
 /**
@@ -1815,7 +1767,7 @@ CARD TYPE: CUP NOT SUPPORT LEVEL3
  */
 @property (readwrite, nonatomic, copy)NSString *contactEmvEntryFlagInvalid;
 /**
- Barcode type must be input when barcode data exist. 
+ Barcode type must be input when barcode data exists. 
  */
 @property (readwrite, nonatomic, copy)NSString *barcodeTypeMissing;
 /**
@@ -1823,7 +1775,7 @@ CARD TYPE: CUP NOT SUPPORT LEVEL3
  */
 @property (readwrite, nonatomic, copy)NSString *barcodeTypeInvalid;
 /**
- Barcode data must be input when barcode type exist. 
+ Barcode data must be input when barcode type exists. 
  */
 @property (readwrite, nonatomic, copy)NSString *barcodeDataMissing;
 /**
@@ -2005,7 +1957,9 @@ Please check POSLink-Reference-Host Specific Remarks section for the item limits
  */
 @property (readwrite, nonatomic, copy)NSString *ewicItemLimitExceeded;
 /**
- Only one data entry method is allowed at a time. For example, Input Text and Signature Box cannot be enabled at the same time. 
+ Only one data entry method is allowed at a time (e.g. Buttons, Signature box, input text). For example, Input Text and Signature Box cannot be enabled at the same time.
+
+If two or more are set, then this error will be returned. 
  */
 @property (readwrite, nonatomic, copy)NSString *multipleEntryFieldsNotAllowed;
 /**
@@ -2074,5 +2028,205 @@ Please check POSLink-Reference-Host Specific Remarks section for the item limits
  The CoF Initiator flag is invalid. Will be returned if the COF INITIATOR flag is set to a value that it does not accept. 
  */
 @property (readwrite, nonatomic, copy)NSString *cofInitiatorInvalid;
+/**
+ Will be returned if the gift card indicator is set to a value that it does not support. 
+ */
+@property (readwrite, nonatomic, copy)NSString *giftCardIndicatorInvalid;
+/**
+ The MOTO/E-Commerce Current Installment field is not currently supported. 
+ */
+@property (readwrite, nonatomic, copy)NSString *currentInstallmentNotAllowed;
+/**
+ Length more than 15. 
+ */
+@property (readwrite, nonatomic, copy)NSString *statementDescriptorInvalid;
+/**
+ Empty batch report list. 
+ */
+@property (readwrite, nonatomic, copy)NSString *emptyBatchReportList;
+/**
+ Invalid batch number. 
+ */
+@property (readwrite, nonatomic, copy)NSString *batchNumberInvalid;
+/**
+ Printer malfunction. 
+ */
+@property (readwrite, nonatomic, copy)NSString *printerMalfunction;
+/**
+ Batch number does not exist. 
+ */
+@property (readwrite, nonatomic, copy)NSString *batchNumberNotExist;
+/**
+ Only support batch number from R15. 
+ */
+@property (readwrite, nonatomic, copy)NSString *unsupportedBatchNumber;
+/**
+ Invalid configuration type. 
+ */
+@property (readwrite, nonatomic, copy)NSString *configurationTypeInvalid;
+/**
+ The Fuel Amount field exceeds the value of the Transaction Amount field. The value of Transaction Amount includes the Fuel Amount. Please ensure Fuel Amount is equal to or less than Transaction Amount and try again. 
+ */
+@property (readwrite, nonatomic, copy)NSString *fuelAmountTooLarge;
+/**
+ The current transaction, host, or industry does not support receiving fleet product data. Fleet Product Data is not allowed for non-fleet transactions outside of the petroleum industry. 
+ */
+@property (readwrite, nonatomic, copy)NSString *fleetProductDataNotAllowed;
+/**
+ The Vehicle Number field exceeds its maximum specified length. Please retry using a valid value. 
+ */
+@property (readwrite, nonatomic, copy)NSString *vehiclenumberInvalid;
+/**
+ The Job Number field exceeds its maximum specified length. Please retry using a valid value. 
+ */
+@property (readwrite, nonatomic, copy)NSString *jobnumberInvalid;
+/**
+ The Employee Number field exceeds its maximum specified length. Please retry using a valid value. 
+ */
+@property (readwrite, nonatomic, copy)NSString *employeenumberInvalid;
+/**
+ The License Number field exceeds its maximum specified length. Please retry using a valid value. 
+ */
+@property (readwrite, nonatomic, copy)NSString *licensenumberInvalid;
+/**
+ The Department Number field exceeds its maximum specified length. Please retry using a valid value. 
+ */
+@property (readwrite, nonatomic, copy)NSString *departmentnumberInvalid;
+/**
+ The Hubometer field exceeds its maximum specified length. Please retry using a valid value. 
+ */
+@property (readwrite, nonatomic, copy)NSString *hubometerInvalid;
+/**
+ The Maintenance ID field exceeds its maximum specified length. Please retry using a valid value. 
+ */
+@property (readwrite, nonatomic, copy)NSString *maintenanceIdInvalid;
+/**
+ The Fleet PO Number field exceeds its maximum specified length. Please retry using a valid value. 
+ */
+@property (readwrite, nonatomic, copy)NSString *fleetPoNumberInvalid;
+/**
+ The Reefer Hours field exceeds its maximum specified length. Please retry using a valid value. 
+ */
+@property (readwrite, nonatomic, copy)NSString *reeferHoursInvalid;
+/**
+ The Restriction Code field is non-numeric or is not the expected length. Please retry using a valid value. 
+ */
+@property (readwrite, nonatomic, copy)NSString *restrictionCodeInvalid;
+/**
+ The Trailer ID field exceeds its maximum specified length. Please retry using a valid value. 
+ */
+@property (readwrite, nonatomic, copy)NSString *trailerIdInvalid;
+/**
+ The Trip Number field exceeds its maximum specified length. Please retry using a valid value. 
+ */
+@property (readwrite, nonatomic, copy)NSString *tripNumberInvalid;
+/**
+ The Unit ID field exceeds its maximum specified length. Please retry using a valid value. 
+ */
+@property (readwrite, nonatomic, copy)NSString *unitIdInvalid;
+/**
+ The Additional Fleet Data 1 field exceeds its maximum specified length. Please retry using a valid value. 
+ */
+@property (readwrite, nonatomic, copy)NSString *additionalFleetData1Invalid;
+/**
+ The Additional Fleet Data 2 field exceeds its maximum specified length. Please retry using a valid value. 
+ */
+@property (readwrite, nonatomic, copy)NSString *additionalFleetData2Invalid;
+/**
+ The Product Amount field is non-numeric or exceeds its maximum specified length. Please retry using a valid value. 
+ */
+@property (readwrite, nonatomic, copy)NSString *productAmountInvalid;
+/**
+ The Product Code field is non-numeric or exceeds its maximum specified length. Please retry using a valid value. 
+ */
+@property (readwrite, nonatomic, copy)NSString *productCodeInvalid;
+/**
+ The Quantity field is non-numeric or exceeds its maximum specified length. Please retry using a valid value. 
+ */
+@property (readwrite, nonatomic, copy)NSString *quantityInvalid;
+/**
+ The Unit of Measure field is set to an unexpected value. Please retry using one of the predefined values. 
+ */
+@property (readwrite, nonatomic, copy)NSString *unitOfMeasureInvalid;
+/**
+ The Unit Price field is non-numeric or exceeds its maximum specified length. Please retry using a valid value. 
+ */
+@property (readwrite, nonatomic, copy)NSString *unitPriceInvalid;
+/**
+ The entered fleet card requires the Vehicle Number field set. Please set Vehicle Number and try again. 
+ */
+@property (readwrite, nonatomic, copy)NSString *vehiclenumberMissing;
+/**
+ The entered fleet card requires the Employee Number field set. Please set Employee Number and try again. 
+ */
+@property (readwrite, nonatomic, copy)NSString *employeenumberMissing;
+/**
+ The entered fleet card requires the License Number field set. Please set License Number and try again. 
+ */
+@property (readwrite, nonatomic, copy)NSString *licensenumberMissing;
+/**
+ The entered fleet card requires the Department Number field set. Please set Department Number and try again. 
+ */
+@property (readwrite, nonatomic, copy)NSString *departmentnumberMissing;
+/**
+ This transaction requires Fleet Product Data, but BroadPOS did not receive Fleet Product Data from POSLink. This may occur for some fleet transactions or transactions in the petroleum industry. Please set Fleet Product Data and try again. 
+ */
+@property (readwrite, nonatomic, copy)NSString *fleetProductDataMissing;
+/**
+ BroadPOS received Fleet Product Data containing incomplete data. Please set Product Amount and try again. 
+ */
+@property (readwrite, nonatomic, copy)NSString *productAmountMissing;
+/**
+ BroadPOS received Fleet Product Data containing incomplete data. Please set Product Code and try again. 
+ */
+@property (readwrite, nonatomic, copy)NSString *productCodeMissing;
+/**
+ BroadPOS received Fleet Product Data containing incomplete data. Please set Quantity and try again. 
+ */
+@property (readwrite, nonatomic, copy)NSString *quantityMissing;
+/**
+ BroadPOS received Fleet Product Data containing incomplete data. Please set Unit of Measure and try again. 
+ */
+@property (readwrite, nonatomic, copy)NSString *unitOfMeasureMissing;
+/**
+ BroadPOS received Fleet Product Data containing incomplete data. Please set Unit Price and try again. 
+ */
+@property (readwrite, nonatomic, copy)NSString *unitPriceMissing;
+/**
+ The entered fleet card requires the Hubometer field set. Please set Hubometer and try again. 
+ */
+@property (readwrite, nonatomic, copy)NSString *hubometerMissing;
+/**
+ The entered fleet card requires the Maintenance ID field set. Please set Maintenance ID and try again. 
+ */
+@property (readwrite, nonatomic, copy)NSString *maintenanceIdMissing;
+/**
+ The entered fleet card requires the Fleet PO Number field set. Please set Fleet PO Number and try again. 
+ */
+@property (readwrite, nonatomic, copy)NSString *fleetPoNumberMissing;
+/**
+ The entered fleet card requires the Reefer Hours field set. Please set Reefer Hours and try again. 
+ */
+@property (readwrite, nonatomic, copy)NSString *reeferHoursMissing;
+/**
+ The entered fleet card requires the Trailer ID field set. Please set Trailer ID and try again. 
+ */
+@property (readwrite, nonatomic, copy)NSString *trailerIdMissing;
+/**
+ The entered fleet card requires the Trip Number field set. Please set Trip Number and try again. 
+ */
+@property (readwrite, nonatomic, copy)NSString *tripNumberMissing;
+/**
+ The entered fleet card requires the Unit ID field set. Please set Unit ID and try again. 
+ */
+@property (readwrite, nonatomic, copy)NSString *unitIdMissing;
+/**
+ The entered fleet card requires the Additional Fleet Data 1 field set. Please set Additional Fleet Data 1 and try again. 
+ */
+@property (readwrite, nonatomic, copy)NSString *additionalFleetData1Missing;
+/**
+ The entered fleet card requires the Additional Fleet Data 2 field set. Please set Additional Fleet Data 2 and try again. 
+ */
+@property (readwrite, nonatomic, copy)NSString *additionalFleetData2Missing;
 
 @end

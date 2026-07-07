@@ -13,22 +13,46 @@
  */
 
 #import <Foundation/Foundation.h>
-#import "PLSemiConst.h"
-#import "PLAdminConst.h"
-#import "PLCashierRequest.h"
+#if __has_include(<POSLinkAdmin/PLSemiConst.h>)
+   #import <POSLinkAdmin/PLSemiConst.h>
+#elif __has_include("PLSemiConst.h")
+   #import "PLSemiConst.h"
+#endif
+
+
+#if __has_include(<POSLinkAdmin/PLAdminConst.h>)
+   #import <POSLinkAdmin/PLAdminConst.h>
+#elif __has_include("PLAdminConst.h")
+   #import "PLAdminConst.h"
+#endif
+
+
+#if __has_include(<POSLinkAdmin/PLCashierRequest.h>)
+   #import <POSLinkAdmin/PLCashierRequest.h>
+#elif __has_include("PLCashierRequest.h")
+   #import "PLCashierRequest.h"
+#endif
+
+
 
 @interface PLCashierRequest : NSObject
 /**
  The clerk id or server id.
 
- Attribute:ans...8 
+ Attribute : ans...8 
  */
 @property (readwrite, nonatomic, copy)NSString *clerkId;
 /**
  The shift id number.
 
- Attribute:ans...8 
+ Attribute : ans...8 
  */
 @property (readwrite, nonatomic, copy)NSString *shiftId;
+/**
+ Can be used as station number/id, LaneID, RegisterID. Use for transaction APIs.
+
+ Attribute : ans...8 
+ */
+@property (readwrite, nonatomic, copy)NSString *stationId;
 
 @end

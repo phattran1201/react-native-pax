@@ -14,30 +14,44 @@
 
 #import <Foundation/Foundation.h>
 
-#import "PLAdminConst.h"
-#import "PLServiceUsage.h"
+#if __has_include(<POSLinkAdmin/PLAdminConst.h>)
+   #import <POSLinkAdmin/PLAdminConst.h>
+#elif __has_include("PLAdminConst.h")
+   #import "PLAdminConst.h"
+#endif
+
+
+#if __has_include(<POSLinkAdmin/PLServiceUsage.h>)
+   #import <POSLinkAdmin/PLServiceUsage.h>
+#elif __has_include("PLServiceUsage.h")
+   #import "PLServiceUsage.h"
+#endif
+
+
 
 @interface PLServiceUsage : NSObject
 /**
  Service usage ID
 
- Attribute:ans...12 
+ Attribute : ans...12 
  */
 @property (readwrite, nonatomic, copy)NSString *usageId;
 /**
- Service state. 
+ Service state.
+
+ Attribute : n1 
  */
 @property (readwrite, nonatomic, assign)enum ServiceState state;
 /**
  A short description of valuables.
 
- Attribute:ans...32 
+ Attribute : ans...32 
  */
 @property (readwrite, nonatomic, copy)NSString *title;
 /**
  Intended to be used to provide more context on how the valuable was used.
 
- Attribute:ans...64 
+ Attribute : ans...64 
  */
 @property (readwrite, nonatomic, copy)NSString *describe;
 

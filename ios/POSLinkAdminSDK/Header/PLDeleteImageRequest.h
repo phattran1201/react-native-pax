@@ -13,16 +13,34 @@
  */
 
 #import <Foundation/Foundation.h>
-#import "PLRequest.h"
+#if __has_include(<POSLinkAdmin/PLRequest.h>)
+   #import <POSLinkAdmin/PLRequest.h>
+#elif __has_include("PLRequest.h")
+   #import "PLRequest.h"
+#endif
 
-#import "PLAdminConst.h"
-#import "PLDeleteImageRequest.h"
+
+
+#if __has_include(<POSLinkAdmin/PLAdminConst.h>)
+   #import <POSLinkAdmin/PLAdminConst.h>
+#elif __has_include("PLAdminConst.h")
+   #import "PLAdminConst.h"
+#endif
+
+
+#if __has_include(<POSLinkAdmin/PLDeleteImageRequest.h>)
+   #import <POSLinkAdmin/PLDeleteImageRequest.h>
+#elif __has_include("PLDeleteImageRequest.h")
+   #import "PLDeleteImageRequest.h"
+#endif
+
+
 
 @interface PLDeleteImageRequest : PLRequest
 /**
  The image name identifies which image will be deleted.
 
- Attribute:ans...16 
+ Attribute : ans...16 
  */
 @property (readwrite, nonatomic, copy)NSString *imageName;
 

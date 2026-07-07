@@ -13,39 +13,57 @@
  */
 
 #import <Foundation/Foundation.h>
-#import "PLSemiConst.h"
-#import "PLAdminConst.h"
-#import "PLAvsResponse.h"
+#if __has_include(<POSLinkAdmin/PLSemiConst.h>)
+   #import <POSLinkAdmin/PLSemiConst.h>
+#elif __has_include("PLSemiConst.h")
+   #import "PLSemiConst.h"
+#endif
+
+
+#if __has_include(<POSLinkAdmin/PLAdminConst.h>)
+   #import <POSLinkAdmin/PLAdminConst.h>
+#elif __has_include("PLAdminConst.h")
+   #import "PLAdminConst.h"
+#endif
+
+
+#if __has_include(<POSLinkAdmin/PLAvsResponse.h>)
+   #import <POSLinkAdmin/PLAvsResponse.h>
+#elif __has_include("PLAvsResponse.h")
+   #import "PLAvsResponse.h"
+#endif
+
+
 
 @interface PLAvsResponse : NSObject
 /**
- Please see the host specification for the details; if host returned the value, this is mandatory.
+ The approval code returned by certain hosts' Address Verification Service (AVS). If the host returned this value, the response must include it.
 
- Attribute:ans...8 
+ Attribute : ans...8 
  */
 @property (readwrite, nonatomic, copy)NSString *avsApprovalCode;
 /**
- The AVS response message, if host returned AVS message, this field is mandatory.
+ The response message returned certain hosts' Address Verification Service (AVS). If the host returned this value, the response must include it.
 
- Attribute:ans...64 
+ Attribute : ans...64 
  */
 @property (readwrite, nonatomic, copy)NSString *avsMessage;
 /**
- Card holder zip code.
+ The zip code of the cardholder.
 
- Attribute:ans...9 
+ Attribute : ans...9 
  */
 @property (readwrite, nonatomic, copy)NSString *zipCode;
 /**
- Card holder address 1.
+ The primary address of the cardholder.
 
- Attribute:ans...32 
+ Attribute : ans...32 
  */
 @property (readwrite, nonatomic, copy)NSString *address1;
 /**
- Card holder address 2.
+ The secondary address of the cardholder.
 
- Attribute:ans...32 
+ Attribute : ans...32 
  */
 @property (readwrite, nonatomic, copy)NSString *address2;
 

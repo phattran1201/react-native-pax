@@ -13,10 +13,28 @@
  */
 
 #import <Foundation/Foundation.h>
-#import "PLRequest.h"
+#if __has_include(<POSLinkAdmin/PLRequest.h>)
+   #import <POSLinkAdmin/PLRequest.h>
+#elif __has_include("PLRequest.h")
+   #import "PLRequest.h"
+#endif
 
-#import "PLAdminConst.h"
-#import "PLTokenAdministrativeRequest.h"
+
+
+#if __has_include(<POSLinkAdmin/PLAdminConst.h>)
+   #import <POSLinkAdmin/PLAdminConst.h>
+#elif __has_include("PLAdminConst.h")
+   #import "PLAdminConst.h"
+#endif
+
+
+#if __has_include(<POSLinkAdmin/PLTokenAdministrativeRequest.h>)
+   #import <POSLinkAdmin/PLTokenAdministrativeRequest.h>
+#elif __has_include("PLTokenAdministrativeRequest.h")
+   #import "PLTokenAdministrativeRequest.h"
+#endif
+
+
 
 @interface PLTokenAdministrativeRequest : PLRequest
 /**
@@ -26,25 +44,27 @@
 /**
  Token Command.
 
-Default is Lookup. 
+Default is Lookup.
+
+ Attribute : n1 
  */
 @property (readwrite, nonatomic, assign)enum TokenCommand tokenCommand;
 /**
  Token value.
 
- Attribute:ans...128 
+ Attribute : ans...128 
  */
 @property (readwrite, nonatomic, copy)NSString *token;
 /**
  Token SN. The merchant's token serial number. Valid when Token Command is Duplicate.
 
- Attribute:ans...32 
+ Attribute : ans...32 
  */
 @property (readwrite, nonatomic, copy)NSString *tokenSn;
 /**
  The token's expiration date. Format MMYY. Valid when Token Command is Update.
 
- Attribute:n...4 
+ Attribute : n...4 
  */
 @property (readwrite, nonatomic, copy)NSString *expiryDate;
 

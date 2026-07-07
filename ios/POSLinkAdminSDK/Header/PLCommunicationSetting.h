@@ -12,22 +12,23 @@
 #import <Foundation/Foundation.h>
 
 
-typedef NS_ENUM(NSInteger,CommunicationType) {
-    CommunicationTypeTCP = 1,
-    CommunicationTypeSSL,
-    CommunicationTypeHTTP,
-    CommunicationTypeHTTPS,
-    CommunicationTypeBLUETOOTH,
-};
 
 NS_ASSUME_NONNULL_BEGIN
+
+enum CommunicationType {
+    CommunicationTypeTCP = 1,
+    CommunicationTypeSSL = 2,
+    CommunicationTypeHTTP = 3,
+    CommunicationTypeHTTPS = 4,
+    CommunicationTypeBLUETOOTH = 5,
+};
 
 @interface PLCommunicationSetting : NSObject
 
 /**
  * Communication type.
  */
-@property (nonatomic, assign)CommunicationType communicationType;
+@property (nonatomic, assign)enum CommunicationType communicationType;
 /**
  * Transaction time out.
  * <p>-1: no timeout, but -1 only valid for "TCP", 60000 -default<br>
@@ -48,14 +49,18 @@ NS_ASSUME_NONNULL_BEGIN
  */
 @property (nonatomic, strong)NSString *destPort;
 /**
- * Terminal bluetooth mac address
- * It is recommended to use the search function provided by the SDK to search out the Bluetooth address
+ * Terminal Bluetooth mac address.
+ * It is recommended to use the search function provided by the SDK to search out the Bluetooth address.
  *
- * <p>For example is "E48242BF-FB84-D6F4-228D-1803CC7C48D8" "<br>
+ * <p>For example is "E48242BF-FB84-D6F4-228D-1803CC7C48D8"<br>
  * valid only while CommType is "BLUETOOTH"<br>
  */
 @property (nonatomic, strong)NSString *bluetoothAddr;
 
+/**
+ * Whether to enable JSON support.
+ * Value "1" enables JSON; value "0" disables it. Default is "0".
+ */
 @property (nonatomic, strong)NSString *enableJson;
 
 + (BOOL)isValidIP:(NSString *)ipAddress;
@@ -67,3 +72,4 @@ NS_ASSUME_NONNULL_BEGIN
 @end
 
 NS_ASSUME_NONNULL_END
+

@@ -77,8 +77,8 @@ dependencies {
   implementation "com.facebook.react:react-native:+"
 
   //! https://developer.pax.us/resources/section/250038301709316096?sectionName=POSLink%202&articleId=352771637260593152
-  //! POSLink_Core_Android_V2.00.07_20240914
-  //! https://developer.pax.us/api/v1/files/314390436447793152/download/private#POSLink_Semi_Integration_Java_Android_V2.01.00_20240914.zip
+  //! POSLink Semi-Integration SDK V2.02.00 (2025-11-26)
+  //! Core: POSLink_Core_Android_V2.00.11 | Semi/Admin Plugin: V2.02.00 | PaxLog 1.0.13 | GLComm V1.12.01
   implementation fileTree(dir: 'libs', include: ['*.jar'])
   implementation 'androidx.core:core-ktx:1.16.0'
   implementation 'com.google.code.gson:gson:2.9.1'

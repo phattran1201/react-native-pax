@@ -13,17 +13,55 @@
  */
 
 #import <Foundation/Foundation.h>
-#import "PLRequest.h"
+#if __has_include(<POSLinkAdmin/PLRequest.h>)
+   #import <POSLinkAdmin/PLRequest.h>
+#elif __has_include("PLRequest.h")
+   #import "PLRequest.h"
+#endif
 
-#import "PLAdminConst.h"
-#import "PLGoogleServiceTypeBitmap.h"
-#import "PLGoogleSmartTapCapBitmap.h"
-#import "PLGoogleSmartTap.h"
-#import "PLSetGoogleSmartTapParametersRequest.h"
+
+
+#if __has_include(<POSLinkAdmin/PLAdminConst.h>)
+   #import <POSLinkAdmin/PLAdminConst.h>
+#elif __has_include("PLAdminConst.h")
+   #import "PLAdminConst.h"
+#endif
+
+
+#if __has_include(<POSLinkAdmin/PLGoogleServiceTypeBitmap.h>)
+   #import <POSLinkAdmin/PLGoogleServiceTypeBitmap.h>
+#elif __has_include("PLGoogleServiceTypeBitmap.h")
+   #import "PLGoogleServiceTypeBitmap.h"
+#endif
+
+
+#if __has_include(<POSLinkAdmin/PLGoogleSmartTapCapBitmap.h>)
+   #import <POSLinkAdmin/PLGoogleSmartTapCapBitmap.h>
+#elif __has_include("PLGoogleSmartTapCapBitmap.h")
+   #import "PLGoogleSmartTapCapBitmap.h"
+#endif
+
+
+#if __has_include(<POSLinkAdmin/PLGoogleSmartTap.h>)
+   #import <POSLinkAdmin/PLGoogleSmartTap.h>
+#elif __has_include("PLGoogleSmartTap.h")
+   #import "PLGoogleSmartTap.h"
+#endif
+
+
+#if __has_include(<POSLinkAdmin/PLSetGoogleSmartTapParametersRequest.h>)
+   #import <POSLinkAdmin/PLSetGoogleSmartTapParametersRequest.h>
+#elif __has_include("PLSetGoogleSmartTapParametersRequest.h")
+   #import "PLSetGoogleSmartTapParametersRequest.h"
+#endif
+
+
 
 @interface PLSetGoogleSmartTapParametersRequest : PLRequest
 /**
- VAS mode. 
+ VAS mode.
+
+ Attribute : n1 
  */
 @property (readwrite, nonatomic, assign)enum VasMode vasMode;
 /**
